@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.backend.service.impl;
 
+import by.kapitonov.cinema.backend.config.Constants;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.Role;
 import by.kapitonov.cinema.backend.model.User;
@@ -8,6 +9,7 @@ import by.kapitonov.cinema.backend.repository.UserRepository;
 import by.kapitonov.cinema.backend.service.RoleService;
 import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.UserStatusService;
+import by.kapitonov.cinema.backend.service.dto.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
 import by.kapitonov.cinema.backend.service.mapper.UserMapper;
@@ -64,6 +66,20 @@ public class UserServiceImpl implements UserService {
         user.setLastName(userDTO.getLastName());
         user.setRole(roleService.getByName(userDTO.getRoleName()));
         user.setStatus(userStatusService.getByName(userDTO.getStatusName()));
+
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User register(RegistrationUserDTO userDTO) {
+
+        User user = new User();
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setRole(roleService.getByName(Constants.USER_ROLE));
+        user.setStatus(userStatusService.getByName(Constants.INACTIVE_STATUS));
 
         return userRepository.save(user);
     }

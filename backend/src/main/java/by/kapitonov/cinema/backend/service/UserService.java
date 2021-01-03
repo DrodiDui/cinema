@@ -1,6 +1,7 @@
 package by.kapitonov.cinema.backend.service;
 
 import by.kapitonov.cinema.backend.model.User;
+import by.kapitonov.cinema.backend.service.dto.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,7 @@ public interface UserService {
     User getByEmail(String email);
 
     User create(CreateUserDTO userDTO);
+    User register(RegistrationUserDTO userDTO);
 
     User changeUserRole(Long id, String roleName);
     User changeUserStatus(Long id, String statusName);
