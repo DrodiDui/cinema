@@ -10,9 +10,10 @@ import org.springframework.data.domain.Pageable;
 public interface CinemaService {
 
     Page<CinemaDTO> getAll(Pageable pageable);
+    Page<CinemaDTO> getAllByOwnerId(Long ownerId, Pageable pageable);
 
     CinemaDTO getByName(String cinemaName);
-    CinemaDTO getById(Long id);
+    Cinema getById(Long id);
 
     Cinema create(CreateCinemaDTO cinemaDTO);
     Cinema update(UpdateCinemaDTO cinemaDTO);

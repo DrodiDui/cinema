@@ -10,8 +10,8 @@ public interface UserService {
 
     Page<UserDTO> getAll(Pageable pageable);
 
-    UserDTO getById(Long id);
-    UserDTO getByEmail(String email);
+    User getById(Long id);
+    User getByEmail(String email);
 
     User create(CreateUserDTO userDTO);
 

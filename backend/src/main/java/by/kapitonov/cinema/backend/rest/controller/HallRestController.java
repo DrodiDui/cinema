@@ -1,10 +1,12 @@
 package by.kapitonov.cinema.backend.rest.controller;
 
+import by.kapitonov.cinema.backend.model.Hall;
 import by.kapitonov.cinema.backend.rest.response.ApiResponse;
 import by.kapitonov.cinema.backend.service.HallService;
 import by.kapitonov.cinema.backend.service.dto.hall.CreateHallDTO;
 import by.kapitonov.cinema.backend.service.dto.hall.HallDTO;
 import by.kapitonov.cinema.backend.service.dto.hall.UpdateHallDTO;
+import com.sun.corba.se.spi.ior.ObjectKey;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -35,6 +37,14 @@ public class HallRestController {
         Page<HallDTO> hallDTOS = hallService.getAll(pageable);
 
         return new ResponseEntity(hallDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("{name}")
+    public ResponseEntity<HallDTO> getOne(@PathVariable(name = "name") String hallName) {
+
+        HallDTO hallDTO = hallService.getByHallName(hallName);
+
+        return new ResponseEntity<>(hallDTO, HttpStatus.OK);
     }
 
     @PostMapping("")

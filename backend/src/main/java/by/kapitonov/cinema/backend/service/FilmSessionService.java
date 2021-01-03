@@ -10,6 +10,8 @@ public interface FilmSessionService {
 
     Page<FilmSessionDTO> getAll(Pageable pageable);
 
+    FilmSession getById(Long id);
+
     FilmSession create(CreateFilmSessionDTO filmSessionDTO);
 
 }

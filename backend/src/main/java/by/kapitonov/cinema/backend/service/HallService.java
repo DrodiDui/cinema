@@ -11,8 +11,9 @@ public interface HallService {
 
     Page<HallDTO> getAll(Pageable pageable);
 
-    HallDTO getById(Long id);
-    Integer getNumberOfSeats(Long id);
+    Hall getById(Long id);
+    HallDTO getByHallName(String hallName);
+    Integer getAllNumberOfSeats(Long id);
 
     Hall create(CreateHallDTO hallDTO);
 

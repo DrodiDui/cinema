@@ -5,72 +5,45 @@ import by.kapitonov.cinema.backend.model.CinemaStatus;
 import by.kapitonov.cinema.backend.model.Film;
 import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.repository.FilmRepository;
-import by.kapitonov.cinema.backend.repository.UserRepository;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
 import by.kapitonov.cinema.backend.service.FilmService;
+import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.dto.film.CreateFilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
+import by.kapitonov.cinema.backend.service.mapper.FilmMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Collectors;
 
 @Service
 public class FilmServiceImpl implements FilmService {
 
     private final FilmRepository filmRepository;
-    private final UserRepository userRepository;
+    private final UserService userService;
     private final CinemaStatusService cinemaStatusService;
 
     public FilmServiceImpl(
             FilmRepository filmRepository,
-            UserRepository userRepository,
+            UserService userService,
             CinemaStatusService cinemaStatusService
     ) {
         this.filmRepository = filmRepository;
-        this.userRepository = userRepository;
+        this.userService = userService;
         this.cinemaStatusService = cinemaStatusService;
     }
 
     @Override
     public Page<FilmDTO> getAll(Long ownerId, Pageable pageable) {
-        return filmRepository.findByOwner_Id(ownerId, pageable)
-                .map(film -> {
-                    FilmDTO filmDTO = new FilmDTO();
-                    filmDTO.setId(film.getId());
-                    filmDTO.setFilmName(film.getFilmName());
-                    filmDTO.setYearOfRelease(film.getYearOfRelease());
-                    filmDTO.setGenre(film.getGenre());
-                    filmDTO.setCountryOfOrigin(film.getCountryOfOrigin());
-                    filmDTO.setDirector(film.getDirector());
-                    filmDTO.setStarring(film.getStarring());
-                    filmDTO.setBudget(film.getBudget());
-                    filmDTO.setDuration(film.getDuration());
-                    filmDTO.setStatus(film.getStatus().getStatusName());
-                    return filmDTO;
-                });
+        return filmRepository.findByOwnerId(ownerId, pageable)
+                .map(FilmMapper::toDTO);
     }
 
     @Override
     public FilmDTO getById(Long id) {
         return filmRepository.findById(id)
-                .map(film -> {
-                    FilmDTO filmDTO = new FilmDTO();
-                    filmDTO.setId(film.getId());
-                    filmDTO.setFilmName(film.getFilmName());
-                    filmDTO.setYearOfRelease(film.getYearOfRelease());
-                    filmDTO.setGenre(film.getGenre());
-                    filmDTO.setCountryOfOrigin(film.getCountryOfOrigin());
-                    filmDTO.setDirector(film.getDirector());
-                    filmDTO.setStarring(film.getStarring());
-                    filmDTO.setBudget(film.getBudget());
-                    filmDTO.setDuration(film.getDuration());
-                    filmDTO.setStatus(film.getStatus().getStatusName());
-                    return filmDTO;
-                })
+                .map(FilmMapper::toDTO)
                 .orElseThrow(
-                        () -> new ModelNotFoundException("Film hasn't been found")
+                        () -> new ModelNotFoundException("Film hasn't been found by id: " + id)
                 );
     }
 
@@ -96,9 +69,6 @@ public class FilmServiceImpl implements FilmService {
     }
 
     private User getOwner(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(
-                        () -> new ModelNotFoundException("User hasn't been found")
-                );
+        return userService.getById(id);
     }
 }

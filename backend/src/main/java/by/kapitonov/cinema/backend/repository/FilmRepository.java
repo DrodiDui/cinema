@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface FilmRepository extends JpaRepository<Film, Long> {
 
-    Page<Film> findByOwner_Id(Long id, Pageable pageable);
+    Page<Film> findByOwnerId(Long id, Pageable pageable);
 
 }

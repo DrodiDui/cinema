@@ -5,15 +5,14 @@ import by.kapitonov.cinema.backend.model.FilmSession;
 import by.kapitonov.cinema.backend.model.Hall;
 import by.kapitonov.cinema.backend.model.Ticket;
 import by.kapitonov.cinema.backend.model.User;
-import by.kapitonov.cinema.backend.repository.FilmRepository;
 import by.kapitonov.cinema.backend.repository.FilmSessionRepository;
-import by.kapitonov.cinema.backend.repository.HallRepository;
-import by.kapitonov.cinema.backend.repository.TicketRepository;
-import by.kapitonov.cinema.backend.repository.UserRepository;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
 import by.kapitonov.cinema.backend.service.FilmSessionService;
+import by.kapitonov.cinema.backend.service.HallService;
+import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.dto.CreateFilmSessionDTO;
 import by.kapitonov.cinema.backend.service.dto.FilmSessionDTO;
+import by.kapitonov.cinema.backend.service.mapper.FilmSessionMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,28 +25,34 @@ import java.util.UUID;
 public class FilmSessionServiceImpl implements FilmSessionService {
 
     private final FilmSessionRepository filmSessionRepository;
-    private final UserRepository userRepository;
-    private final HallRepository hallRepository;
-    private final FilmRepository filmRepository;
     private final CinemaStatusService cinemaStatusService;
+    private final UserService userService;
+    private final HallService hallService;
 
     public FilmSessionServiceImpl(
             FilmSessionRepository filmSessionRepository,
-            UserRepository userRepository,
-            HallRepository hallRepository,
-            FilmRepository filmRepository,
-            CinemaStatusService cinemaStatusService
+            CinemaStatusService cinemaStatusService,
+            UserService userService,
+            HallService hallService
     ) {
         this.filmSessionRepository = filmSessionRepository;
-        this.userRepository = userRepository;
-        this.hallRepository = hallRepository;
-        this.filmRepository = filmRepository;
         this.cinemaStatusService = cinemaStatusService;
+        this.userService = userService;
+        this.hallService = hallService;
     }
 
     @Override
     public Page<FilmSessionDTO> getAll(Pageable pageable) {
-        return null;
+        return filmSessionRepository.findAll(pageable)
+                .map(FilmSessionMapper::toDTO);
+    }
+
+    @Override
+    public FilmSession getById(Long id) {
+        return filmSessionRepository.findById(id)
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Film session hasn't been found by id: " + id)
+                );
     }
 
     @Override
@@ -65,23 +70,16 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 
 
     private User getManager(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(
-                        () -> new ModelNotFoundException("User hasn't been found")
-                );
+        return userService.getById(id);
     }
     
     private Hall getHall(Long id) {
-        return hallRepository.findById(id)
-                .orElseThrow(
-                        () -> new ModelNotFoundException("Hall hasn't been found")
-                );
+        return hallService.getById(id);
     }
 
     private List<Ticket> createTickets(Long hallId) {
         List<Ticket> tickets = new ArrayList<>();
-        Hall hall = getHall(hallId);
-        Integer allNumberSeats = hall.getRowsNumbers() * hall.getNumberSeatsPerRow();
+        Integer allNumberSeats = hallService.getAllNumberOfSeats(hallId);
         for (int i = 0; i < allNumberSeats; i++) {
             tickets.add(new Ticket());
         }

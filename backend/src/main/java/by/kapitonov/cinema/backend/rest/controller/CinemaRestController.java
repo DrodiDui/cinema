@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.backend.rest.controller;
 
+import by.kapitonov.cinema.backend.model.Cinema;
 import by.kapitonov.cinema.backend.rest.response.ApiResponse;
 import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.dto.cinema.CinemaDTO;
@@ -33,6 +34,14 @@ public class CinemaRestController {
     public ResponseEntity getAll(Pageable pageable) {
 
         Page<CinemaDTO> cinemaDTOS = cinemaService.getAll(pageable);
+
+        return new ResponseEntity(cinemaDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/{owner-id}/all")
+    public ResponseEntity getAll(@PathVariable(name = "owner-id") Long ownerId, Pageable pageable) {
+
+        Page<CinemaDTO> cinemaDTOS = cinemaService.getAllByOwnerId(ownerId, pageable);
 
         return new ResponseEntity(cinemaDTOS, HttpStatus.OK);
     }

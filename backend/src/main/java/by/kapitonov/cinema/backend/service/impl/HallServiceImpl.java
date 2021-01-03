@@ -3,13 +3,14 @@ package by.kapitonov.cinema.backend.service.impl;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.Cinema;
 import by.kapitonov.cinema.backend.model.Hall;
-import by.kapitonov.cinema.backend.repository.CinemaRepository;
 import by.kapitonov.cinema.backend.repository.HallRepository;
+import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
 import by.kapitonov.cinema.backend.service.HallService;
 import by.kapitonov.cinema.backend.service.dto.hall.CreateHallDTO;
 import by.kapitonov.cinema.backend.service.dto.hall.HallDTO;
 import by.kapitonov.cinema.backend.service.dto.hall.UpdateHallDTO;
+import by.kapitonov.cinema.backend.service.mapper.HallMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,56 +19,44 @@ import org.springframework.stereotype.Service;
 public class HallServiceImpl implements HallService {
 
     private final HallRepository hallRepository;
-    private final CinemaRepository cinemaRepository;
     private final CinemaStatusService cinemaStatusService;
+    private final CinemaService cinemaService;
 
     public HallServiceImpl(
             HallRepository hallRepository,
-            CinemaRepository cinemaRepository,
-            CinemaStatusService cinemaStatusService
+            CinemaStatusService cinemaStatusService,
+            CinemaService cinemaService
     ) {
         this.hallRepository = hallRepository;
-        this.cinemaRepository = cinemaRepository;
         this.cinemaStatusService = cinemaStatusService;
+        this.cinemaService = cinemaService;
     }
 
     @Override
     public Page<HallDTO> getAll(Pageable pageable) {
         return hallRepository.findAll(pageable)
-                .map(hall -> {
-                    HallDTO hallDTO = new HallDTO();
-                    hallDTO.setId(hall.getId());
-                    hallDTO.setHallName(hall.getHallName());
-                    hallDTO.setCinemaName(hall.getCinema().getCinemaName());
-                    hallDTO.setFloor(hall.getFloor());
-                    hallDTO.setRowsNumbers(hall.getRowsNumbers());
-                    hallDTO.setNumberSeatsPerRow(hall.getNumberSeatsPerRow());
-                    hallDTO.setStatus(hall.getStatus().getStatusName());
-                    return hallDTO;
-                });
+                .map(HallMapper::toDTO);
     }
 
     @Override
-    public HallDTO getById(Long id) {
+    public Hall getById(Long id) {
         return hallRepository.findById(id)
-                .map(hall -> {
-                    HallDTO hallDTO = new HallDTO();
-                    hallDTO.setId(hall.getId());
-                    hallDTO.setHallName(hall.getHallName());
-                    hallDTO.setCinemaName(hall.getCinema().getCinemaName());
-                    hallDTO.setFloor(hall.getFloor());
-                    hallDTO.setRowsNumbers(hall.getRowsNumbers());
-                    hallDTO.setNumberSeatsPerRow(hall.getNumberSeatsPerRow());
-                    hallDTO.setStatus(hall.getStatus().getStatusName());
-                    return hallDTO;
-                })
                 .orElseThrow(
                         () -> new ModelNotFoundException("Hall hasn't been found by id: " + id)
                 );
     }
 
     @Override
-    public Integer getNumberOfSeats(Long id) {
+    public HallDTO getByHallName(String hallName) {
+        return hallRepository.findByHallName(hallName)
+                .map(HallMapper::toDTO)
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Hall hasn't been found by name: " + hallName)
+                );
+    }
+
+    @Override
+    public Integer getAllNumberOfSeats(Long id) {
         return hallRepository.findById(id)
                 .map(hall -> hall.getRowsNumbers() * hall.getNumberSeatsPerRow())
                 .orElseThrow(
@@ -116,9 +105,6 @@ public class HallServiceImpl implements HallService {
     }
 
     private Cinema getCinema(Long cinemaId) {
-        return cinemaRepository.findById(cinemaId)
-                .orElseThrow(
-                        () -> new ModelNotFoundException("Cinema hasn't been found by id: " + cinemaId)
-                );
+        return cinemaService.getById(cinemaId);
     }
 }

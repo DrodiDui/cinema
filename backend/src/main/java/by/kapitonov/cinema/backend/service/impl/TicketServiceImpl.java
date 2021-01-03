@@ -4,12 +4,13 @@ import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.FilmSession;
 import by.kapitonov.cinema.backend.model.Ticket;
 import by.kapitonov.cinema.backend.model.User;
-import by.kapitonov.cinema.backend.repository.FilmSessionRepository;
 import by.kapitonov.cinema.backend.repository.TicketRepository;
-import by.kapitonov.cinema.backend.repository.UserRepository;
+import by.kapitonov.cinema.backend.service.FilmSessionService;
 import by.kapitonov.cinema.backend.service.TicketService;
+import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.dto.CreateTicketDTO;
 import by.kapitonov.cinema.backend.service.dto.TicketDTO;
+import by.kapitonov.cinema.backend.service.mapper.TicketMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,34 +19,23 @@ import org.springframework.stereotype.Service;
 public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
-    private final FilmSessionRepository filmSessionRepository;
-    private final UserRepository userRepository;
+    private final FilmSessionService filmSessionService;
+    private final UserService userService;
 
     public TicketServiceImpl(
             TicketRepository ticketRepository,
-            FilmSessionRepository filmSessionRepository,
-            UserRepository userRepository
+            FilmSessionService filmSessionService,
+            UserService userService
     ) {
         this.ticketRepository = ticketRepository;
-        this.filmSessionRepository = filmSessionRepository;
-        this.userRepository = userRepository;
+        this.filmSessionService = filmSessionService;
+        this.userService = userService;
     }
 
     @Override
     public Page<TicketDTO> getUserTickets(Long userId, Pageable pageable) {
-        return ticketRepository.findByUser_Id(userId, pageable)
-                .map(ticket -> {
-                    TicketDTO ticketDTO = new TicketDTO();
-                    ticketDTO.setId(ticket.getId());
-                    ticketDTO.setRowsNumber(ticket.getRowsNumber());
-                    ticketDTO.setNumberSeatsPerRow(ticket.getNumberSeatsPerRow());
-                    ticketDTO.setFilmName(ticket.getFilmSession().getFilmName());
-                    ticketDTO.setHallName(ticket.getFilmSession().getHall().getHallName());
-                    ticketDTO.setShowTime(ticket.getFilmSession().getShowTime());
-                    ticketDTO.setDuration(ticket.getFilmSession().getFilm().getDuration());
-
-                    return ticketDTO;
-                });
+        return ticketRepository.findByUserId(userId, pageable)
+                .map(TicketMapper::toDTO);
     }
 
     @Override
@@ -74,16 +64,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     private User getUser(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(
-                        () -> new ModelNotFoundException("User hasn't been found")
-                );
+        return userService.getById(id);
     }
 
     private FilmSession getFilmSession(Long id) {
-        return filmSessionRepository.findById(id)
-                .orElseThrow(
-                        () -> new ModelNotFoundException("Film session hasn't been found")
-                );
+        return filmSessionService.getById(id);
     }
 }

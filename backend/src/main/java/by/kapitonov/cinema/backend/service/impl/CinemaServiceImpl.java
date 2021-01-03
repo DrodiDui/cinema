@@ -4,12 +4,13 @@ import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.Cinema;
 import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.repository.CinemaRepository;
-import by.kapitonov.cinema.backend.repository.UserRepository;
 import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
+import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.dto.cinema.CinemaDTO;
 import by.kapitonov.cinema.backend.service.dto.cinema.CreateCinemaDTO;
 import by.kapitonov.cinema.backend.service.dto.cinema.UpdateCinemaDTO;
+import by.kapitonov.cinema.backend.service.mapper.CinemaMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -19,71 +20,43 @@ public class CinemaServiceImpl implements CinemaService {
 
     private final CinemaRepository cinemaRepository;
     private final CinemaStatusService cinemaStatusService;
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     public CinemaServiceImpl(
             CinemaRepository cinemaRepository,
             CinemaStatusService cinemaStatusService,
-            UserRepository userRepository
+            UserService userService
     ) {
         this.cinemaRepository = cinemaRepository;
         this.cinemaStatusService = cinemaStatusService;
-        this.userRepository = userRepository;
+        this.userService = userService;
     }
 
 
     @Override
     public Page<CinemaDTO> getAll(Pageable pageable) {
         return cinemaRepository.findAll(pageable)
-                .map(cinema -> {
-                    CinemaDTO cinemaDTO = new CinemaDTO();
-                    cinemaDTO.setCinemaName(cinema.getCinemaName());
-                    cinemaDTO.setId(cinema.getId());
-                    cinemaDTO.setCountry(cinema.getCountry());
-                    cinemaDTO.setCity(cinema.getCity());
-                    cinemaDTO.setAddress(cinema.getAddress());
-                    cinemaDTO.setCreationDate(cinema.getCreationDate());
-                    cinemaDTO.setDescription(cinema.getDescription());
-                    cinemaDTO.setStatus(cinema.getStatus().getStatusName());
-                    return cinemaDTO;
-                });
+                .map(CinemaMapper::toDTO);
+    }
+
+    @Override
+    public Page<CinemaDTO> getAllByOwnerId(Long ownerId, Pageable pageable) {
+        return cinemaRepository.findAllByOwnerId(ownerId, pageable)
+                .map(CinemaMapper::toDTO);
     }
 
     @Override
     public CinemaDTO getByName(String cinemaName) {
         return cinemaRepository.findByCinemaName(cinemaName)
-                .map(cinema -> {
-                    CinemaDTO cinemaDTO = new CinemaDTO();
-                    cinemaDTO.setCinemaName(cinema.getCinemaName());
-                    cinemaDTO.setId(cinema.getId());
-                    cinemaDTO.setCountry(cinema.getCountry());
-                    cinemaDTO.setCity(cinema.getCity());
-                    cinemaDTO.setAddress(cinema.getAddress());
-                    cinemaDTO.setCreationDate(cinema.getCreationDate());
-                    cinemaDTO.setDescription(cinema.getDescription());
-                    cinemaDTO.setStatus(cinema.getStatus().getStatusName());
-                    return cinemaDTO;
-                })
+                .map(CinemaMapper::toDTO)
                 .orElseThrow(
-                        () -> new ModelNotFoundException("Cinema hasn't been found by cinema name1: " + cinemaName)
+                        () -> new ModelNotFoundException("Cinema hasn't been found by cinema name: " + cinemaName)
                 );
     }
 
     @Override
-    public CinemaDTO getById(Long id) {
+    public Cinema getById(Long id) {
         return cinemaRepository.findById(id)
-                .map(cinema -> {
-                    CinemaDTO cinemaDTO = new CinemaDTO();
-                    cinemaDTO.setCinemaName(cinema.getCinemaName());
-                    cinemaDTO.setId(cinema.getId());
-                    cinemaDTO.setCountry(cinema.getCountry());
-                    cinemaDTO.setCity(cinema.getCity());
-                    cinemaDTO.setAddress(cinema.getAddress());
-                    cinemaDTO.setCreationDate(cinema.getCreationDate());
-                    cinemaDTO.setDescription(cinema.getDescription());
-                    cinemaDTO.setStatus(cinema.getStatus().getStatusName());
-                    return cinemaDTO;
-                })
                 .orElseThrow(
                         () -> new ModelNotFoundException("Cinema hasn't been found by id: " + id)
                 );
@@ -137,9 +110,6 @@ public class CinemaServiceImpl implements CinemaService {
 
 
     private User getUser(Long id) {
-        return userRepository.findById(id)
-                .orElseThrow(
-                        () -> new ModelNotFoundException("User hasn't been fond")
-                );
+        return userService.getById(id);
     }
 }

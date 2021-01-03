@@ -10,6 +10,7 @@ import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.UserStatusService;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
+import by.kapitonov.cinema.backend.service.mapper.UserMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,46 +34,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Page<UserDTO> getAll(Pageable pageable) {
-        return userRepository.findAll(pageable).map(user -> {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setId(user.getId());
-            userDTO.setEmail(user.getEmail());
-            userDTO.setFirstName(user.getFirstName());
-            userDTO.setLastName(user.getLastName());
-            userDTO.setRole(user.getRole().getRoleName());
-            return userDTO;
-        });
+        return userRepository.findAll(pageable)
+                .map(UserMapper::toDTO);
     }
 
     @Override
-    public UserDTO getById(Long id) {
+    public User getById(Long id) {
         return userRepository.findById(id)
-                .map(user -> {
-                    UserDTO userDTO = new UserDTO();
-                    userDTO.setId(user.getId());
-                    userDTO.setEmail(user.getEmail());
-                    userDTO.setFirstName(user.getFirstName());
-                    userDTO.setLastName(user.getLastName());
-                    userDTO.setRole(user.getRole().getRoleName());
-                    return userDTO;
-                })
                 .orElseThrow(
                         () -> new ModelNotFoundException("User hasn't been found by id: " + id)
                 );
     }
 
     @Override
-    public UserDTO getByEmail(String email) {
+    public User getByEmail(String email) {
         return userRepository.findByEmail(email)
-                .map(user -> {
-                    UserDTO userDTO = new UserDTO();
-                    userDTO.setId(user.getId());
-                    userDTO.setEmail(user.getEmail());
-                    userDTO.setFirstName(user.getFirstName());
-                    userDTO.setLastName(user.getLastName());
-                    userDTO.setRole(user.getRole().getRoleName());
-                    return userDTO;
-                })
                 .orElseThrow(
                         () -> new ModelNotFoundException("User hasn't been found by email: " + email)
                 );
