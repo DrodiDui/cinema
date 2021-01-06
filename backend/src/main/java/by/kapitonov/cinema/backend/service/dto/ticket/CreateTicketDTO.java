@@ -1,4 +1,4 @@
-package by.kapitonov.cinema.backend.service.dto;
+package by.kapitonov.cinema.backend.service.dto.ticket;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -7,9 +7,6 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class CreateTicketDTO {
 
-    private Integer rowsNumber;
-    private Integer numberSeatsPerRow;
-    private Long userId;
     private Long filmSessionId;
 
 }

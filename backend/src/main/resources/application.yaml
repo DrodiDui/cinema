@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: cinema
+    name: cinema_backend
   datasource:
     username: root
     password: root

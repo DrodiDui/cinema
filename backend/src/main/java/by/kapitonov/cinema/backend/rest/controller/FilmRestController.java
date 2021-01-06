@@ -1,9 +1,11 @@
 package by.kapitonov.cinema.backend.rest.controller;
 
+import by.kapitonov.cinema.backend.model.Film;
 import by.kapitonov.cinema.backend.rest.response.ApiResponse;
 import by.kapitonov.cinema.backend.service.FilmService;
 import by.kapitonov.cinema.backend.service.dto.film.CreateFilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
+import by.kapitonov.cinema.backend.service.mapper.FilmMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -36,7 +38,8 @@ public class FilmRestController {
     @GetMapping("/{id}")
     public ResponseEntity<FilmDTO> getOne(@PathVariable(name = "id") Long id) {
 
-        FilmDTO filmDTO = filmService.getById(id);
+        Film film = filmService.getById(id);
+        FilmDTO filmDTO = FilmMapper.toDTO(film);
 
         return new ResponseEntity<>(filmDTO, HttpStatus.OK);
     }

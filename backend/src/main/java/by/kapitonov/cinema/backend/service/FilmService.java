@@ -10,7 +10,7 @@ public interface FilmService {
 
     Page<FilmDTO> getAll(Long ownerId, Pageable pageable);
 
-    FilmDTO getById(Long id);
+    Film getById(Long id);
 
     Film create(CreateFilmDTO filmDTO);
 

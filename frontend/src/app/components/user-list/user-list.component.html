@@ -1,0 +1,28 @@
+<h1>Total page: {{pageable.totalElements}}</h1>
+<table class="table">
+<thead>
+<tr>
+  <th scope="col">#</th>
+  <th scope="col">Email</th>
+  <th scope="col">Role</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let user of users">
+  <th scope="row"></th>
+  <td>{{user.email}}</td>
+  <td>{{user.roleName}}</td>
+</tr>
+</tbody>
+</table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item" *ngFor="let pageNumber of pageable.totalPages">
+      <a class="page-link" href="#">
+        {{pageNumber}}
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul>
+</nav>

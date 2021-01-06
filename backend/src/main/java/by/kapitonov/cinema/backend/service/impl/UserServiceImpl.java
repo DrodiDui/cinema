@@ -9,7 +9,7 @@ import by.kapitonov.cinema.backend.repository.UserRepository;
 import by.kapitonov.cinema.backend.service.RoleService;
 import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.UserStatusService;
-import by.kapitonov.cinema.backend.service.dto.RegistrationUserDTO;
+import by.kapitonov.cinema.backend.service.dto.user.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
 import by.kapitonov.cinema.backend.service.mapper.UserMapper;

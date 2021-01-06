@@ -1,4 +1,4 @@
-package by.kapitonov.cinema.backend.service.dto;
+package by.kapitonov.cinema.backend.service.dto.ticket;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

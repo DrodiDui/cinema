@@ -85,7 +85,7 @@ public class HallServiceImpl implements HallService {
                     hall.setFloor(hallDTO.getFloor());
                     hall.setRowsNumbers(hallDTO.getRowsNumbers());
                     hall.setNumberSeatsPerRow(hallDTO.getNumberSeatsPerRow());
-                    return hall;
+                    return hallRepository.save(hall);
                 })
                 .orElseThrow(
                         () -> new ModelNotFoundException("Hall hasn't been found by id: " + hallDTO.getId())

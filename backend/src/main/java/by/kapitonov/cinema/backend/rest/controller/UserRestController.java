@@ -3,11 +3,10 @@ package by.kapitonov.cinema.backend.rest.controller;
 import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.rest.response.ApiResponse;
 import by.kapitonov.cinema.backend.service.UserService;
-import by.kapitonov.cinema.backend.service.dto.RegistrationUserDTO;
+import by.kapitonov.cinema.backend.service.dto.user.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
 import by.kapitonov.cinema.backend.service.mapper.UserMapper;
-import com.sun.org.apache.regexp.internal.RE;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -39,10 +38,10 @@ public class UserRestController {
         return new ResponseEntity(userDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> getOne(@PathVariable(name = "id") Long id) {
+    @GetMapping("/{email}")
+    public ResponseEntity<UserDTO> getOne(@PathVariable(name = "email") String email) {
 
-        User user = userService.getById(id);
+        User user = userService.getByEmail(email);
         UserDTO userDTO = UserMapper.toDTO(user);
 
         return new ResponseEntity<>(userDTO, HttpStatus.OK);

@@ -1,8 +1,8 @@
 package by.kapitonov.cinema.backend.service;
 
 import by.kapitonov.cinema.backend.model.Ticket;
-import by.kapitonov.cinema.backend.service.dto.CreateTicketDTO;
-import by.kapitonov.cinema.backend.service.dto.TicketDTO;
+import by.kapitonov.cinema.backend.service.dto.ticket.CreateTicketDTO;
+import by.kapitonov.cinema.backend.service.dto.ticket.TicketDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

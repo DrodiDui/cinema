@@ -32,14 +32,14 @@ public class Ticket implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "rows_number", nullable = false)
+    @Column(name = "rows_number", nullable = true)
     private Integer rowsNumber;
 
-    @Column(name = "number_seats_per_row", nullable = false)
+    @Column(name = "number_seats_per_row", nullable = true)
     private Integer numberSeatsPerRow;
 
     @Column(name = "reserved")
-    private Boolean reserved;
+    private Boolean reserved = false;
 
     @ManyToOne
     @JoinColumn(name = "film_session_id", referencedColumnName = "id")

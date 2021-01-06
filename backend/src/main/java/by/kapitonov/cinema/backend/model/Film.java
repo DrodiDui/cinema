@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "films", schema = "cinema")
@@ -66,4 +67,7 @@ public class Film implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id", referencedColumnName = "id")
     private User owner;
+
+    @OneToMany(mappedBy = "film", fetch = FetchType.LAZY)
+    private List<FilmSession> filmSessions;
 }

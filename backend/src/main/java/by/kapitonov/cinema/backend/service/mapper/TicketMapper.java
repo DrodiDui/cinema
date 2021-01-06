@@ -2,7 +2,7 @@ package by.kapitonov.cinema.backend.service.mapper;
 
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.Ticket;
-import by.kapitonov.cinema.backend.service.dto.TicketDTO;
+import by.kapitonov.cinema.backend.service.dto.ticket.TicketDTO;
 
 public class TicketMapper {
 

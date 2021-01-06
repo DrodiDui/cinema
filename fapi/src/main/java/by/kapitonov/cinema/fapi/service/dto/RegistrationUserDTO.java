@@ -1,10 +1,8 @@
-package by.kapitonov.cinema.backend.service.dto;
+package by.kapitonov.cinema.fapi.service.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 @Data
-@EqualsAndHashCode
 public class RegistrationUserDTO {
 
     private String email;

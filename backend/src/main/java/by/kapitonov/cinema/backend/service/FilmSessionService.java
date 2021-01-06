@@ -1,8 +1,8 @@
 package by.kapitonov.cinema.backend.service;
 
 import by.kapitonov.cinema.backend.model.FilmSession;
-import by.kapitonov.cinema.backend.service.dto.CreateFilmSessionDTO;
-import by.kapitonov.cinema.backend.service.dto.FilmSessionDTO;
+import by.kapitonov.cinema.backend.service.dto.filmsession.CreateFilmSessionDTO;
+import by.kapitonov.cinema.backend.service.dto.filmsession.FilmSessionDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

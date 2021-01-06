@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -46,13 +47,13 @@ public class FilmSession implements Serializable {
     private Integer ticketCost;
 
     @Column(name = "show_time", nullable = false)
-    private Instant showTime;
+    private Instant showTime = Instant.now();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hall_id", referencedColumnName = "id")
     private Hall hall;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private User manager;
 
@@ -60,10 +61,10 @@ public class FilmSession implements Serializable {
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private CinemaStatus status;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "film_id", referencedColumnName = "id")
     private Film film;
 
-    @OneToMany(mappedBy = "filmSession")
+    @OneToMany(mappedBy = "filmSession", cascade = CascadeType.ALL)
     private List<Ticket> tickets;
 }

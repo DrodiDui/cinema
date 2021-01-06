@@ -1,4 +1,4 @@
-package by.kapitonov.cinema.backend.service.dto;
+package by.kapitonov.cinema.backend.service.dto.filmsession;
 
 import by.kapitonov.cinema.backend.model.CinemaStatus;
 import by.kapitonov.cinema.backend.model.Hall;

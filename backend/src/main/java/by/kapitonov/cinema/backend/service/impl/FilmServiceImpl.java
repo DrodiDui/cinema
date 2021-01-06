@@ -39,9 +39,8 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public FilmDTO getById(Long id) {
+    public Film getById(Long id) {
         return filmRepository.findById(id)
-                .map(FilmMapper::toDTO)
                 .orElseThrow(
                         () -> new ModelNotFoundException("Film hasn't been found by id: " + id)
                 );
@@ -61,7 +60,7 @@ public class FilmServiceImpl implements FilmService {
         film.setDuration(filmDTO.getDuration());
         film.setStatus(getStatus(filmDTO.getStatus()));
         film.setOwner(getOwner(filmDTO.getOwnerId()));
-        return null;
+        return filmRepository.save(film);
     }
 
     private CinemaStatus getStatus(String statusName) {

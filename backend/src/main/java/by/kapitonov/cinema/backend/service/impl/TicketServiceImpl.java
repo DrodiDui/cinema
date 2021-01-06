@@ -8,8 +8,8 @@ import by.kapitonov.cinema.backend.repository.TicketRepository;
 import by.kapitonov.cinema.backend.service.FilmSessionService;
 import by.kapitonov.cinema.backend.service.TicketService;
 import by.kapitonov.cinema.backend.service.UserService;
-import by.kapitonov.cinema.backend.service.dto.CreateTicketDTO;
-import by.kapitonov.cinema.backend.service.dto.TicketDTO;
+import by.kapitonov.cinema.backend.service.dto.ticket.CreateTicketDTO;
+import by.kapitonov.cinema.backend.service.dto.ticket.TicketDTO;
 import by.kapitonov.cinema.backend.service.mapper.TicketMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -56,9 +56,6 @@ public class TicketServiceImpl implements TicketService {
         Ticket ticket = new Ticket();
         ticket.setReserved(false);
         ticket.setFilmSession(getFilmSession(ticketDTO.getFilmSessionId()));
-        ticket.setUser(getUser(ticketDTO.getUserId()));
-        ticket.setRowsNumber(ticketDTO.getRowsNumber());
-        ticket.setNumberSeatsPerRow(ticketDTO.getNumberSeatsPerRow());
 
         return ticketRepository.save(ticket);
     }
