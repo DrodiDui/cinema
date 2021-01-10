@@ -4,6 +4,7 @@ import {RoleService} from "../../service/role.service";
 import {ApiResponse} from "../../model/ApiResponse";
 import {SignUpDTO} from "../../model/dto/SignUpDTO";
 import {AuthService} from "../../service/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-registration',
@@ -18,7 +19,8 @@ export class RegistrationComponent {
   constructor(
     private userService: UserService,
     private roleService: RoleService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.signUpDTO = new SignUpDTO();
   }
@@ -26,6 +28,7 @@ export class RegistrationComponent {
   save() {
     this.authService.signup(this.signUpDTO).subscribe(data => {
       this.apiResponse = data;
+      this.router.navigate(['/login'])
     });
   }
 

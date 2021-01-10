@@ -16,11 +16,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   public signup(signUpDTO: SignUpDTO):Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${this.url}/signup`, signUpDTO);
+    return this.http.post<ApiResponse>(`${this.url}/sign-up`, signUpDTO);
   }
 
   public login(loginDTO: LoginDTO): Observable<TokenResponse> {
-    return this.http.post<TokenResponse>(`${this.url}/login`, loginDTO);
+    return this.http.post<TokenResponse>(`${this.url}/sign-in`, loginDTO);
   }
 
 }

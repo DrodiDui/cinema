@@ -13,12 +13,14 @@ export class UserListComponent implements OnInit {
   private users: User[];
   private pageable: Pageable;
 
+  private allPages: number;
+
   constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.userService.getAll().subscribe(data => {
       this.users = data.content;
-      this.pageable = data.pageable;
+      this.allPages = data.totalPages;
     })
   }
 
