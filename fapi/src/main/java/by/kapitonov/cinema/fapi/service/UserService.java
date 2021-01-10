@@ -1,14 +1,12 @@
 package by.kapitonov.cinema.fapi.service;
 
 import by.kapitonov.cinema.fapi.model.User;
+import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.dto.CreateUserDTO;
 import by.kapitonov.cinema.fapi.service.dto.RegistrationUserDTO;
 
-import java.util.List;
-
 public interface UserService {
-
-    List<User> getAll();
+    PageResponse<User> getAll(Integer page, Integer size);
 
     User getByEmail(String email);
 

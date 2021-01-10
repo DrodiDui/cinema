@@ -1,8 +1,9 @@
 package by.kapitonov.cinema.fapi.service.impl;
 
 import by.kapitonov.cinema.fapi.config.UrlConstants;
-import by.kapitonov.cinema.fapi.rest.ApiResponse;
 import by.kapitonov.cinema.fapi.model.User;
+import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
+import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.UserService;
 import by.kapitonov.cinema.fapi.service.dto.CreateUserDTO;
 import by.kapitonov.cinema.fapi.service.dto.RegistrationUserDTO;
@@ -10,9 +11,6 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -29,8 +27,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public List<User> getAll() {
-        return Arrays.asList(restTemplate.getForObject(UrlConstants.USER_URL + "/", User.class));
+    public PageResponse<User> getAll(Integer page, Integer size) {
+
+        PageResponse<User> pageResponse =
+                restTemplate.getForObject(
+                        UrlConstants.USER_URL + "?page=" + page + "&size=" + size,
+                        PageResponse.class
+                );
+        return pageResponse;
     }
 
     @Override
