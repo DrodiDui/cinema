@@ -5,5 +5,6 @@ public class Constants {
     public static final String USER_ROLE = "user";
 
     public static final String INACTIVE_STATUS = "in active";
+    public static final String ACTIVE_STATUS = "active";
 
 }

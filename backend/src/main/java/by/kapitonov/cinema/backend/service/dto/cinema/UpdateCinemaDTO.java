@@ -15,6 +15,6 @@ public class UpdateCinemaDTO {
     private String city;
     private String address;
     private String description;
-    private Date creationDate;
+
 
 }

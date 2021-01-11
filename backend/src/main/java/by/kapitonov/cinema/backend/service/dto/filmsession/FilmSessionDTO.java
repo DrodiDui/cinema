@@ -17,9 +17,8 @@ public class FilmSessionDTO {
     private String showNumber;
     private String filmName;
     private Integer ticketCost;
-    private Hall hall;
-    private User manager;
-    private CinemaStatus status;
-    private List<Ticket> tickets;
+    private String cinemaName;
+    private String hallName;
+    private String status;
 
 }

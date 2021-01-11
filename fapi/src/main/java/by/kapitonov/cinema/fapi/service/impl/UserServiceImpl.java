@@ -5,8 +5,8 @@ import by.kapitonov.cinema.fapi.model.User;
 import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.UserService;
-import by.kapitonov.cinema.fapi.service.dto.CreateUserDTO;
-import by.kapitonov.cinema.fapi.service.dto.RegistrationUserDTO;
+import by.kapitonov.cinema.fapi.service.dto.user.CreateUserDTO;
+import by.kapitonov.cinema.fapi.service.dto.user.RegistrationUserDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(CreateUserDTO userDTO) {
+    public ApiResponse create(CreateUserDTO userDTO) {
 
         String hashPassword = passwordEncoder.encode(userDTO.getPassword());
         User user = new User();
@@ -54,13 +54,11 @@ public class UserServiceImpl implements UserService {
         user.setRoleName(userDTO.getRoleName());
         user.setStatusName(userDTO.getStatusName());
 
-        restTemplate.postForEntity(UrlConstants.USER_URL, user, ApiResponse.class);
-
-        return user;
+        return restTemplate.postForEntity(UrlConstants.USER_URL, user, ApiResponse.class).getBody();
     }
 
     @Override
-    public User registration(RegistrationUserDTO userDTO) {
+    public ApiResponse registration(RegistrationUserDTO userDTO) {
 
         String hashPassword = passwordEncoder.encode(userDTO.getPassword());
         User user = new User();
@@ -69,9 +67,23 @@ public class UserServiceImpl implements UserService {
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
 
-        restTemplate.postForEntity(UrlConstants.USER_URL + "/registration", user, ApiResponse.class);
+        return restTemplate.postForEntity(UrlConstants.USER_URL + "/registration", user, ApiResponse.class).getBody();
+    }
 
-        return user;
+    @Override
+    public ApiResponse changeRole(Long userId, String roleName) {
+        return restTemplate.patchForObject(
+                UrlConstants.USER_URL + "/" + userId + "/role?role=" + roleName,
+                null,
+                ApiResponse.class);
+    }
+
+    @Override
+    public ApiResponse changeStatus(Long userId, String statusName) {
+        return restTemplate.patchForObject(
+                UrlConstants.USER_URL + "/" + userId + "/status?status=" + statusName,
+                null,
+                ApiResponse.class);
     }
 
 

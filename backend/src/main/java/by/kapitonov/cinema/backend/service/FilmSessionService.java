@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 public interface FilmSessionService {
 
     Page<FilmSessionDTO> getAll(Pageable pageable);
+    Page<FilmSessionDTO> getAllActiveSession(Pageable pageable);
 
     FilmSession getById(Long id);
 

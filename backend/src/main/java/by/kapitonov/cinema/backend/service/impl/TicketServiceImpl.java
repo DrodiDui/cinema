@@ -2,39 +2,46 @@ package by.kapitonov.cinema.backend.service.impl;
 
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.FilmSession;
+import by.kapitonov.cinema.backend.model.Hall;
 import by.kapitonov.cinema.backend.model.Ticket;
 import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.repository.TicketRepository;
-import by.kapitonov.cinema.backend.service.FilmSessionService;
 import by.kapitonov.cinema.backend.service.TicketService;
 import by.kapitonov.cinema.backend.service.UserService;
-import by.kapitonov.cinema.backend.service.dto.ticket.CreateTicketDTO;
+import by.kapitonov.cinema.backend.service.dto.ticket.UpdateTicketDTO;
 import by.kapitonov.cinema.backend.service.dto.ticket.TicketDTO;
 import by.kapitonov.cinema.backend.service.mapper.TicketMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
-    private final FilmSessionService filmSessionService;
     private final UserService userService;
 
     public TicketServiceImpl(
             TicketRepository ticketRepository,
-            FilmSessionService filmSessionService,
             UserService userService
     ) {
         this.ticketRepository = ticketRepository;
-        this.filmSessionService = filmSessionService;
         this.userService = userService;
     }
 
     @Override
     public Page<TicketDTO> getUserTickets(Long userId, Pageable pageable) {
         return ticketRepository.findByUserId(userId, pageable)
+                .map(TicketMapper::toDTO);
+    }
+
+    @Override
+    public Page<TicketDTO> getAllUnreservedTickets(Pageable pageable) {
+        return ticketRepository.findAllByReservedFalse(pageable)
                 .map(TicketMapper::toDTO);
     }
 
@@ -52,19 +59,48 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Ticket create(CreateTicketDTO ticketDTO) {
-        Ticket ticket = new Ticket();
-        ticket.setReserved(false);
-        ticket.setFilmSession(getFilmSession(ticketDTO.getFilmSessionId()));
+    public List<Ticket> reservedTicket(UpdateTicketDTO ticketDTO) {
+        if (ticketDTO.getTicketIds().isEmpty()) {
+            throw new ModelNotFoundException("List of ticket ids is empty");
+        }
+        return ticketDTO.getTicketIds()
+                .stream()
+                .map(ticketId -> reserved(ticketId, ticketDTO.getUserId()))
+                .collect(Collectors.toList());
+    }
 
-        return ticketRepository.save(ticket);
+    private Ticket reserved(Long ticketId, Long userId) {
+        return ticketRepository.findById(ticketId)
+                .map(ticket -> {
+                    ticket.setReserved(true);
+                    ticket.setUser(getUser(userId));
+                    return ticketRepository.save(ticket);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Ticket hasn't been found by id: " + ticketId)
+                );
+    }
+
+    @Override
+    public List<Ticket> createTickets(FilmSession filmSession) {
+        List<Ticket> tickets = new LinkedList<>();
+        Hall hall = filmSession.getHall();
+        for (int i = 0; i < hall.getRowsNumbers(); i++) {
+            for (int j = 0; j < hall.getNumberSeatsPerRow(); j++) {
+                Ticket ticket = new Ticket();
+                ticket.setReserved(false);
+                ticket.setFilmSession(filmSession);
+                ticket.setRowsNumber(new Integer(i + 1));
+                ticket.setNumberSeatsPerRow(new Integer(j + 1));
+                tickets.add(ticket);
+            }
+        }
+
+        return ticketRepository.saveAll(tickets);
     }
 
     private User getUser(Long id) {
         return userService.getById(id);
     }
 
-    private FilmSession getFilmSession(Long id) {
-        return filmSessionService.getById(id);
-    }
 }

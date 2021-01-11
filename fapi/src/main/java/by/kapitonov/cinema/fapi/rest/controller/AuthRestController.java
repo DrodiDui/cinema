@@ -6,7 +6,7 @@ import by.kapitonov.cinema.fapi.rest.request.SignInRequest;
 import by.kapitonov.cinema.fapi.rest.response.TokenResponse;
 import by.kapitonov.cinema.fapi.security.TokenProvider;
 import by.kapitonov.cinema.fapi.service.UserService;
-import by.kapitonov.cinema.fapi.service.dto.RegistrationUserDTO;
+import by.kapitonov.cinema.fapi.service.dto.user.RegistrationUserDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -50,18 +50,20 @@ public class AuthRestController {
 
         return new ResponseEntity<>(
                 new TokenResponse(
-                   token,
-                   user.getEmail(),
-                   user.getRoleName()
+                        token,
+                        user.getEmail(),
+                        user.getRoleName(),
+                        user.getId()
                 ),
-                HttpStatus.OK);
+                HttpStatus.OK
+        );
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<ApiResponse> registration(@RequestBody RegistrationUserDTO userDTO) {
 
-        userService.registration(userDTO);
+        ApiResponse response = userService.registration(userDTO);
 
-        return new ResponseEntity<>(new ApiResponse("User successfully registered"), HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -65,6 +64,6 @@ public class FilmSession implements Serializable {
     @JoinColumn(name = "film_id", referencedColumnName = "id")
     private Film film;
 
-    @OneToMany(mappedBy = "filmSession", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "filmSession")
     private List<Ticket> tickets;
 }

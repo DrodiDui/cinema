@@ -11,6 +11,13 @@ public class FilmSessionMapper {
             throw new ModelNotFoundException("Film session hasn't been found");
         }
         FilmSessionDTO filmSessionDTO = new FilmSessionDTO();
+        filmSessionDTO.setId(filmSession.getId());
+        filmSessionDTO.setShowNumber(filmSession.getShowNumber());
+        filmSessionDTO.setFilmName(filmSession.getFilmName());
+        filmSessionDTO.setTicketCost(filmSession.getTicketCost());
+        filmSessionDTO.setCinemaName(filmSession.getHall().getCinema().getCinemaName());
+        filmSessionDTO.setHallName(filmSession.getHall().getHallName());
+        filmSessionDTO.setStatus(filmSession.getStatus().getStatusName());
         return filmSessionDTO;
     }
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -30,7 +31,7 @@ public class UserStatusRestController {
     }
 
     @PostMapping("")
-    public ResponseEntity<ApiResponse> create(String statusName) {
+    public ResponseEntity<ApiResponse> create(@PathParam(value = "status") String statusName) {
 
         userStatusService.create(statusName);
 

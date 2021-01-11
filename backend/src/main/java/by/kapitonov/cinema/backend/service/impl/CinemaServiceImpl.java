@@ -15,6 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class CinemaServiceImpl implements CinemaService {
 
@@ -69,7 +71,7 @@ public class CinemaServiceImpl implements CinemaService {
         cinema.setCountry(cinemaDTO.getCountry());
         cinema.setCity(cinemaDTO.getCity());
         cinema.setAddress(cinemaDTO.getAddress());
-        cinema.setCreationDate(cinemaDTO.getCreationDate());
+        cinema.setCreationDate(new Date());
         cinema.setDescription(cinemaDTO.getDescription());
         cinema.setStatus(cinemaStatusService.getByName(cinemaDTO.getStatusName()));
         cinema.setOwner(getUser(cinemaDTO.getOwnerId()));
@@ -85,7 +87,6 @@ public class CinemaServiceImpl implements CinemaService {
                     cinema.setCountry(cinemaDTO.getCountry());
                     cinema.setCity(cinemaDTO.getCity());
                     cinema.setAddress(cinemaDTO.getAddress());
-                    cinema.setCreationDate(cinemaDTO.getCreationDate());
                     cinema.setDescription(cinemaDTO.getDescription());;
 
                     return cinemaRepository.save(cinema);

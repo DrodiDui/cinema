@@ -15,5 +15,4 @@ public class CreateFilmSessionDTO {
     private Long managerId;
     private String status;
     private Long filmId;
-    //private List<Ticket> tickets;
 }

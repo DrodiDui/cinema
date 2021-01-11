@@ -15,6 +15,9 @@ import {TokenStorageService} from "./service/token-storage.service";
 import {UserService} from "./service/user.service";
 import {UserStatusService} from "./service/user-status.service";
 import {AuthInterceptor} from "./security/AuthInterceptor";
+import { TicketListComponent } from './components/ticket-list/ticket-list.component';
+import { CinemaListComponent } from './components/cinema-list/cinema-list.component';
+import { UserCinemaListComponent } from './components/user-cinema-list/user-cinema-list.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import {AuthInterceptor} from "./security/AuthInterceptor";
     HeaderComponent,
     RegistrationComponent,
     UserListComponent,
-    LoginComponent
+    LoginComponent,
+    TicketListComponent,
+    CinemaListComponent,
+    UserCinemaListComponent
   ],
     imports: [
         BrowserModule,

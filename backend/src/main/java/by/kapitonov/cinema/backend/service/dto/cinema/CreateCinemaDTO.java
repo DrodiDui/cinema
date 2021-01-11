@@ -14,7 +14,6 @@ public class CreateCinemaDTO {
     private String city;
     private String address;
     private String description;
-    private Date creationDate;
     private String statusName;
     private Long ownerId;
 
