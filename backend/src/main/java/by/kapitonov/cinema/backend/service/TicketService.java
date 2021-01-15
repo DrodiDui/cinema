@@ -13,11 +13,11 @@ public interface TicketService {
 
     Page<TicketDTO> getUserTickets(Long userId, Pageable pageable);
 
-    Page<TicketDTO> getAllUnreservedTickets(Pageable pageable);
+    Page<TicketDTO> getAllUnreservedTickets(Long sessionId, Pageable pageable);
 
     List<Ticket> createTickets(FilmSession filmSession);
 
-    List<Ticket> reservedTicket(UpdateTicketDTO ticketDTO);
+    List<Ticket> reservedTickets(UpdateTicketDTO ticketDTO);
 
-    Ticket unreserved(Long id);
+    List<Ticket> unreservedTickets(List<Long> ticketsId);
 }

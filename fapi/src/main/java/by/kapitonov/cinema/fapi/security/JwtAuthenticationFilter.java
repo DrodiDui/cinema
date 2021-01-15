@@ -1,9 +1,9 @@
 package by.kapitonov.cinema.fapi.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -17,11 +17,11 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final TokenProvider tokenProvider;
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(
             TokenProvider tokenProvider,
-            UserDetailsServiceImpl userDetailsService
+            UserDetailsService userDetailsService
     ) {
         this.tokenProvider = tokenProvider;
         this.userDetailsService = userDetailsService;

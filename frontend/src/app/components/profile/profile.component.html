@@ -1,0 +1,33 @@
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-4">
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          {{user.email}}
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{user.firstName}}</li>
+          <li class="list-group-item">{{user.lastName}}</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-sm-8">
+      <h3>Reserved tickets</h3>
+      <div class="card" *ngFor="let ticket of tickets">
+        <div class="card-header">
+          Film name: {{ticket.filmName}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Hall name: {{ticket.hallName}}</h5>
+          <h5 class="card-title">Row number: {{ticket.rowsNumber}}</h5>
+          <h5 class="card-title">Number seats per row: {{ticket.numberSeatsPerRow}}</h5>
+          <h5 class="card-title">Show time: {{ticket.showTime}}</h5>
+          <h5 class="card-title">Duration: {{ticket.duration}}</h5>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

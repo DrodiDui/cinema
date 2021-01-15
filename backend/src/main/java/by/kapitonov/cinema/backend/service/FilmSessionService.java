@@ -6,10 +6,12 @@ import by.kapitonov.cinema.backend.service.dto.filmsession.FilmSessionDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface FilmSessionService {
 
     Page<FilmSessionDTO> getAll(Pageable pageable);
-    Page<FilmSessionDTO> getAllActiveSession(Pageable pageable);
+    Page<FilmSessionDTO> getAllActiveSessionByHallId(Long hallId, Pageable pageable);
 
     FilmSession getById(Long id);
 

@@ -32,9 +32,15 @@ export class HeaderComponent implements OnInit {
     return false;
   }
 
+  isOwner() {
+    if (this.tokenStorage.getRole() === 'owner') {
+      return true;
+    }
+    return false;
+  }
+
   logout() {
     this.tokenStorage.logout();
     this.router.navigate(['/']);
   }
-
 }

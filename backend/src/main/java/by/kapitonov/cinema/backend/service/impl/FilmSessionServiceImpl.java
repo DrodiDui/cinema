@@ -55,8 +55,8 @@ public class FilmSessionServiceImpl implements FilmSessionService {
     }
 
     @Override
-    public Page<FilmSessionDTO> getAllActiveSession(Pageable pageable) {
-        return filmSessionRepository.findAllByStatusEquals(Constants.ACTIVE_STATUS, pageable)
+    public Page<FilmSessionDTO> getAllActiveSessionByHallId(Long hallId, Pageable pageable) {
+        return filmSessionRepository.findAllByStatusStatusNameAndHallId(Constants.ACTIVE_STATUS, hallId, pageable)
                 .map(FilmSessionMapper::toDTO);
     }
 

@@ -53,7 +53,7 @@ public class CinemaRestController {
     }
 
     @GetMapping("/{name}")
-    public ResponseEntity getOne(@PathVariable(name = "name") String cinemaName) {
+    public ResponseEntity<Cinema> getOne(@PathVariable(name = "name") String cinemaName) {
 
         Cinema cinema = cinemaService.getOne(cinemaName);
 

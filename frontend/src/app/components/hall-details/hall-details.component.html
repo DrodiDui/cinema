@@ -1,0 +1,24 @@
+<table class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">show number</th>
+    <th scope="col">cinema name</th>
+    <th scope="col">film name</th>
+    <th scope="col">hall name</th>
+    <th scope="col">status</th>
+    <th scope="col">ticket cost</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let session of filmSessions">
+    <th scope="row">{{filmSessions.length / 10}}</th>
+    <td><a href="film-session/{{session.id}}">{{session.showNumber}}</a></td>
+    <td>{{session.cinemaName}}</td>
+    <td>{{session.filmName}}</td>
+    <th>{{session.hallName}}</th>
+    <td>{{session.status}}</td>
+    <td>{{session.ticketCost}}</td>
+  </tr>
+  </tbody>
+</table>

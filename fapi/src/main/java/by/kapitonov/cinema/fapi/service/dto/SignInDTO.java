@@ -1,11 +1,11 @@
-package by.kapitonov.cinema.fapi.rest.request;
+package by.kapitonov.cinema.fapi.service.dto;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @EqualsAndHashCode
-public class SignInRequest {
+public class SignInDTO {
 
     private String email;
     private String password;

@@ -6,9 +6,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface FilmSessionRepository extends JpaRepository<FilmSession, Long> {
 
-    Page<FilmSession> findAllByStatusEquals(String filmSessionStatus, Pageable pageable);
+   Page<FilmSession> findAllByStatusStatusNameAndHallId(String statusName, Long hallId, Pageable pageable);
 
 }

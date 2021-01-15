@@ -1,0 +1,31 @@
+<table class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <th scope="col">Film name</th>
+    <th scope="col">hall name</th>
+    <th scope="col">show time</th>
+    <th scope="col">duration</th>
+    <th scope="col">rows number</th>
+    <th scope="col">number seats per row</th>
+    <th scope="col" *ngIf="tokenStorage.getToken()"></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let ticket of tickets">
+    <td>{{ticket.filmName}}</td>
+    <td>{{ticket.hallName}}</td>
+    <td>{{ticket.showTime}}</td>
+    <td>{{ticket.duration}}</td>
+    <td>{{ticket.rowsNumber}}</td>
+    <td>{{ticket.numberSeatsPerRow}}</td>
+    <td *ngIf="tokenStorage.getToken()">
+      <input class="btn btn-secondary" value="ADD" type="button" (click)="addToOrder(ticket.id)">
+    </td>
+  </tr>
+  </tbody>
+</table>
+<div *ngIf="tokenStorage.getToken()">
+  <button class="btn btn-primary" type="submit" (click)="reserved()">
+    Reserved
+  </button>
+</div>

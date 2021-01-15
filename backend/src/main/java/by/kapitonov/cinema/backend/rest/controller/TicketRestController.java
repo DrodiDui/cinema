@@ -9,11 +9,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/tickets")
@@ -25,10 +27,10 @@ public class TicketRestController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping("")
-    public ResponseEntity getAll(Pageable pageable) {
+    @GetMapping("{id}/all")
+    public ResponseEntity getAll(@PathVariable(name = "id") Long sessionId, Pageable pageable) {
 
-        Page<TicketDTO> ticketDTOS = ticketService.getAllUnreservedTickets(pageable);
+        Page<TicketDTO> ticketDTOS = ticketService.getAllUnreservedTickets(sessionId, pageable);
 
         return new ResponseEntity(ticketDTOS, HttpStatus.OK);
     }
@@ -41,18 +43,18 @@ public class TicketRestController {
         return new ResponseEntity(ticketDTOS, HttpStatus.OK);
     }
 
-    @PutMapping("")
+    @PatchMapping("/reserved")
     public ResponseEntity<ApiResponse> reservedTicket(@RequestBody UpdateTicketDTO ticketDTO) {
 
-        ticketService.reservedTicket(ticketDTO);
+        ticketService.reservedTickets(ticketDTO);
 
         return new ResponseEntity<>(new ApiResponse("Ticket successfully reserved"), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> unreservedTicket(@PathVariable(name = "id") Long ticketId) {
+    @PatchMapping("/unreserved")
+    public ResponseEntity<ApiResponse> unreservedTicket(@RequestBody List<Long> ticketsId) {
 
-        ticketService.unreserved(ticketId);
+        ticketService.unreservedTickets(ticketsId);
 
         return new ResponseEntity<>(new ApiResponse("Ticket successfully unreserved"), HttpStatus.OK);
     }

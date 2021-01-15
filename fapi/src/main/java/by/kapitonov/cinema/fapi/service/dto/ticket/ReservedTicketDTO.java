@@ -9,7 +9,7 @@ import java.util.Set;
 @EqualsAndHashCode
 public class ReservedTicketDTO {
 
-    private Set<Long> ticketId;
+    private Set<Long> ticketsId;
     private Long userId;
 
 }

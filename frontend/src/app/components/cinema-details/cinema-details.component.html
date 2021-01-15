@@ -1,0 +1,24 @@
+<table class="table table-striped table-hover">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Hall name</th>
+    <th scope="col">Cinema name</th>
+    <th scope="col">floor</th>
+    <th scope="col">rows number</th>
+    <th scope="col">number seats per row</th>
+    <th scope="col">Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let hall of halls">
+    <th scope="row">{{halls.length / 10}}</th>
+    <td><a href="hall/{{hall.hallName}}">{{hall.hallName}}</a></td>
+    <td>{{hall.cinemaName}}</td>
+    <td>{{hall.floor}}</td>
+    <th>{{hall.rowsNumbers}}</th>
+    <td>{{hall.numberSeatsPerRow}}</td>
+    <td>{{cinema.status}}</td>
+  </tr>
+  </tbody>
+</table>

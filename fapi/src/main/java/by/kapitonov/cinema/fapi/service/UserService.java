@@ -12,7 +12,6 @@ public interface UserService {
     User getByEmail(String email);
 
     ApiResponse create(CreateUserDTO userDTO);
-    ApiResponse registration(RegistrationUserDTO userDTO);
 
     ApiResponse changeRole(Long userId, String roleName);
     ApiResponse changeStatus(Long userId, String statusName);

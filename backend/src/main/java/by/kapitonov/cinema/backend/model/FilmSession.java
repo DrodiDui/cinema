@@ -56,7 +56,7 @@ public class FilmSession implements Serializable {
     @JoinColumn(name = "manager_id", referencedColumnName = "id")
     private User manager;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_id", referencedColumnName = "id")
     private CinemaStatus status;
 

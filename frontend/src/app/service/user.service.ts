@@ -20,8 +20,8 @@ export class UserService {
     return this.http.get<Page<User>>(`${this.url}`);
   }
 
-  public getOne(id: number): Observable<User> {
-    return this.http.get<User>(`${this.url}/${id}`);
+  public getOne(email: string): Observable<User> {
+    return this.http.get<User>(`${this.url}/${email}`);
   }
 
   public create(userDTO: CreateUserDTO): Observable<ApiResponse> {

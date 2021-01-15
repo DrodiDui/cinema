@@ -40,45 +40,28 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public Page<TicketDTO> getAllUnreservedTickets(Pageable pageable) {
-        return ticketRepository.findAllByReservedFalse(pageable)
+    public Page<TicketDTO> getAllUnreservedTickets(Long sessionId, Pageable pageable) {
+        return ticketRepository.findAllByReservedFalseAndFilmSessionId(sessionId, pageable)
                 .map(TicketMapper::toDTO);
     }
 
     @Override
-    public Ticket unreserved(Long id) {
-        return ticketRepository.findById(id)
-                .map(ticket -> {
-                    ticket.setReserved(false);
-                    ticket.setUser(null);
-                    return ticketRepository.save(ticket);
-                })
-                .orElseThrow(
-                        () -> new ModelNotFoundException("Ticket hasn't been found by id: " + id)
-                );
-    }
-
-    @Override
-    public List<Ticket> reservedTicket(UpdateTicketDTO ticketDTO) {
-        if (ticketDTO.getTicketIds().isEmpty()) {
-            throw new ModelNotFoundException("List of ticket ids is empty");
-        }
-        return ticketDTO.getTicketIds()
+    public List<Ticket> unreservedTickets(List<Long> ticketsId) {
+        return ticketsId
                 .stream()
-                .map(ticketId -> reserved(ticketId, ticketDTO.getUserId()))
+                .map(ticketId -> unreserved(ticketId))
                 .collect(Collectors.toList());
     }
 
-    private Ticket reserved(Long ticketId, Long userId) {
-        return ticketRepository.findById(ticketId)
-                .map(ticket -> {
-                    ticket.setReserved(true);
-                    ticket.setUser(getUser(userId));
-                    return ticketRepository.save(ticket);
-                })
-                .orElseThrow(
-                        () -> new ModelNotFoundException("Ticket hasn't been found by id: " + ticketId)
-                );
+    @Override
+    public List<Ticket> reservedTickets(UpdateTicketDTO ticketDTO) {
+        if (ticketDTO.getTicketsId().isEmpty()) {
+            throw new ModelNotFoundException("List of ticket ids is empty");
+        }
+        return ticketDTO.getTicketsId()
+                .stream()
+                .map(ticketId -> reserved(ticketId, ticketDTO.getUserId()))
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -101,6 +84,30 @@ public class TicketServiceImpl implements TicketService {
 
     private User getUser(Long id) {
         return userService.getById(id);
+    }
+
+    private Ticket reserved(Long ticketId, Long userId) {
+        return ticketRepository.findById(ticketId)
+                .map(ticket -> {
+                    ticket.setReserved(true);
+                    ticket.setUser(getUser(userId));
+                    return ticketRepository.save(ticket);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Ticket hasn't been found by id: " + ticketId)
+                );
+    }
+
+    private Ticket unreserved(Long ticketId) {
+        return ticketRepository.findById(ticketId)
+                .map(ticket -> {
+                    ticket.setReserved(false);
+                    ticket.setUser(null);
+                    return ticketRepository.save(ticket);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Ticket hasn't been found by id: " + ticketId)
+                );
     }
 
 }

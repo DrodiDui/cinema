@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.xml.ws.Response;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/tickets")
@@ -27,19 +27,20 @@ public class TicketRestController {
         this.ticketService = ticketService;
     }
 
-    @GetMapping("")
+    @GetMapping("{id}/all")
     public ResponseEntity getAll(
+            @PathVariable(name = "id") Long sessionId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
     ) {
 
-        PageResponse<Ticket> ticket = ticketService.getAllUnreservedTicket(page, size);
+        PageResponse<Ticket> ticket = ticketService.getAllUnreservedTicket(sessionId, page, size);
 
         return new ResponseEntity(ticket, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/all")
-    public ResponseEntity getAll(
+    @GetMapping("/{id}")
+    public ResponseEntity getUserTickets(
             @PathVariable(name = "id") Long userId,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size
@@ -50,7 +51,7 @@ public class TicketRestController {
         return new ResponseEntity(ticket, HttpStatus.OK);
     }
 
-    @PutMapping("")
+    @PutMapping("/reserved")
     public ResponseEntity<ApiResponse> reserved(@RequestBody ReservedTicketDTO ticketDTO) {
 
         ApiResponse response = ticketService.reservedTicket(ticketDTO);
@@ -58,10 +59,10 @@ public class TicketRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse> unreserved(@PathVariable(name = "id") Long ticketId) {
+    @PutMapping("/unreserved")
+    public ResponseEntity<ApiResponse> unreserved(@RequestBody List<Long> ticketsId) {
 
-        ApiResponse response = ticketService.unreservedTicket(ticketId);
+        ApiResponse response = ticketService.unreservedTicket(ticketsId);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

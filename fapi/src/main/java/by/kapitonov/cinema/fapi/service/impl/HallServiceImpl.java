@@ -19,9 +19,9 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public PageResponse<Hall> getAll(int page, int size) {
+    public PageResponse<Hall> getAll(Long cinemaId, int page, int size) {
         return restTemplate.getForObject(
-                UrlConstants.HALL_URL + "?page=" + page + "&size=" + size,
+                UrlConstants.HALL_URL + "/" + cinemaId + "/all?page=" + page + "&size=" + size,
                 PageResponse.class
         );
     }

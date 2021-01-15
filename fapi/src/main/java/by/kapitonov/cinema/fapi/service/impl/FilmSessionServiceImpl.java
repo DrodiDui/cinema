@@ -25,6 +25,14 @@ public class FilmSessionServiceImpl implements FilmSessionService {
     }
 
     @Override
+    public PageResponse<FilmSession> getAllActiveSessionByHallId(Long hallId, int page, int size) {
+        return restTemplate.getForObject(
+                "/" + hallId + "/active?page=" + page + "&size=" + size,
+                PageResponse.class
+        );
+    }
+
+    @Override
     public FilmSession getOne(Long sessionId) {
         return restTemplate.getForObject("/" + sessionId, FilmSession.class);
     }

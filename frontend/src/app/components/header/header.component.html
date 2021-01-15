@@ -4,12 +4,18 @@
       <a class="navbar-brand" href="/">Cinema</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li *ngIf="isAdmin()">
-            <a href="/users">user list</a>
+          <li class="nav-item" *ngIf="isAdmin()">
+            <a class="nav-link" href="/users">user list</a>
           </li>
+          <li class="nav-item" *ngIf="isOwner() else isUser">
+            <a class="nav-link" href="/owner/cinemas">cinema list</a>
+          </li>
+          <ng-template #isUser>
+            <a class="nav-link" href="/cinemas">cinema list</a>
+          </ng-template>
         </ul>
         <form class="form-inline my-2 my-lg-0" *ngIf="isLogin() else logoutForm">
-          <a class="btn btn-outline-success my-2 my-sm-0" href="/login">Profile</a>
+          <a class="btn btn-outline-success my-2 my-sm-0" href="/profile">Profile</a>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="logout()">Logout</button>
         </form>
         <ng-template #logoutForm>

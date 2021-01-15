@@ -58,19 +58,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ApiResponse registration(RegistrationUserDTO userDTO) {
-
-        String hashPassword = passwordEncoder.encode(userDTO.getPassword());
-        User user = new User();
-        user.setEmail(userDTO.getEmail());
-        user.setPassword(hashPassword);
-        user.setFirstName(userDTO.getFirstName());
-        user.setLastName(userDTO.getLastName());
-
-        return restTemplate.postForEntity(UrlConstants.USER_URL + "/registration", user, ApiResponse.class).getBody();
-    }
-
-    @Override
     public ApiResponse changeRole(Long userId, String roleName) {
         return restTemplate.patchForObject(
                 UrlConstants.USER_URL + "/" + userId + "/role?role=" + roleName,

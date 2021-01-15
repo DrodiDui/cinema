@@ -39,6 +39,14 @@ public class HallRestController {
         return new ResponseEntity(hallDTOS, HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/all")
+    public ResponseEntity getAll(@PathVariable(name = "id") Long cinemaId, Pageable pageable) {
+
+        Page<HallDTO> hallDTOS = hallService.getAllByCinemaId(cinemaId, pageable);
+
+        return new ResponseEntity(hallDTOS, HttpStatus.OK);
+    }
+
     @GetMapping("{name}")
     public ResponseEntity<HallDTO> getOne(@PathVariable(name = "name") String hallName) {
 

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 public interface HallService {
 
     Page<HallDTO> getAll(Pageable pageable);
+    Page<HallDTO> getAllByCinemaId(Long cinemaId, Pageable pageable);
 
     Hall getById(Long id);
     HallDTO getByHallName(String hallName);

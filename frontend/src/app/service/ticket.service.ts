@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {Ticket} from "../model/Ticket";
 import {ReservedDTO} from "../model/dto/ReservedDTO";
 import {ApiResponse} from "../model/ApiResponse";
+import {Page} from "../model/Page";
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +15,20 @@ export class TicketService {
 
   constructor(private http: HttpClient) { }
 
-  public getAllUnreservedTicket(page: number, size: number): Observable<Ticket> {
-    return this.http.get<Ticket>(`${this.url}?page=${page}&size=${size}`);
+  public getAllUnreservedTicket(sessionId: number, page: number, size: number): Observable<Page<Ticket>> {
+    return this.http.get<Page<Ticket>>(`${this.url}/${sessionId}/all?page=${page}&size=${size}`);
   }
 
-  public getAllUserTicket(userId: number, page: number, size: number): Observable<Ticket> {
-    return this.http.get<Ticket>(`${this.url}/${userId}?page=${page}&size=${size}`);
+  public getAllUserTicket(userId: number, page: number, size: number): Observable<Page<Ticket>> {
+    return this.http.get<Page<Ticket>>(`${this.url}/${userId}?page=${page}&size=${size}`);
   }
 
   public reserved(reservedDTO: ReservedDTO):Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.url}`, reservedDTO);
+    return this.http.put<ApiResponse>(`${this.url}/reserved`, reservedDTO);
   }
 
-  public unreserved(ticketId: number):Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.url}/${ticketId}`, null);
+  public unreserved(ticketsId: number[]):Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(`${this.url}/unreserved`, ticketsId);
   }
 
 }

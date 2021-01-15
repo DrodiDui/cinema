@@ -6,7 +6,7 @@ import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 
 public interface HallService {
 
-    PageResponse<Hall> getAll(int page, int size);
+    PageResponse<Hall> getAll(Long cinemaId, int page, int size);
 
     Hall getOne(String hallName);
 

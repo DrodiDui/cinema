@@ -1,6 +1,6 @@
 export class ReservedDTO {
 
-  ticketIds: number[];
+  ticketsId: Array<number> = new Array<number>();
   userId: number;
 
 }

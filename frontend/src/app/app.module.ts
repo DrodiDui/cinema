@@ -18,6 +18,12 @@ import {AuthInterceptor} from "./security/AuthInterceptor";
 import { TicketListComponent } from './components/ticket-list/ticket-list.component';
 import { CinemaListComponent } from './components/cinema-list/cinema-list.component';
 import { UserCinemaListComponent } from './components/user-cinema-list/user-cinema-list.component';
+import { CinemaDetailsComponent } from './components/cinema-details/cinema-details.component';
+import { HallListComponent } from './components/hall-list/hall-list.component';
+import { HallDetailsComponent } from './components/hall-details/hall-details.component';
+import { HomePageComponent } from './components/home-page/home-page.component';
+import { FilmSessionDetailsComponent } from './components/film-session-details/film-session-details.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +34,13 @@ import { UserCinemaListComponent } from './components/user-cinema-list/user-cine
     LoginComponent,
     TicketListComponent,
     CinemaListComponent,
-    UserCinemaListComponent
+    UserCinemaListComponent,
+    CinemaDetailsComponent,
+    HallListComponent,
+    HallDetailsComponent,
+    HomePageComponent,
+    FilmSessionDetailsComponent,
+    ProfileComponent
   ],
     imports: [
         BrowserModule,

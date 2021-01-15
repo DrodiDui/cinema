@@ -39,6 +39,12 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
+    public Page<HallDTO> getAllByCinemaId(Long cinemaId, Pageable pageable) {
+        return hallRepository.findAllByCinemaId(cinemaId, pageable)
+                .map(HallMapper::toDTO);
+    }
+
+    @Override
     public Hall getById(Long id) {
         return hallRepository.findById(id)
                 .orElseThrow(

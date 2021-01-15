@@ -14,7 +14,7 @@
   <tbody>
   <tr *ngFor="let cinema of cinemas">
     <th scope="row">{{cinemas.length / 10}}</th>
-    <td>{{cinema.cinemaName}}</td>
+    <td><a href="cinema/{{cinema.cinemaName}}">{{cinema.cinemaName}}</a></td>
     <td>{{cinema.country}}</td>
     <td>{{cinema.city}}</td>
     <th>{{cinema.address}}</th>
