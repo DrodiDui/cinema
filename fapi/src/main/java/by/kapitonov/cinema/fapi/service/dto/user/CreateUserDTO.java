@@ -11,5 +11,6 @@ public class CreateUserDTO {
     private String lastName;
     private String roleName;
     private String statusName;
+    private String cinemaId;
 
 }

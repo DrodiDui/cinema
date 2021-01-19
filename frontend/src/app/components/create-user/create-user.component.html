@@ -1,0 +1,50 @@
+<div class="container mt-5 st-5" align="center">
+  <div class="row justify-content-center">
+    <form (ngSubmit)="createUser()">
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="Email">Email</label>
+          <input type="text" class="form-control" id="Email" name="username" [(ngModel)]="userDTO.email">
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="Password">Password</label>
+          <input type="password" class="form-control" id="Password" name="password" [(ngModel)]="userDTO.password">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="FirstName">First name</label>
+          <input type="text" class="form-control" id="FirstName" name="firstName" [(ngModel)]="userDTO.firstName">
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="LastName">Last name</label>
+          <input type="text" class="form-control" id="LastName" name="lastName" [(ngModel)]="userDTO.lastName">
+        </div>
+      </div>
+
+
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="role">Role</label>
+          <select id="Role" class="form-control" name="secretQuestion" [(ngModel)]="userDTO.roleName">
+            <option *ngFor="let role of roles" value="{{role}}">{{role}}</option>
+          </select>
+        </div>
+
+        <div class="form-group col-md-6">
+          <label for="Status">Status</label>
+          <select id="Status" class="form-control" name="secretQuestion" [(ngModel)]="userDTO.statusName">
+            <option *ngFor="let status of statuses" value="{{status}}">{{status}}</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary">Submit</button>
+
+    </form>
+  </div>
+</div>

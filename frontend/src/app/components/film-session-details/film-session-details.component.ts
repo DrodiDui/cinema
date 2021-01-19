@@ -7,6 +7,8 @@ import {Ticket} from "../../model/Ticket";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {ReservedDTO} from "../../model/dto/ReservedDTO";
 import {ApiResponse} from "../../model/ApiResponse";
+import {Page} from "../../model/Page";
+import {error} from "util";
 
 @Component({
   selector: 'app-film-session-details',
@@ -19,6 +21,9 @@ export class FilmSessionDetailsComponent implements OnInit {
   private tickets: Ticket[];
   private ticketDTO: ReservedDTO;
   private response: ApiResponse;
+  private currentPage: number = 0;
+  private hasNext: boolean;
+  private hasPrevious: boolean;
 
   constructor(
     private filmSessionService:FilmSessionService,
@@ -30,16 +35,24 @@ export class FilmSessionDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loadSession();
+    this.loadTickets(this.currentPage);
+  }
+
+  loadSession() {
     let sessionId: number = this.rout.snapshot.params['id'];
     this.filmSessionService.getOne(sessionId).subscribe(data => {
       this.filmSession = data;
-      this.loadTickets(this.filmSession.id);
+      this.loadTickets(this.currentPage);
     })
   }
 
-  loadTickets(sessionId: number) {
-    this.ticketService.getAllUnreservedTicket(sessionId, 0, 10).subscribe(data => {
+  loadTickets(page: number) {
+    this.ticketService.getAllUnreservedTicket(this.filmSession.id, page, 5).subscribe(data => {
       this.tickets = data.content;
+      this.currentPage = data.pageable.pageNumber;
+      this.hasNext = data.last;
+      this.hasPrevious = data.first;
     })
   }
 

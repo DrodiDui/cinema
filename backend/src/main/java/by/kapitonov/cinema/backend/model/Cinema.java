@@ -66,4 +66,6 @@ public class Cinema implements Serializable {
     @OneToMany(mappedBy = "cinema", cascade = CascadeType.ALL)
     private List<Hall> halls;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cinema")
+    private List<User> managers;
 }

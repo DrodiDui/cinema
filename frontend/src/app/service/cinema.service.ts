@@ -20,8 +20,12 @@ export class CinemaService {
     return this.http.get<Page<Cinema>>(`${this.url}?page=${page}&size=${size}`);
   }
 
-  public getAllUserCinemas(userId: number, page: number, size: number): Observable<Page<Cinema>> {
-    return this.http.get<Page<Cinema>>(`${this.url}/${userId}/all?page=${page}&size=${size}`);
+  public getAllUserCinemas(ownerId: number, page: number, size: number): Observable<Page<Cinema>> {
+    return this.http.get<Page<Cinema>>(`${this.url}/all/${ownerId}?page=${page}&size=${size}`);
+  }
+
+  public getAllUserCinemasByCountryAndCity(ownerId: number, country: string, city: string): Observable<Cinema[]> {
+    return this.http.get<Cinema[]>(`${this.url}/${ownerId}/all?country=${country}&city=${city}`);
   }
 
   public getByName(cinemaName: string): Observable<Cinema> {

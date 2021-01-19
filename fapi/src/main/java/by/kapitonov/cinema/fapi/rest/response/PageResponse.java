@@ -21,4 +21,11 @@ public class PageResponse<T> {
     @JsonProperty("totalPages")
     private long totalElements;
 
+    private Pageable pageable;
+
+    @JsonProperty("last")
+    private boolean hasNext;
+    @JsonProperty("first")
+    private boolean hasPrevious;
+
 }

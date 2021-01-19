@@ -43,4 +43,10 @@ export class HomePageComponent implements OnInit {
     return false;
   }
 
+  isLogin() {
+    if (this.tokenStorage.getToken()) {
+      return true;
+    }
+    return false;
+  }
 }

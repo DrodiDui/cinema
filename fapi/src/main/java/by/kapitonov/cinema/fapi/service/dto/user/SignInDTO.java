@@ -1,4 +1,4 @@
-package by.kapitonov.cinema.fapi.service.dto;
+package by.kapitonov.cinema.fapi.service.dto.user;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

@@ -8,6 +8,8 @@ import by.kapitonov.cinema.fapi.service.UserService;
 import by.kapitonov.cinema.fapi.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.fapi.service.dto.user.RegistrationUserDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -28,13 +30,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public PageResponse<User> getAll(Integer page, Integer size) {
-
-        PageResponse<User> pageResponse =
-                restTemplate.getForObject(
-                        UrlConstants.USER_URL + "?page=" + page + "&size=" + size,
-                        PageResponse.class
-                );
-        return pageResponse;
+        return restTemplate.getForObject(
+                UrlConstants.USER_URL + "?page=" + page + "&size=" + size,
+                PageResponse.class
+        );
     }
 
     @Override

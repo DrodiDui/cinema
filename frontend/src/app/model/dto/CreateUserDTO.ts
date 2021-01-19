@@ -6,5 +6,6 @@ export class CreateUserDTO {
   lastName?: string;
   roleName?: string;
   statusName?: string;
+  cinemaId?: number;
 
 }

@@ -1,10 +1,10 @@
-<h1>Total page: {{pageable.totalElements}}</h1>
 <table class="table">
 <thead>
 <tr>
   <th scope="col">#</th>
   <th scope="col">Email</th>
   <th scope="col">Role</th>
+  <th scope="col">Action</th>
 </tr>
 </thead>
 <tbody>
@@ -12,16 +12,25 @@
   <th scope="row"></th>
   <td>{{user.email}}</td>
   <td>{{user.roleName}}</td>
+  <td>
+    <a class="btn" href="/admin/users/change/role">Change role</a>
+    <a class="btn" href="/admin/users/change/role">Change status</a>
+  </td>
+  <td></td>
 </tr>
 </tbody>
 </table>
 <nav aria-label="Page navigation example">
   <ul class="pagination">
-    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-    <li class="page-item">
-      <a class="page-link" href="#">
-      </a>
+    <li class="page-item" *ngIf="!hasPrevious">
+      <button class="page-link" type="submit" (click)="loadUser(currentPage - 1)">
+        << Previous
+      </button>
     </li>
-    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    <li class="page-item" *ngIf="!hasNext">
+      <button class="page-link" type="submit" (click)="loadUser(currentPage + 1)">
+        Next>>
+      </button>
+    </li>
   </ul>
 </nav>

@@ -1,6 +1,5 @@
 package by.kapitonov.cinema.backend.rest.controller;
 
-import by.kapitonov.cinema.backend.model.Cinema;
 import by.kapitonov.cinema.backend.rest.response.ApiResponse;
 import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.dto.cinema.CinemaDTO;
@@ -16,9 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/cinemas")
@@ -38,10 +38,22 @@ public class CinemaRestController {
         return new ResponseEntity(cinemaDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("/{owner-id}/all")
+    @GetMapping("/all/{owner-id}")
     public ResponseEntity getAll(@PathVariable(name = "owner-id") Long ownerId, Pageable pageable) {
 
         Page<CinemaDTO> cinemaDTOS = cinemaService.getAllByOwnerId(ownerId, pageable);
+
+        return new ResponseEntity(cinemaDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/{owner_id}/all/")
+    public ResponseEntity getAll(
+            @PathVariable(name = "owner-id") Long ownerId,
+            @RequestParam(value = "country") String country,
+            @RequestParam(value = "city") String city
+    ) {
+
+        List<CinemaDTO> cinemaDTOS = cinemaService.getAllByCountyCityAndOwnerId(country, city, ownerId);
 
         return new ResponseEntity(cinemaDTOS, HttpStatus.OK);
     }
@@ -73,7 +85,7 @@ public class CinemaRestController {
     @PutMapping("/{id}/status")
     public ResponseEntity<ApiResponse> updateStatus(
             @PathVariable(name = "id") Long id,
-            @PathParam(value = "status") String statusName
+            @RequestParam(value = "status") String statusName
     ) {
 
         cinemaService.changeStatus(id, statusName);

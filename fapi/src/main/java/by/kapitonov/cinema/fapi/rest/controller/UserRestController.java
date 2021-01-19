@@ -5,6 +5,7 @@ import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.UserService;
 import by.kapitonov.cinema.fapi.service.dto.user.CreateUserDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class UserRestController {
 
     @GetMapping
     public ResponseEntity getAll(@RequestParam(defaultValue = "0") int page,
-                                 @RequestParam(defaultValue = "3") int size) {
+                                 @RequestParam(defaultValue = "10") int size) {
 
         PageResponse<User> users = userService.getAll(page, size);
 

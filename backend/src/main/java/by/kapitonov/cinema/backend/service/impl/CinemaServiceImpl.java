@@ -2,6 +2,7 @@ package by.kapitonov.cinema.backend.service.impl;
 
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.Cinema;
+import by.kapitonov.cinema.backend.model.CinemaStatus;
 import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.repository.CinemaRepository;
 import by.kapitonov.cinema.backend.service.CinemaService;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CinemaServiceImpl implements CinemaService {
@@ -48,6 +51,14 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
+    public List<CinemaDTO> getAllByCountyCityAndOwnerId(String country, String city, Long ownerId) {
+        return cinemaRepository.findAllByCountryAndCityAndOwnerId(country, city, ownerId)
+                .stream()
+                .map(CinemaMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public CinemaDTO getByName(String cinemaName) {
         return cinemaRepository.findByCinemaName(cinemaName)
                 .map(CinemaMapper::toDTO)
@@ -73,7 +84,7 @@ public class CinemaServiceImpl implements CinemaService {
         cinema.setAddress(cinemaDTO.getAddress());
         cinema.setCreationDate(new Date());
         cinema.setDescription(cinemaDTO.getDescription());
-        cinema.setStatus(cinemaStatusService.getByName(cinemaDTO.getStatusName()));
+        cinema.setStatus(getCinemaStatus(cinemaDTO.getStatusName()));
         cinema.setOwner(getUser(cinemaDTO.getOwnerId()));
 
         return cinemaRepository.save(cinema);
@@ -109,8 +120,12 @@ public class CinemaServiceImpl implements CinemaService {
                 );
     }
 
-
     private User getUser(Long id) {
         return userService.getById(id);
     }
+
+    private CinemaStatus getCinemaStatus(String statusName) {
+        return cinemaStatusService.getByName(statusName);
+    }
+
 }

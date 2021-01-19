@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class UserStatusService {
 
-  private url: string = `http://localhost:8090/api/user-statuses`;
+  private url: string = `http://localhost:8091/api/user-statuses`;
 
   constructor(private http: HttpClient) { }
 

@@ -58,4 +58,7 @@ public class User implements Serializable {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Ticket> tickets;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cinema cinema;
 }

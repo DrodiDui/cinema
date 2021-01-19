@@ -6,7 +6,7 @@ import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.TokenResponse;
 import by.kapitonov.cinema.fapi.security.TokenProvider;
 import by.kapitonov.cinema.fapi.service.AuthService;
-import by.kapitonov.cinema.fapi.service.dto.SignInDTO;
+import by.kapitonov.cinema.fapi.service.dto.user.SignInDTO;
 import by.kapitonov.cinema.fapi.service.dto.user.RegistrationUserDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.security.authentication.AuthenticationManager;

@@ -26,14 +26,28 @@ export class HeaderComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    if (this.tokenStorage.getRole() === 'admin') {
+    if (this.tokenStorage.getRole() === 'ROLE_ADMIN') {
       return true;
     }
     return false;
   }
 
   isOwner() {
-    if (this.tokenStorage.getRole() === 'owner') {
+    if (this.tokenStorage.getRole() === 'ROLE_OWNER') {
+      return true;
+    }
+    return false;
+  }
+
+  isManager() {
+    if (this.tokenStorage.getRole() === 'ROLE_MANAGER') {
+      return true;
+    }
+    return false;
+  }
+
+  isUser() {
+    if (this.tokenStorage.getRole() === 'ROLE_USER') {
       return true;
     }
     return false;

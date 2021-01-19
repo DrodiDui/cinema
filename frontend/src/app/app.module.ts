@@ -24,6 +24,14 @@ import { HallDetailsComponent } from './components/hall-details/hall-details.com
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { FilmSessionDetailsComponent } from './components/film-session-details/film-session-details.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CreateUserComponent } from './components/create-user/create-user.component';
+import {CinemaService} from "./service/cinema.service";
+import {HallService} from "./service/hall.service";
+import {FilmSessionService} from "./service/film-session.service";
+import {TicketService} from "./service/ticket.service";
+import { CreateCinemaComponent } from './components/create-cinema/create-cinema.component';
+import { UpdateCinemaComponent } from './components/update-cinema/update-cinema.component';
+import { OwnerCinemaListComponent } from './components/owner-cinema-list/owner-cinema-list.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +48,11 @@ import { ProfileComponent } from './components/profile/profile.component';
     HallDetailsComponent,
     HomePageComponent,
     FilmSessionDetailsComponent,
-    ProfileComponent
+    ProfileComponent,
+    CreateUserComponent,
+    CreateCinemaComponent,
+    UpdateCinemaComponent,
+    OwnerCinemaListComponent
   ],
     imports: [
         BrowserModule,
@@ -54,6 +66,10 @@ import { ProfileComponent } from './components/profile/profile.component';
     TokenStorageService,
     UserService,
     UserStatusService,
+    CinemaService,
+    HallService,
+    FilmSessionService,
+    TicketService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

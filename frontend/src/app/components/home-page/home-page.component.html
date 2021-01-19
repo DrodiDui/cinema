@@ -1,26 +1,73 @@
-<div *ngIf="isAdmin()">
-  <p>
-    <a href="">user list</a>
-    <a href="">create cinema owner</a>
-  </p>
+<div class="container mt-1 st-1">
+  <div class="row" *ngIf="isAdmin()">
+    <div class="col col-lg-5">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <a href="/admin/users" class="list-group-item list-group-item-action active" aria-current="true">
+            User list
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/admin/users/create" class="list-group-item list-group-item-action active" aria-current="true">
+            Create cinema owner
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/admin/users/update" class="list-group-item list-group-item-action active" aria-current="true">
+            Update cinema owner
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="isOwner()">
+    <div class="col col-lg-3" >
+      <ul class="list-group">
+        <li class="list-group-item">
+          Cinema
+        </li>
+        <li class="list-group-item">
+          <a href="/owner/cinemas" class="list-group-item list-group-item-action active" aria-current="true">
+            Cinema list
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/owner/cinemas/create" class="list-group-item list-group-item-action active" aria-current="true">
+            Create cinema
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/owner/cinemas/update" class="list-group-item list-group-item-action active" aria-current="true">
+            Update cinema
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col col-lg-3">
+      <ul class="list-group">
+        <li class="list-group-item">
+          Managers
+        </li>
+        <li class="list-group-item">
+          <a href="/owner/managers" class="list-group-item list-group-item-action active" aria-current="true">
+            Manager list
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/admin/users" class="list-group-item list-group-item-action active" aria-current="true">
+            Create manager
+          </a>
+        </li>
+        <li class="list-group-item">
+          <a href="/admin/users" class="list-group-item list-group-item-action active" aria-current="true">
+            Update manager
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
 </div>
 
-<div *ngIf="isOwner()">
-  <p>
-    <a href="">cinema list</a>
-    <a href="">create cinema</a>
-  </p>
-</div>
-
-<div *ngIf="isManager()">
-  <p>
-    <a href="">Film session list</a>
-    <a href="">create film session</a>
-  </p>
-</div>
-
-<div *ngIf="isUser()">
-  <p>
-    <a href="">Cinema list</a>
-  </p>
-</div>

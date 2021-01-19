@@ -3,17 +3,134 @@
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Cinema</a>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item" *ngIf="isAdmin()">
-            <a class="nav-link" href="/users">user list</a>
-          </li>
-          <li class="nav-item" *ngIf="isOwner() else isUser">
-            <a class="nav-link" href="/owner/cinemas">cinema list</a>
-          </li>
-          <ng-template #isUser>
-            <a class="nav-link" href="/cinemas">cinema list</a>
-          </ng-template>
+
+          <!--<li class="nav-item dropdown" *ngIf="isAdmin()">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Users
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li><a class="dropdown-item" href="/admin/users">User list</a></li>
+              <li><a class="dropdown-item" href="/admin/users/create">create user</a></li>
+              <li><a class="dropdown-item" href="/admin/users/update">update user</a></li>
+            </ul>
+          </li>-->
+
         </ul>
+
+        <!--<ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isAdmin()">
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAdmin" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              Admin dropdown
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownAdmin">
+              <li><a class="dropdown-item" href="/users">users</a></li>
+              <li><a class="dropdown-item" href="/create-user">create user</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOwner" role="button"
+               data-bs-toggle="dropdown" aria-expanded="false">
+              Owner dropdown
+            </a>
+            &lt;!&ndash;<ul class="dropdown-menu" aria-labelledby="navbarDropdownOwner">
+              <li>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOwnerCienema" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Cinema
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownOwnerCienema">
+                  <li><a class="nav-link" href="/owner/cinemas">cinema list</a></li>
+                  <li><a class="nav-link" href="/owner/create-cinema">create cinema</a></li>
+                  <li><a class="nav-link" href="/owner/create-cinema">update cinema</a></li>
+                </ul>
+              </li>
+
+              <li>
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOwnerHall" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Hall
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownOwnerHall">
+                  <li><a class="nav-link" href="/owner/cinemas">hall list</a></li>
+                  <li><a class="nav-link" href="/owner/create-cinema">create hall</a></li>
+                  <li><a class="nav-link" href="/owner/create-cinema">update hall</a></li>
+                </ul>
+              </li>
+            </ul>&ndash;&gt;
+          </li>
+        </ul>
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isOwner()">
+
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuCinema" data-bs-toggle="dropdown" aria-expanded="false">
+              Cinemas
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuCinema">
+              <li><a class="dropdown-item" href="#">cinema list</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </div>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownHall" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+              Hall
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownHall">
+              <li><a class="dropdown-item" href="#">hall list</a></li>
+              <li><a class="dropdown-item" href="#">create hall</a></li>
+              <li><a class="dropdown-item" href="#">update hall</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFilm" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+              Film
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownFilm">
+              <li><a class="dropdown-item" href="#">film list</a></li>
+              <li><a class="dropdown-item" href="#">create film</a></li>
+              <li><a class="dropdown-item" href="#">update film</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownManager" role="button" data-bs-toggle="dropdown"
+               aria-expanded="false">
+              Manager
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownManager">
+              <li><a class="dropdown-item" href="#">manager list</a></li>
+              <li><a class="dropdown-item" href="/user/create">create manager</a></li>
+              <li><a class="dropdown-item" href="#">update film</a></li>
+            </ul>
+          </li>
+
+        </ul>
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="!isUser()">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/cinemas">cinema list</a>
+          </li>
+
+        </ul>
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="!isLogin()">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/cinemas">cinema list</a>
+          </li>
+
+        </ul>-->
+
         <form class="form-inline my-2 my-lg-0" *ngIf="isLogin() else logoutForm">
           <a class="btn btn-outline-success my-2 my-sm-0" href="/profile">Profile</a>
           <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="logout()">Logout</button>

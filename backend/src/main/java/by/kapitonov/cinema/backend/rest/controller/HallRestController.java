@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
@@ -74,7 +75,7 @@ public class HallRestController {
     @PutMapping("/{id}/status")
     public ResponseEntity<ApiResponse> updateStatus(
             @PathVariable(name = "id") Long id,
-            @PathParam(value = "status") String statusName) {
+            @RequestParam(value = "status") String statusName) {
 
         hallService.changStatus(id, statusName);
 

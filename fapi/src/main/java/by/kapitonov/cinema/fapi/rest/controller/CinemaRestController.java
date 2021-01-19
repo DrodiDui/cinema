@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/cinemas")
@@ -40,7 +41,7 @@ public class CinemaRestController {
         return new ResponseEntity(cinemas, HttpStatus.OK);
     }
 
-    @GetMapping("/{owner-id}/all")
+    @GetMapping("/all/{owner-id}")
     public ResponseEntity getAll(
             @PathVariable(name = "owner-id") Long ownerId,
             @RequestParam(defaultValue = "0") int page,
@@ -48,6 +49,18 @@ public class CinemaRestController {
     ) {
 
         PageResponse<Cinema> cinemas = cinemaService.getAllOwnerCinemas(ownerId, page, size);
+
+        return new ResponseEntity(cinemas, HttpStatus.OK);
+    }
+
+    @GetMapping("/{owner-id}/all")
+    public ResponseEntity getAll(
+            @PathVariable(name = "owner-id") Long ownerId,
+            @RequestParam(value = "country") String country,
+            @RequestParam(value = "city") String city
+    ) {
+
+        List<Cinema> cinemas = cinemaService.getAllOwnerCinemasByCountryAndCity(ownerId, country, city);
 
         return new ResponseEntity(cinemas, HttpStatus.OK);
     }

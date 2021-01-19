@@ -11,6 +11,8 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
 @Service
 public class CinemaServiceImpl implements CinemaService {
 
@@ -31,8 +33,16 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public PageResponse<Cinema> getAllOwnerCinemas(Long ownerId, int page, int size) {
         return restTemplate.getForObject(
-                UrlConstants.CINEMA_URL + "/" + ownerId + "/all?page=" + page + "&size=" + size,
+                UrlConstants.CINEMA_URL + "/all/" + ownerId + "?page=" + page + "&size=" + size,
                 PageResponse.class
+        );
+    }
+
+    @Override
+    public List<Cinema> getAllOwnerCinemasByCountryAndCity(Long ownerId, String country, String city) {
+        return restTemplate.getForObject(
+                UrlConstants.CINEMA_URL + "/" + ownerId + "/all" + "?country=" + country + "&city=" + city,
+                List.class
         );
     }
 

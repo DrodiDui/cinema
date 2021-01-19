@@ -11,13 +11,13 @@ import {Page} from "../model/Page";
 })
 export class UserService {
 
-  private url: string = `http://localhost:8090/api/users`;
+  private url: string = `http://localhost:8091/api/users`;
 
   constructor(private http: HttpClient) {
   }
 
-  public getAll(): Observable<Page<User>> {
-    return this.http.get<Page<User>>(`${this.url}`);
+  public getAll(page: number, size: number): Observable<Page<User>> {
+    return this.http.get<Page<User>>(`${this.url}?page=${page}&size=${size}`);
   }
 
   public getOne(email: string): Observable<User> {

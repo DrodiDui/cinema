@@ -9,18 +9,25 @@ import {HallDetailsComponent} from "./components/hall-details/hall-details.compo
 import {CinemaListComponent} from "./components/cinema-list/cinema-list.component";
 import {FilmSessionDetailsComponent} from "./components/film-session-details/film-session-details.component";
 import {ProfileComponent} from "./components/profile/profile.component";
+import {CreateUserComponent} from "./components/create-user/create-user.component";
+import {HomePageComponent} from "./components/home-page/home-page.component";
+import {CreateCinemaComponent} from "./components/create-cinema/create-cinema.component";
 
 
 const routes: Routes = [
+  {path: '', component: HomePageComponent},
   {path: 'registration', component: RegistrationComponent},
-  {path: 'users', component: UserListComponent},
+  {path: 'admin/users', component: UserListComponent},
   {path: 'login', component: LoginComponent},
   {path: 'owner/cinemas', component: UserCinemaListComponent},
   {path: 'cinemas', component: CinemaListComponent},
   {path: 'cinema/:name', component: CinemaDetailsComponent},
   {path: 'hall/:name', component: HallDetailsComponent},
   {path: 'film-session/:id', component: FilmSessionDetailsComponent},
-  {path: 'profile', component: ProfileComponent}
+  {path: 'profile', component: ProfileComponent},
+  {path: 'admin/users/create', component: CreateUserComponent},
+  {path: 'owner/cinemas/create', component: CreateCinemaComponent},
+  {path: 'owner/:id/create/manager', component: CreateUserComponent}
 ];
 
 @NgModule({

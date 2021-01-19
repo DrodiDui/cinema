@@ -41,6 +41,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role create(String roleName) {
+        roleName = "ROLE_" + roleName.toUpperCase();
         return roleRepository.save(new Role(roleName));
     }
 }
