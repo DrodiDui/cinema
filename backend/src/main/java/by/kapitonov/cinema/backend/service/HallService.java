@@ -13,7 +13,7 @@ public interface HallService {
     Page<HallDTO> getAllByCinemaId(Long cinemaId, Pageable pageable);
 
     Hall getById(Long id);
-    HallDTO getByHallName(String hallName);
+    HallDTO getByHallName(String hallName, String cinemaName);
     Integer getAllNumberOfSeats(Long id);
 
     Hall create(CreateHallDTO hallDTO);

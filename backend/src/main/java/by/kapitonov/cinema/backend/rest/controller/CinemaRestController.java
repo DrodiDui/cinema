@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -46,7 +47,7 @@ public class CinemaRestController {
         return new ResponseEntity(cinemaDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("/{owner_id}/all/")
+    @GetMapping("/{owner-id}/all/")
     public ResponseEntity getAll(
             @PathVariable(name = "owner-id") Long ownerId,
             @RequestParam(value = "country") String country,
@@ -62,6 +63,14 @@ public class CinemaRestController {
     public ResponseEntity<CinemaDTO> getOne(@PathVariable(name = "name") String cinemaName) {
 
         CinemaDTO cinemaDTO = cinemaService.getByName(cinemaName);
+
+        return new ResponseEntity<>(cinemaDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/manager/{id}")
+    public ResponseEntity<CinemaDTO> getOne(@PathVariable(name = "id") Long managerId) {
+
+        CinemaDTO cinemaDTO = cinemaService.getByManagerId(managerId);
 
         return new ResponseEntity<>(cinemaDTO, HttpStatus.OK);
     }
@@ -82,7 +91,7 @@ public class CinemaRestController {
         return new ResponseEntity<>(new ApiResponse("Cinema successfully updated"), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/status")
+    @PatchMapping("/{id}/status")
     public ResponseEntity<ApiResponse> updateStatus(
             @PathVariable(name = "id") Long id,
             @RequestParam(value = "status") String statusName

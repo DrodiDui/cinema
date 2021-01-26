@@ -5,6 +5,7 @@ import by.kapitonov.cinema.fapi.model.Hall;
 import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.HallService;
+import by.kapitonov.cinema.fapi.service.dto.CreateHallDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,8 +15,8 @@ public class HallServiceImpl implements HallService {
 
     private final RestTemplate restTemplate;
 
-    public HallServiceImpl(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+    public HallServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -27,18 +28,18 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public Hall getOne(String hallName) {
+    public Hall getOne(String cinemaName, String hallName) {
         return restTemplate.getForObject(
-                UrlConstants.HALL_URL + "/" + hallName,
+                UrlConstants.HALL_URL + "/" + cinemaName + "/" + hallName,
                 Hall.class
         );
     }
 
     @Override
-    public ApiResponse create(Hall hall) {
+    public ApiResponse create(CreateHallDTO hallDTO) {
         return restTemplate.postForEntity(
                 UrlConstants.HALL_URL,
-                hall,
+                hallDTO,
                 ApiResponse.class
         ).getBody();
     }

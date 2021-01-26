@@ -20,4 +20,5 @@ public interface TicketService {
     List<Ticket> reservedTickets(UpdateTicketDTO ticketDTO);
 
     List<Ticket> unreservedTickets(List<Long> ticketsId);
+    Ticket unreservedOne(Long ticketId);
 }

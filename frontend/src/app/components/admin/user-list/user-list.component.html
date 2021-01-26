@@ -1,0 +1,74 @@
+<table class="table">
+<thead>
+<tr>
+  <th scope="col">#</th>
+  <th scope="col">Email</th>
+  <th scope="col">Role</th>
+  <th scope="col">Action</th>
+</tr>
+</thead>
+<tbody>
+<tr *ngFor="let user of users">
+  <th scope="row"></th>
+  <td>{{user.email}}</td>
+  <td>{{user.roleName}}</td>
+  <td>
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuRole" data-bs-toggle="dropdown" aria-expanded="false">
+        Change role
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuRole">
+        <li>
+          <form (ngSubmit)="changeRole(user.id)">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="role">Role</label>
+                <select id="Role" class="form-control" name="secretQuestion" [(ngModel)]="roleName">
+                  <option *ngFor="let role of roles" value="{{role}}">{{role}}</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">change</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuStatus" data-bs-toggle="dropdown" aria-expanded="false">
+        Change status
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatus">
+        <li>
+          <form (ngSubmit)="changeStatus(user.id)">
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="Status">Status</label>
+                <select id="Status" class="form-control" name="statusName" [(ngModel)]="statusName">
+                  <option *ngFor="let status of statuses" value="{{status}}">{{status}}</option>
+                </select>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">change</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+  </td>
+  <td></td>
+</tr>
+</tbody>
+</table>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" *ngIf="!hasPrevious">
+      <button class="page-link" type="submit" (click)="loadUser(currentPage - 1)">
+        << Previous
+      </button>
+    </li>
+    <li class="page-item" *ngIf="!hasNext">
+      <button class="page-link" type="submit" (click)="loadUser(currentPage + 1)">
+        Next>>
+      </button>
+    </li>
+  </ul>
+</nav>

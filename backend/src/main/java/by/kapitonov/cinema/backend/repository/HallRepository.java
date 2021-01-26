@@ -14,5 +14,6 @@ public interface HallRepository extends JpaRepository<Hall, Long> {
     Page<Hall> findAllByCinemaId(Long cinemaId, Pageable pageable);
 
     Optional<Hall> findByHallName(String hallName);
+    Optional<Hall> findByHallNameAndCinemaCinemaName(String hallName, String cinemaName);
 
 }

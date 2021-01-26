@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -117,6 +118,19 @@ public class CinemaServiceImpl implements CinemaService {
                 })
                 .orElseThrow(
                         () -> new ModelNotFoundException("User hasn't been found by id: " + id)
+                );
+    }
+
+    @Override
+    public CinemaDTO getByManagerId(Long managerId) {
+        Cinema findCinema = getUser(managerId).getCinema();
+        return cinemaRepository.findAll()
+                .stream()
+                .filter(cinema -> findCinema.equals(cinema))
+                .findAny()
+                .map(CinemaMapper::toDTO)
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Cinema hasn't been found by manager id: " + managerId)
                 );
     }
 

@@ -27,8 +27,12 @@ export class TicketService {
     return this.http.put<ApiResponse>(`${this.url}/reserved`, reservedDTO);
   }
 
-  public unreserved(ticketsId: number[]):Observable<ApiResponse> {
+  public unreservedAll(ticketsId: number[]):Observable<ApiResponse> {
     return this.http.put<ApiResponse>(`${this.url}/unreserved`, ticketsId);
+  }
+
+  public unreservedOne(ticketId: number):Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(`${this.url}/unreserved/${ticketId}`,null);
   }
 
 }

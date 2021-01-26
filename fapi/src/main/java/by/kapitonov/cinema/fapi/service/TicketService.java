@@ -14,4 +14,5 @@ public interface TicketService {
 
     ApiResponse reservedTicket(ReservedTicketDTO ticketDTO);
     ApiResponse unreservedTicket(List<Long> ticketsId);
+    ApiResponse unreservedTicket(Long ticketId);
 }

@@ -66,4 +66,12 @@ public class TicketRestController {
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
+
+    @PutMapping("/unreserved/{id}")
+    public ResponseEntity<ApiResponse> unreserved(@PathVariable(name = "id") Long ticketId) {
+
+        ApiResponse response = ticketService.unreservedTicket(ticketId);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
 }

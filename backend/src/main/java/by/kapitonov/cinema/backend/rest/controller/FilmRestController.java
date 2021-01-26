@@ -1,21 +1,24 @@
 package by.kapitonov.cinema.backend.rest.controller;
 
 import by.kapitonov.cinema.backend.model.Film;
+import by.kapitonov.cinema.backend.rest.SortRequest;
 import by.kapitonov.cinema.backend.rest.response.ApiResponse;
 import by.kapitonov.cinema.backend.service.FilmService;
 import by.kapitonov.cinema.backend.service.dto.film.CreateFilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
 import by.kapitonov.cinema.backend.service.mapper.FilmMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/films")
@@ -27,11 +30,24 @@ public class FilmRestController {
         this.filmService = filmService;
     }
 
-    @GetMapping("/{owner-id}/all")
-    public ResponseEntity getAll(@PathVariable(name = "owner-id") Long ownerId, Pageable pageable) {
+    @GetMapping
+    public ResponseEntity getAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
 
-        Page<FilmDTO> filmDTOS = filmService.getAll(ownerId, pageable);
+        Pageable sortedPage = PageRequest.of(
+                pageable.getPageNumber(),
+                pageable.getPageSize(),
+                pageable.getSort()
+        );
 
+        Page<FilmDTO> filmDTOS = filmService.getAll(pageable);
+
+        return new ResponseEntity(filmDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/{film-name}/all")
+    public ResponseEntity getAll(@PathVariable(name = "film-name") String filmName) {
+
+        List<FilmDTO> filmDTOS = filmService.getAllFilmsByName(filmName);
         return new ResponseEntity(filmDTOS, HttpStatus.OK);
     }
 

@@ -8,17 +8,25 @@
     <th scope="col">rows number</th>
     <th scope="col">number seats per row</th>
     <th scope="col">Status</th>
+    <th scope="col" *ngIf="tokenStorage.getRole() === 'ROLE_MANAGER'">Action</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let hall of halls">
     <th scope="row">{{halls.length / 10}}</th>
-    <td><a href="hall/{{hall.hallName}}">{{hall.hallName}}</a></td>
+    <td>
+      <a href="cinema/{{cinemaName}}/hall/{{hall.hallName}}">
+        {{hall.hallName}}
+      </a>
+    </td>
     <td>{{hall.cinemaName}}</td>
     <td>{{hall.floor}}</td>
     <th>{{hall.rowsNumbers}}</th>
     <td>{{hall.numberSeatsPerRow}}</td>
     <td>{{cinema.status}}</td>
+    <td scope="col" *ngIf="tokenStorage.getRole() === 'ROLE_MANAGER'">
+      <a href="/film-session/create" class="btn btn-secondary">add film session</a>
+    </td>
   </tr>
   </tbody>
 </table>

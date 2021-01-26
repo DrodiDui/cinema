@@ -25,12 +25,12 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
     public AuthServiceImpl(
-            RestTemplateBuilder restTemplateBuilder,
+            RestTemplate restTemplate,
             TokenProvider tokenProvider,
             AuthenticationManager authenticationManager,
             PasswordEncoder passwordEncoder
     ) {
-        this.restTemplate = restTemplateBuilder.rootUri(UrlConstants.USER_URL).build();
+        this.restTemplate = restTemplate;
         this.tokenProvider = tokenProvider;
         this.authenticationManager = authenticationManager;
         this.passwordEncoder = passwordEncoder;
@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
         );
 
         String token = tokenProvider.generateToken(authentication);
-        User user = restTemplate.getForObject("/" + signInDTO.getEmail(), User.class);
+        User user = restTemplate.getForObject(UrlConstants.USER_URL + "/" + signInDTO.getEmail(), User.class);
 
         return new TokenResponse(
                 token,

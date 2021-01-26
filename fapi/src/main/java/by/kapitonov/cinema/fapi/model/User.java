@@ -18,5 +18,6 @@ public class User implements Serializable {
     private String lastName;
     private String roleName;
     private String statusName;
+    private Long cinemaId;
 
 }

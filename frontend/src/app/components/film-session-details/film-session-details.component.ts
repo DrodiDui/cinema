@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FilmSessionService} from "../../service/film-session.service";
 import {FilmSession} from "../../model/FilmSession";
 import {ActivatedRoute} from "@angular/router";
@@ -7,8 +7,6 @@ import {Ticket} from "../../model/Ticket";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {ReservedDTO} from "../../model/dto/ReservedDTO";
 import {ApiResponse} from "../../model/ApiResponse";
-import {Page} from "../../model/Page";
-import {error} from "util";
 
 @Component({
   selector: 'app-film-session-details',

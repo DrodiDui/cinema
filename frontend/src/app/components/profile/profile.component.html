@@ -1,33 +1,89 @@
 <div class="container">
   <div class="row">
 
-    <div class="col-sm-4">
-      <div class="card" style="width: 18rem;">
-        <div class="card-header">
-          {{user.email}}
+    <div class="col-sm-5" *ngIf="isEdit else profile">
+      <form (ngSubmit)="editProfile()">
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="FirstName">First name</label>
+            <input type="text" class="form-control" id="FirstName" name="firstName" [(ngModel)]="userDTO.firstName">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="LastName">Last name</label>
+            <input type="text" class="form-control" id="LastName" name="lastName" [(ngModel)]="userDTO.lastName">
+          </div>
         </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">{{user.firstName}}</li>
-          <li class="list-group-item">{{user.lastName}}</li>
-          <li class="list-group-item">{{user.roleName}}</li>
-        </ul>
+
+        <button type="submit" class="btn btn-primary">save</button>
+
+      </form>
+    </div>
+    <ng-template #profile>
+        <div class="card" style="width: 18rem;">
+          <div class="card-header">
+            {{user.email}}
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{user.firstName}}</li>
+            <li class="list-group-item">{{user.lastName}}</li>
+            <li class="list-group-item">{{user.roleName}}</li>
+            <li class="list-group-item">
+              <button type="button" class="btn btn-primary" (click)="isEdit = true">
+                Edit profile
+              </button>
+            </li>
+          </ul>
+        </div>
+    </ng-template>
+
+    <div class="col-sm-7">
+      <h3>Reserved tickets</h3>
+      <button class="btn btn-secondary" *ngIf="unreservedTicket.length !== 0" (click)="unreservedAllTickets()">
+        Unreserved
+      </button>
+      <div class="card" *ngFor="let ticket of tickets">
+        <button class="btn" (click)="addToUnreserved(ticket.id)">
+          <div class="card-header">
+            Film name: {{ticket.filmName}}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Hall name: {{ticket.hallName}}</h5>
+            <h5 class="card-title">Row number: {{ticket.rowsNumber}}</h5>
+            <h5 class="card-title">Number seats per row: {{ticket.numberSeatsPerRow}}</h5>
+            <h5 class="card-title">Show time: {{ticket.showTime}}</h5>
+            <h5 class="card-title">Duration: {{ticket.duration}}</h5>
+            <button class="btn btn-secondary" type="button"
+                    (click)="unreserved(ticket.id)" *ngIf="unreservedTicket.length === 0">
+              Unreserved
+            </button>
+          </div>
+        </button>
       </div>
+
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item" *ngIf="!hasPrevious">
+            <button class="page-link" type="submit" (click)="getTickets(currentPage - 1)">
+              << Previous
+            </button>
+          </li>
+          <li class="page-item" *ngIf="!hasNext">
+            <button class="page-link" type="submit" (click)="getTickets(currentPage + 1)">
+              Next >>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
     </div>
 
-    <div class="col-sm-8">
-      <h3>Reserved tickets</h3>
-      <div class="card" *ngFor="let ticket of tickets">
-        <div class="card-header">
-          Film name: {{ticket.filmName}}
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">Hall name: {{ticket.hallName}}</h5>
-          <h5 class="card-title">Row number: {{ticket.rowsNumber}}</h5>
-          <h5 class="card-title">Number seats per row: {{ticket.numberSeatsPerRow}}</h5>
-          <h5 class="card-title">Show time: {{ticket.showTime}}</h5>
-          <h5 class="card-title">Duration: {{ticket.duration}}</h5>
-        </div>
+
+    <div class="toast d-flex align-items-center" role="alert" aria-live="assertive" aria-atomic="true" *ngIf="response">
+      <div class="toast-body">
+        {{response.message}}
       </div>
+      <button type="button" class="btn-close ms-auto me-2" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
 
   </div>

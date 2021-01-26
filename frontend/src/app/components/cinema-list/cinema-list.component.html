@@ -24,3 +24,18 @@
   </tr>
   </tbody>
 </table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" *ngIf="!hasPrevious">
+      <button class="page-link" type="submit" (click)="loadCinemas(currentPage - 1)">
+        << Previous
+      </button>
+    </li>
+    <li class="page-item" *ngIf="!hasNext">
+      <button class="page-link" type="submit" (click)="loadCinemas(currentPage + 1)">
+        Next >>
+      </button>
+    </li>
+  </ul>
+</nav>

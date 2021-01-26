@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {CinemaService} from "../../service/cinema.service";
-import {TokenStorageService} from "../../service/token-storage.service";
-import {Cinema} from "../../model/Cinema";
+import {CinemaService} from "../../../service/cinema.service";
+import {TokenStorageService} from "../../../service/token-storage.service";
+import {Cinema} from "../../../model/Cinema";
 
 @Component({
   selector: 'app-user-cinema-list',

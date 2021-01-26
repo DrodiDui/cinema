@@ -3,7 +3,7 @@ package by.kapitonov.cinema.fapi.service;
 import by.kapitonov.cinema.fapi.model.FilmSession;
 import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
-import by.kapitonov.cinema.fapi.service.dto.CreatFilmSessionDTO;
+import by.kapitonov.cinema.fapi.service.dto.CreateFilmSessionDTO;
 
 public interface FilmSessionService {
 
@@ -12,6 +12,6 @@ public interface FilmSessionService {
 
     FilmSession getOne(Long sessionId);
 
-    ApiResponse create(CreatFilmSessionDTO filmSessionDTO);
+    ApiResponse create(CreateFilmSessionDTO filmSessionDTO);
 
 }

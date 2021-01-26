@@ -18,8 +18,8 @@ public class CinemaServiceImpl implements CinemaService {
 
     private final RestTemplate restTemplate;
 
-    public CinemaServiceImpl(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.build();
+    public CinemaServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Override
@@ -49,6 +49,14 @@ public class CinemaServiceImpl implements CinemaService {
     @Override
     public Cinema getOne(String cinemaName) {
         return restTemplate.getForObject(UrlConstants.CINEMA_URL + "/" + cinemaName, Cinema.class);
+    }
+
+    @Override
+    public Cinema getOneByManagerId(Long managerId) {
+        return restTemplate.getForObject(
+                UrlConstants.CINEMA_URL + "/manager/" + managerId,
+                Cinema.class
+        );
     }
 
     @Override

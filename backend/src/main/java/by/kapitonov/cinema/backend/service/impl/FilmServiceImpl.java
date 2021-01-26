@@ -15,6 +15,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class FilmServiceImpl implements FilmService {
 
@@ -33,9 +36,23 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    public Page<FilmDTO> getAll(Pageable pageable) {
+        return filmRepository.findAll(pageable)
+                .map(FilmMapper::toDTO);
+    }
+
+    @Override
     public Page<FilmDTO> getAll(Long ownerId, Pageable pageable) {
         return filmRepository.findByOwnerId(ownerId, pageable)
                 .map(FilmMapper::toDTO);
+    }
+
+    @Override
+    public List<FilmDTO> getAllFilmsByName(String filmName) {
+        return filmRepository.findAllByFilmNameContains(filmName)
+                .stream()
+                .map(FilmMapper::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override

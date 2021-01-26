@@ -54,6 +54,11 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public Ticket unreservedOne(Long ticketId) {
+        return unreserved(ticketId);
+    }
+
+    @Override
     public List<Ticket> reservedTickets(UpdateTicketDTO ticketDTO) {
         if (ticketDTO.getTicketsId().isEmpty()) {
             throw new ModelNotFoundException("List of ticket ids is empty");

@@ -38,6 +38,18 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public ApiResponse unreservedTicket(List<Long> ticketsId) {
-        return restTemplate.patchForObject(UrlConstants.TICKET_URL + "/unreserved", ticketsId, ApiResponse.class);
+        return restTemplate.patchForObject(
+                UrlConstants.TICKET_URL + "/unreserved",
+                ticketsId,
+                ApiResponse.class);
+    }
+
+    @Override
+    public ApiResponse unreservedTicket(Long ticketId) {
+        return restTemplate.patchForObject(
+                UrlConstants.TICKET_URL + "/unreserved/" + ticketId,
+                null,
+                ApiResponse.class
+        );
     }
 }

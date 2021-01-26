@@ -4,6 +4,7 @@ import by.kapitonov.cinema.fapi.model.User;
 import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.UserService;
+import by.kapitonov.cinema.fapi.service.dto.UpdateUserDTO;
 import by.kapitonov.cinema.fapi.service.dto.user.CreateUserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -30,10 +32,13 @@ public class UserRestController {
     }
 
     @GetMapping
-    public ResponseEntity getAll(@RequestParam(defaultValue = "0") int page,
-                                 @RequestParam(defaultValue = "10") int size) {
+    public ResponseEntity getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam Map<String, String> sortParams
+    ) {
 
-        PageResponse<User> users = userService.getAll(page, size);
+        PageResponse<User> users = userService.getAll(page, size, sortParams);
 
         return new ResponseEntity(users, HttpStatus.OK);
     }
@@ -54,10 +59,21 @@ public class UserRestController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse> updateUser(
+            @PathVariable(name = "id") Long userId,
+            @RequestBody UpdateUserDTO userDTO
+    ) {
+
+        ApiResponse response = userService.updateUser(userId, userDTO);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}/role")
     public ResponseEntity<ApiResponse> changeRole(
             @PathVariable(name = "id") Long userId,
-            @PathParam(value = "role") String roleName
+            @RequestParam(value = "role") String roleName
     ) {
 
         ApiResponse response = userService.changeRole(userId, roleName);
@@ -68,7 +84,7 @@ public class UserRestController {
     @PutMapping("/{id}/status")
     public ResponseEntity<ApiResponse> changeStatus(
             @PathVariable(name = "id") Long userId,
-            @PathParam(value = "status") String statusName
+            @RequestParam(value = "status") String statusName
     ) {
 
         ApiResponse response = userService.changeStatus(userId, statusName);

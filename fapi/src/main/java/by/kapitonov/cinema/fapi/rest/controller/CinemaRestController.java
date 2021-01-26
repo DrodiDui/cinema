@@ -73,6 +73,14 @@ public class CinemaRestController {
         return new ResponseEntity(cinema, HttpStatus.OK);
     }
 
+    @GetMapping("/manager/{id}")
+    public ResponseEntity<Cinema> getOne(@PathVariable(name = "id") Long managerId) {
+
+        Cinema cinema = cinemaService.getOneByManagerId(managerId);
+
+        return new ResponseEntity<>(cinema, HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<ApiResponse> create(@RequestBody CreateCinemaDTO cinemaDTO) {
 

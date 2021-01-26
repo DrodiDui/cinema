@@ -22,7 +22,7 @@
   </div>
 
   <div class="row" *ngIf="isOwner()">
-    <div class="col col-lg-3" >
+    <div class="col col-lg-3">
       <ul class="list-group">
         <li class="list-group-item">
           Cinema
@@ -37,35 +37,40 @@
             Create cinema
           </a>
         </li>
-        <li class="list-group-item">
-          <a href="/owner/cinemas/update" class="list-group-item list-group-item-action active" aria-current="true">
-            Update cinema
-          </a>
-        </li>
       </ul>
     </div>
 
     <div class="col col-lg-3">
       <ul class="list-group">
         <li class="list-group-item">
-          Managers
+          Films
         </li>
         <li class="list-group-item">
-          <a href="/owner/managers" class="list-group-item list-group-item-action active" aria-current="true">
-            Manager list
+          <a href="/owner/films" class="list-group-item list-group-item-action active" aria-current="true">
+            Film list
           </a>
         </li>
         <li class="list-group-item">
-          <a href="/admin/users" class="list-group-item list-group-item-action active" aria-current="true">
-            Create manager
-          </a>
-        </li>
-        <li class="list-group-item">
-          <a href="/admin/users" class="list-group-item list-group-item-action active" aria-current="true">
-            Update manager
+          <a href="/owner/film/create" class="list-group-item list-group-item-action active" aria-current="true">
+            Create film
           </a>
         </li>
       </ul>
+    </div>
+
+  </div>
+
+  <div class="row" *ngIf="isManager()">
+    <div class="col col-lg">
+      <app-cinema-details>
+      </app-cinema-details>
+    </div>
+  </div>
+
+  <div class="row" *ngIf="!isLogin() || isUser()">
+    <div class="col col-lg">
+      <app-cinema-list>
+      </app-cinema-list>
     </div>
   </div>
 

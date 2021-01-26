@@ -48,10 +48,13 @@ public class HallRestController {
         return new ResponseEntity(hallDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("{name}")
-    public ResponseEntity<HallDTO> getOne(@PathVariable(name = "name") String hallName) {
+    @GetMapping("{cinema}/{hall}")
+    public ResponseEntity<HallDTO> getOne(
+            @PathVariable(name = "cinema") String cinemaName,
+            @PathVariable(name = "hall") String hallName
+    ) {
 
-        HallDTO hallDTO = hallService.getByHallName(hallName);
+        HallDTO hallDTO = hallService.getByHallName(hallName, cinemaName);
 
         return new ResponseEntity<>(hallDTO, HttpStatus.OK);
     }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {CinemaService} from "../../service/cinema.service";
-import {CinemaStatusService} from "../../service/cinema-status.service";
-import {CreateCinemaDTO} from "../../model/dto/CreateCinemaDTO";
-import {ApiResponse} from "../../model/ApiResponse";
-import {TokenStorageService} from "../../service/token-storage.service";
+import {CinemaService} from "../../../service/cinema.service";
+import {CinemaStatusService} from "../../../service/cinema-status.service";
+import {CreateCinemaDTO} from "../../../model/dto/CreateCinemaDTO";
+import {ApiResponse} from "../../../model/ApiResponse";
+import {TokenStorageService} from "../../../service/token-storage.service";
 
 @Component({
   selector: 'app-create-cinema',

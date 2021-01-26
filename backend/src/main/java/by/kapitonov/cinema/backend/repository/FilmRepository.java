@@ -13,4 +13,6 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
     Page<Film> findByOwnerId(Long id, Pageable pageable);
 
+    List<Film> findAllByFilmNameContains(String filmName);
+
 }

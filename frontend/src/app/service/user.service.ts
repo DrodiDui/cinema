@@ -5,6 +5,7 @@ import {User} from "../model/User";
 import {CreateUserDTO} from "../model/dto/CreateUserDTO";
 import {ApiResponse} from "../model/ApiResponse";
 import {Page} from "../model/Page";
+import {UpdateUserDTO} from "../model/dto/UpdateUserDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -32,14 +33,15 @@ export class UserService {
     return this.http.post<ApiResponse>(`${this.url}/registration`, userDTO);
   }
 
-  public changeRole(userId: number, roleName: string):Observable<ApiResponse> {
-    // @ts-ignore
-    return this.http.put<ApiResponse>(`${this.url}/${userId}/role?role=${roleName}`);
+  public changeRole(userId: number, roleName: string): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(`${this.url}/${userId}/role?role=${roleName}`, null);
   }
 
-  public changeStatus(userId: number, statusName: string):Observable<ApiResponse> {
-    // @ts-ignore
-    return this.http.put<ApiResponse>(`${this.url}/${userId}/status?status=${statusName}`);
+  public changeStatus(userId: number, statusName: string): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(`${this.url}/${userId}/status?status=${statusName}`, null);
   }
 
+  public updateUser(userId: number, userDTO: UpdateUserDTO): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(`${this.url}/${userId}`, userDTO);
+  }
 }

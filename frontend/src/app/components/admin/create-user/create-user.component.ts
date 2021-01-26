@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {UserService} from "../../service/user.service";
-import {RoleService} from "../../service/role.service";
-import {UserStatusService} from "../../service/user-status.service";
-import {CreateUserDTO} from "../../model/dto/CreateUserDTO";
-import {ApiResponse} from "../../model/ApiResponse";
-import {TokenStorageService} from "../../service/token-storage.service";
-import {CinemaService} from "../../service/cinema.service";
-import {Cinema} from "../../model/Cinema";
+import {UserService} from "../../../service/user.service";
+import {RoleService} from "../../../service/role.service";
+import {UserStatusService} from "../../../service/user-status.service";
+import {CreateUserDTO} from "../../../model/dto/CreateUserDTO";
+import {ApiResponse} from "../../../model/ApiResponse";
+import {TokenStorageService} from "../../../service/token-storage.service";
+import {CinemaService} from "../../../service/cinema.service";
+import {Cinema} from "../../../model/Cinema";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({

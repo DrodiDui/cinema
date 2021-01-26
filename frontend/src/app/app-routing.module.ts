@@ -1,17 +1,22 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {RegistrationComponent} from "./components/registration/registration.component";
-import {UserListComponent} from "./components/user-list/user-list.component";
+import {UserListComponent} from "./components/admin/user-list/user-list.component";
 import {LoginComponent} from "./components/login/login.component";
-import {UserCinemaListComponent} from "./components/user-cinema-list/user-cinema-list.component";
+import {UserCinemaListComponent} from "./components/admin/user-cinema-list/user-cinema-list.component";
 import {CinemaDetailsComponent} from "./components/cinema-details/cinema-details.component";
 import {HallDetailsComponent} from "./components/hall-details/hall-details.component";
 import {CinemaListComponent} from "./components/cinema-list/cinema-list.component";
 import {FilmSessionDetailsComponent} from "./components/film-session-details/film-session-details.component";
 import {ProfileComponent} from "./components/profile/profile.component";
-import {CreateUserComponent} from "./components/create-user/create-user.component";
+import {CreateUserComponent} from "./components/admin/create-user/create-user.component";
 import {HomePageComponent} from "./components/home-page/home-page.component";
-import {CreateCinemaComponent} from "./components/create-cinema/create-cinema.component";
+import {CreateCinemaComponent} from "./components/owner/create-cinema/create-cinema.component";
+import {CreateHallComponent} from "./components/owner/create-hall/create-hall.component";
+import {CreateFilmSessionComponent} from "./components/create-film-session/create-film-session.component";
+import {FilmListComponent} from "./components/film-list/film-list.component";
+import {CreateFilmComponent} from "./components/owner/create-film/create-film.component";
+import {UpdateFilmSessionComponent} from "./components/manager/update-film-session/update-film-session.component";
 
 
 const routes: Routes = [
@@ -21,13 +26,18 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'owner/cinemas', component: UserCinemaListComponent},
   {path: 'cinemas', component: CinemaListComponent},
-  {path: 'cinema/:name', component: CinemaDetailsComponent},
-  {path: 'hall/:name', component: HallDetailsComponent},
+  {path: 'cinema/:cinema-name', component: CinemaDetailsComponent},
+  {path: 'cinema/:cinema-name/hall/:hall-name', component: HallDetailsComponent},
   {path: 'film-session/:id', component: FilmSessionDetailsComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'admin/users/create', component: CreateUserComponent},
   {path: 'owner/cinemas/create', component: CreateCinemaComponent},
-  {path: 'owner/:id/create/manager', component: CreateUserComponent}
+  {path: 'owner/cinema/:id/create/manager', component: CreateUserComponent},
+  {path: 'owner/cinema/:id/create/hall', component: CreateHallComponent},
+  {path: 'owner/cinema/:id/create/hall/:hall-id/create/filmSession', component: CreateFilmSessionComponent},
+  {path: 'owner/films', component: FilmListComponent},
+  {path: 'owner/film/create', component: CreateFilmComponent},
+  {path: 'film-session/update/:id', component: UpdateFilmSessionComponent}
 ];
 
 @NgModule({

@@ -3,7 +3,7 @@ import {AuthService} from "../../service/auth.service";
 import {LoginDTO} from "../../model/dto/LoginDTO";
 import {TokenResponse} from "../../model/TokenResponse";
 import {TokenStorageService} from "../../service/token-storage.service";
-import {Router} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -28,7 +28,7 @@ export class LoginComponent {
     this.authService.login(this.loginDTO).subscribe(data => {
       this.tokenResponse = data;
       this.tokenStorage.saveTokenResponse(this.tokenResponse);
-      this.router.navigate(['/']);
+      this.router.navigate(['']);
     })
   }
 

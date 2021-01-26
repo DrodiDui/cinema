@@ -3,15 +3,18 @@ package by.kapitonov.cinema.backend.rest.controller;
 import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.rest.response.ApiResponse;
 import by.kapitonov.cinema.backend.service.UserService;
+import by.kapitonov.cinema.backend.service.dto.UpdateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
 import by.kapitonov.cinema.backend.service.mapper.UserMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/users")
@@ -31,7 +36,9 @@ public class UserRestController {
     }
 
     @GetMapping
-    public ResponseEntity getAll(Pageable pageable) {
+    public ResponseEntity getAll(
+            @PageableDefault(page = 0, size = 10) Pageable pageable,
+            @RequestParam Map<String, String> sortParams) {
 
         Page<UserDTO> userDTOS = userService.getAll(pageable);
 
@@ -63,7 +70,18 @@ public class UserRestController {
         return new ResponseEntity<>(new ApiResponse("User successfully registration"), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/role")
+    @PatchMapping("/{id}")
+    public ResponseEntity<ApiResponse> updateUser(
+            @PathVariable(name = "id") Long userId,
+            @RequestBody UpdateUserDTO userDTO
+    ) {
+
+        userService.update(userId, userDTO);
+
+        return new ResponseEntity<>(new ApiResponse("User successfully updates"), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}/role")
     public ResponseEntity<ApiResponse> updateRole(
             @PathVariable(name = "id") Long id,
             @RequestParam(name = "role") String roleName
@@ -74,7 +92,7 @@ public class UserRestController {
         return new ResponseEntity<>(new ApiResponse("User role successfully updated"), HttpStatus.OK);
     }
 
-    @PutMapping("/{id}/status")
+    @PatchMapping("/{id}/status")
     public ResponseEntity<ApiResponse> updateStatus(
             @PathVariable(name = "id") Long id,
             @RequestParam(name = "status") String statusName

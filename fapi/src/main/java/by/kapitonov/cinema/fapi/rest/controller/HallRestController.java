@@ -1,12 +1,16 @@
 package by.kapitonov.cinema.fapi.rest.controller;
 
 import by.kapitonov.cinema.fapi.model.Hall;
+import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.HallService;
+import by.kapitonov.cinema.fapi.service.dto.CreateHallDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,11 +37,22 @@ public class HallRestController {
         return new ResponseEntity<>(halls, HttpStatus.OK);
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<Hall> getOne(@PathVariable(name = "name") String hallName) {
+    @GetMapping("/{cinema}/{hall}")
+    public ResponseEntity<Hall> getOne(
+            @PathVariable(name = "cinema") String cinemaName,
+            @PathVariable(name = "hall") String hallName
+    ) {
 
-        Hall hall = hallService.getOne(hallName);
+        Hall hall = hallService.getOne(cinemaName, hallName);
 
         return new ResponseEntity<>(hall, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<ApiResponse> creat(@RequestBody CreateHallDTO hallDTO) {
+
+        ApiResponse response = hallService.create(hallDTO);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 }

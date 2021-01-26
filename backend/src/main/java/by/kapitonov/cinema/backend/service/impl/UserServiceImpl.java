@@ -11,6 +11,7 @@ import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.RoleService;
 import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.UserStatusService;
+import by.kapitonov.cinema.backend.service.dto.UpdateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
@@ -92,6 +93,19 @@ public class UserServiceImpl implements UserService {
         user.setStatus(userStatusService.getByName(Constants.INACTIVE_STATUS));
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User update(Long userId, UpdateUserDTO updateUserDTO) {
+        return userRepository.findById(userId)
+                .map(user -> {
+                    user.setFirstName(updateUserDTO.getFirstName());
+                    user.setLastName(updateUserDTO.getLastName());
+                    return userRepository.save(user);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("User hasn't been found by id: " + userId)
+                );
     }
 
     @Override

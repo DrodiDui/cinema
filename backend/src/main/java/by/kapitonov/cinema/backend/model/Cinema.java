@@ -29,7 +29,7 @@ import java.util.List;
 @AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-public class Cinema implements Serializable {
+public class  Cinema implements Serializable {
 
     private static final Long SERIAL_VERSION = 1L;
 

@@ -7,7 +7,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import {FormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
-import { UserListComponent } from './components/user-list/user-list.component';
+import { UserListComponent } from './components/admin/user-list/user-list.component';
 import { LoginComponent } from './components/login/login.component';
 import {AuthService} from "./service/auth.service";
 import {RoleService} from "./service/role.service";
@@ -17,21 +17,26 @@ import {UserStatusService} from "./service/user-status.service";
 import {AuthInterceptor} from "./security/AuthInterceptor";
 import { TicketListComponent } from './components/ticket-list/ticket-list.component';
 import { CinemaListComponent } from './components/cinema-list/cinema-list.component';
-import { UserCinemaListComponent } from './components/user-cinema-list/user-cinema-list.component';
+import { UserCinemaListComponent } from './components/admin/user-cinema-list/user-cinema-list.component';
 import { CinemaDetailsComponent } from './components/cinema-details/cinema-details.component';
 import { HallListComponent } from './components/hall-list/hall-list.component';
 import { HallDetailsComponent } from './components/hall-details/hall-details.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { FilmSessionDetailsComponent } from './components/film-session-details/film-session-details.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { CreateUserComponent } from './components/create-user/create-user.component';
+import { CreateUserComponent } from './components/admin/create-user/create-user.component';
 import {CinemaService} from "./service/cinema.service";
 import {HallService} from "./service/hall.service";
 import {FilmSessionService} from "./service/film-session.service";
 import {TicketService} from "./service/ticket.service";
-import { CreateCinemaComponent } from './components/create-cinema/create-cinema.component';
+import { CreateCinemaComponent } from './components/owner/create-cinema/create-cinema.component';
 import { UpdateCinemaComponent } from './components/update-cinema/update-cinema.component';
 import { OwnerCinemaListComponent } from './components/owner-cinema-list/owner-cinema-list.component';
+import { CreateHallComponent } from './components/owner/create-hall/create-hall.component';
+import {CreateFilmSessionComponent} from "./components/create-film-session/create-film-session.component";
+import {CreateFilmComponent} from "./components/owner/create-film/create-film.component";
+import { FilmListComponent } from './components/film-list/film-list.component';
+import { UpdateFilmSessionComponent } from './components/manager/update-film-session/update-film-session.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +57,12 @@ import { OwnerCinemaListComponent } from './components/owner-cinema-list/owner-c
     CreateUserComponent,
     CreateCinemaComponent,
     UpdateCinemaComponent,
-    OwnerCinemaListComponent
+    OwnerCinemaListComponent,
+    CreateHallComponent,
+    CreateFilmSessionComponent,
+    CreateFilmComponent,
+    FilmListComponent,
+    UpdateFilmSessionComponent
   ],
     imports: [
         BrowserModule,

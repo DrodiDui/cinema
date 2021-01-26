@@ -3,6 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Hall} from "../model/Hall";
 import {Page} from "../model/Page";
+import {CreateHallDTO} from "../model/dto/CreateHallDTO";
+import {ApiResponse} from "../model/ApiResponse";
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +19,12 @@ export class HallService {
     return this.http.get<Page<Hall>>(`${this.url}/${cinemaId}/all?page=${page}&size=${size}`);
   }
 
-  getHall(hallName: string): Observable<Hall>{
-    return this.http.get<Hall>(`${this.url}/${hallName}`);
+  getHall(cinemaName: string, hallName: string): Observable<Hall>{
+    return this.http.get<Hall>(`${this.url}/${cinemaName}/${hallName}`);
+  }
+
+  createHall(hallDTO: CreateHallDTO): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${this.url}`, hallDTO);
   }
 
 }

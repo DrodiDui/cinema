@@ -4,6 +4,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Cinema} from "../../model/Cinema";
 import {HallService} from "../../service/hall.service";
 import {Hall} from "../../model/Hall";
+import {TokenStorageService} from "../../service/token-storage.service";
 
 @Component({
   selector: 'app-cinema-details',
@@ -14,19 +15,38 @@ export class CinemaDetailsComponent implements OnInit {
 
   private cinema: Cinema;
   private halls: Hall[];
+  private cinemaName: string;
 
   constructor(
     private cinemaService: CinemaService,
     private hallService: HallService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private tokenStorage: TokenStorageService
   ) {
   }
 
   ngOnInit() {
-    let cinemaName: string = this.route.snapshot.params['name'];
+    this.cinemaName = this.route.snapshot.params['cinema-name'];
+    if (this.cinemaName &&  this.cinemaName !== null) {
+      this.loadCinema(this.cinemaName);
+    } else {
+      this.loadManagerCinema()
+    }
+  }
+
+  private loadCinema(cinemaName: string) {
     this.cinemaService.getByName(cinemaName).subscribe(data => {
       this.cinema = data;
       this.loadHalls(this.cinema.id);
+    })
+  }
+
+  private loadManagerCinema() {
+    let managerId: number = this.tokenStorage.getId();
+    this.cinemaService.getByManagerId(managerId).subscribe(data => {
+      let cinemaId: number = data.id;
+      this.cinemaName = data.cinemaName;
+      this.loadHalls(cinemaId);
     })
   }
 
@@ -35,5 +55,4 @@ export class CinemaDetailsComponent implements OnInit {
       this.halls = data.content;
     })
   }
-
 }

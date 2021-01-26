@@ -16,6 +16,7 @@ public interface CinemaService {
     List<Cinema> getAllOwnerCinemasByCountryAndCity(Long ownerId, String country, String city);
 
     Cinema getOne(String cinemaName);
+    Cinema getOneByManagerId(Long managerId);
 
     ApiResponse create(CreateCinemaDTO cinemaDTO);
 

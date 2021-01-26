@@ -13,6 +13,7 @@ import by.kapitonov.cinema.backend.service.FilmSessionService;
 import by.kapitonov.cinema.backend.service.HallService;
 import by.kapitonov.cinema.backend.service.TicketService;
 import by.kapitonov.cinema.backend.service.UserService;
+import by.kapitonov.cinema.backend.service.dto.UpdateFilmSessionDTO;
 import by.kapitonov.cinema.backend.service.dto.filmsession.CreateFilmSessionDTO;
 import by.kapitonov.cinema.backend.service.dto.filmsession.FilmSessionDTO;
 import by.kapitonov.cinema.backend.service.mapper.FilmSessionMapper;
@@ -84,6 +85,18 @@ public class FilmSessionServiceImpl implements FilmSessionService {
         createTickets(filmSession);
 
         return filmSession;
+    }
+
+    @Override
+    public FilmSession update(Long filmSessionId, UpdateFilmSessionDTO filmSessionDTO) {
+        return filmSessionRepository.findById(filmSessionId)
+                .map(filmSession -> {
+                    filmSession.setFilmName(filmSessionDTO.getFilmName());
+                    return filmSessionRepository.save(filmSession);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Film session hasn't been found by id: " + filmSessionId)
+                );
     }
 
 

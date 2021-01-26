@@ -5,8 +5,7 @@ import by.kapitonov.cinema.fapi.model.FilmSession;
 import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.FilmSessionService;
-import by.kapitonov.cinema.fapi.service.dto.CreatFilmSessionDTO;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import by.kapitonov.cinema.fapi.service.dto.CreateFilmSessionDTO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,30 +14,31 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 
     private final RestTemplate restTemplate;
 
-    public FilmSessionServiceImpl(RestTemplateBuilder restTemplateBuilder) {
-        this.restTemplate = restTemplateBuilder.rootUri(UrlConstants.FILM_SESSION_URL).build();
+
+    public FilmSessionServiceImpl(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Override
     public PageResponse<FilmSession> getAll(int page, int size) {
-        return restTemplate.getForObject("?page=" + page + "&size=" + size, PageResponse.class);
+        return restTemplate.getForObject(UrlConstants.FILM_SESSION_URL + "?page=" + page + "&size=" + size, PageResponse.class);
     }
 
     @Override
     public PageResponse<FilmSession> getAllActiveSessionByHallId(Long hallId, int page, int size) {
         return restTemplate.getForObject(
-                "/" + hallId + "/active?page=" + page + "&size=" + size,
+                UrlConstants.FILM_SESSION_URL + "/" + hallId + "/active?page=" + page + "&size=" + size,
                 PageResponse.class
         );
     }
 
     @Override
     public FilmSession getOne(Long sessionId) {
-        return restTemplate.getForObject("/" + sessionId, FilmSession.class);
+        return restTemplate.getForObject(UrlConstants.FILM_SESSION_URL + "/" + sessionId, FilmSession.class);
     }
 
     @Override
-    public ApiResponse create(CreatFilmSessionDTO filmSessionDTO) {
-        return restTemplate.postForEntity("", filmSessionDTO, ApiResponse.class).getBody();
+    public ApiResponse create(CreateFilmSessionDTO filmSessionDTO) {
+        return restTemplate.postForEntity(UrlConstants.FILM_SESSION_URL, filmSessionDTO, ApiResponse.class).getBody();
     }
 }

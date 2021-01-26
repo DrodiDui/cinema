@@ -24,8 +24,8 @@ export class CinemaService {
     return this.http.get<Page<Cinema>>(`${this.url}/all/${ownerId}?page=${page}&size=${size}`);
   }
 
-  public getAllUserCinemasByCountryAndCity(ownerId: number, country: string, city: string): Observable<Cinema[]> {
-    return this.http.get<Cinema[]>(`${this.url}/${ownerId}/all?country=${country}&city=${city}`);
+  public getByManagerId(managerId: number): Observable<Cinema> {
+    return this.http.get<Cinema>(`${this.url}/manager/${managerId}`);
   }
 
   public getByName(cinemaName: string): Observable<Cinema> {

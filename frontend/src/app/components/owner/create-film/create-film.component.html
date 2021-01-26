@@ -1,0 +1,69 @@
+<div class="container mt-5 st-5" align="center">
+  <div class="row justify-content-center">
+    <div class="row">
+      <form (ngSubmit)="createFilm()">
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="FilmName">Film name</label>
+            <input type="text" class="form-control" id="FilmName" name="filmName" [(ngModel)]="filmDTO.filmName">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="YearOfRelease">Year of release</label>
+            <input type="text" class="form-control" id="YearOfRelease" name="yearOfRelease" [(ngModel)]="filmDTO.yearOfRelease">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Genre">Genre</label>
+            <input type="text" class="form-control" id="Genre" name="genre" [(ngModel)]="filmDTO.genre">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="CountryOfOrigin">Country of origin</label>
+            <input type="text" class="form-control" id="CountryOfOrigin" name="countryOfOrigin" [(ngModel)]="filmDTO.countryOfOrigin">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Director">Director</label>
+            <input type="text" class="form-control" id="Director" name="director" [(ngModel)]="filmDTO.director">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="Starring">Starring</label>
+            <input type="text" class="form-control" id="Starring" name="starring" [(ngModel)]="filmDTO.starring">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Budget">Budget</label>
+            <input type="text" class="form-control" id="Budget" name="budget" [(ngModel)]="filmDTO.budget">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="Duration">Duration</label>
+            <input type="text" class="form-control" id="Duration" name="duration" [(ngModel)]="filmDTO.duration">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="Status">Status</label>
+            <select id="Status" class="form-control" name="secretQuestion" [(ngModel)]="filmDTO.status">
+              <option *ngFor="let status of statuses" value="{{status}}">{{status}}</option>
+            </select>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create</button>
+
+      </form>
+    </div>
+  </div>
+</div>
+

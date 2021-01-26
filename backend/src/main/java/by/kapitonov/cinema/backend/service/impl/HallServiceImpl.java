@@ -53,8 +53,8 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public HallDTO getByHallName(String hallName) {
-        return hallRepository.findByHallName(hallName)
+    public HallDTO getByHallName(String hallName, String cinemaName) {
+        return hallRepository.findByHallNameAndCinemaCinemaName(hallName, cinemaName)
                 .map(HallMapper::toDTO)
                 .orElseThrow(
                         () -> new ModelNotFoundException("Hall hasn't been found by name: " + hallName)
