@@ -9,11 +9,12 @@ import by.kapitonov.cinema.fapi.service.dto.user.RegistrationUserDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 
+import java.util.List;
 import java.util.Map;
 
 public interface UserService {
 
-    PageResponse<User> getAll(Integer page, Integer size, Map<String, String> sortParams);
+    PageResponse<User> getAll(Map<String, String> pageableParams);
 
     User getByEmail(String email);
 

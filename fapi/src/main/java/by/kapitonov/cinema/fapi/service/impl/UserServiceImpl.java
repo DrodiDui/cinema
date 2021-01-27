@@ -7,8 +7,7 @@ import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.UserService;
 import by.kapitonov.cinema.fapi.service.dto.UpdateUserDTO;
 import by.kapitonov.cinema.fapi.service.dto.user.CreateUserDTO;
-import by.kapitonov.cinema.fapi.service.mapper.SortConverter;
-import org.springframework.data.domain.Sort;
+import by.kapitonov.cinema.fapi.service.mapper.UrlMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -16,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.Map;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
     private final RestTemplate restTemplate;
     private final PasswordEncoder passwordEncoder;
@@ -30,12 +29,10 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public PageResponse<User> getAll(Integer page, Integer size, Map<String, String> sortParams) {
-
-        Sort sort = SortConverter.mapToSort(sortParams);
-
+    public PageResponse<User> getAll(Map<String, String> pageableParams) {
+        String url = UrlMapper.mapPramsToUrlWithParams(UrlConstants.USER_URL, pageableParams);
         return restTemplate.getForObject(
-                UrlConstants.USER_URL + "?page=" + page + "&size=" + size + "&sort" + sortParams,
+                url,
                 PageResponse.class
         );
     }

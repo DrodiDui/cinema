@@ -7,6 +7,7 @@ import by.kapitonov.cinema.backend.service.dto.UpdateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
+import by.kapitonov.cinema.backend.service.mapper.PageableMapper;
 import by.kapitonov.cinema.backend.service.mapper.UserMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -36,9 +37,9 @@ public class UserRestController {
     }
 
     @GetMapping
-    public ResponseEntity getAll(
-            @PageableDefault(page = 0, size = 10) Pageable pageable,
-            @RequestParam Map<String, String> sortParams) {
+    public ResponseEntity getAll(@RequestParam Map<String, String> pageableParams) {
+
+        Pageable pageable = PageableMapper.mapToPageable(pageableParams);
 
         Page<UserDTO> userDTOS = userService.getAll(pageable);
 
