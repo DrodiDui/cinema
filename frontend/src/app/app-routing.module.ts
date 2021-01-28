@@ -17,6 +17,7 @@ import {CreateFilmSessionComponent} from "./components/create-film-session/creat
 import {FilmListComponent} from "./components/film-list/film-list.component";
 import {CreateFilmComponent} from "./components/owner/create-film/create-film.component";
 import {UpdateFilmSessionComponent} from "./components/manager/update-film-session/update-film-session.component";
+import {UpdateCinemaComponent} from "./components/update-cinema/update-cinema.component";
 
 
 const routes: Routes = [
@@ -35,6 +36,7 @@ const routes: Routes = [
   {path: 'owner/cinema/:id/create/manager', component: CreateUserComponent},
   {path: 'owner/cinema/:id/create/hall', component: CreateHallComponent},
   {path: 'owner/cinema/:id/create/hall/:hall-id/create/filmSession', component: CreateFilmSessionComponent},
+  {path: 'owner/cinema/:name/update', component: UpdateCinemaComponent},
   {path: 'owner/films', component: FilmListComponent},
   {path: 'owner/film/create', component: CreateFilmComponent},
   {path: 'film-session/update/:id', component: UpdateFilmSessionComponent}
