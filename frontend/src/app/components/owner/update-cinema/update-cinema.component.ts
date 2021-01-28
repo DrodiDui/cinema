@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {CinemaService} from "../../service/cinema.service";
+import {CinemaService} from "../../../service/cinema.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {UpdateCinemaDTO} from "../../model/dto/UpdateCinemaDTO";
-import {Cinema} from "../../model/Cinema";
-import {CinemaStatusService} from "../../service/cinema-status.service";
-import {ApiResponse} from "../../model/ApiResponse";
+import {UpdateCinemaDTO} from "../../../model/dto/cinema/UpdateCinemaDTO";
+import {Cinema} from "../../../model/Cinema";
+import {CinemaStatusService} from "../../../service/cinema-status.service";
+import {ApiResponse} from "../../../model/ApiResponse";
 
 @Component({
   selector: 'app-update-cinema',

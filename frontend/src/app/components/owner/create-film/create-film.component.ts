@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {CreateFilmDTO} from "../../../model/dto/CreateFilmDTO";
+import {CreateFilmDTO} from "../../../model/dto/film/CreateFilmDTO";
 import {ApiResponse} from "../../../model/ApiResponse";
 import {FilmService} from "../../../service/film.service";
 import {CinemaStatusService} from "../../../service/cinema-status.service";

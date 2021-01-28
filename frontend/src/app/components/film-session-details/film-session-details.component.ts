@@ -5,7 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {TicketService} from "../../service/ticket.service";
 import {Ticket} from "../../model/Ticket";
 import {TokenStorageService} from "../../service/token-storage.service";
-import {ReservedDTO} from "../../model/dto/ReservedDTO";
+import {ReservedDTO} from "../../model/dto/ticket/ReservedDTO";
 import {ApiResponse} from "../../model/ApiResponse";
 
 @Component({

@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {UserService} from "../../service/user.service";
 import {RoleService} from "../../service/role.service";
 import {ApiResponse} from "../../model/ApiResponse";
-import {SignUpDTO} from "../../model/dto/SignUpDTO";
+import {SignUpDTO} from "../../model/dto/user/SignUpDTO";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
 

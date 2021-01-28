@@ -55,4 +55,20 @@ export class CinemaDetailsComponent implements OnInit {
       this.halls = data.content;
     })
   }
+
+  isOwner() {
+    if (this.tokenStorage.getRole() === 'ROLE_OWNER') {
+      return true;
+    }
+    return false;
+  }
+
+  isManager() {
+    if (this.tokenStorage.getRole() === 'ROLE_MANAGER') {
+      return true;
+    }
+    return false;
+  }
+
+
 }

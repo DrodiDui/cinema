@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../model/User";
-import {CreateUserDTO} from "../model/dto/CreateUserDTO";
+import {CreateUserDTO} from "../model/dto/user/CreateUserDTO";
 import {ApiResponse} from "../model/ApiResponse";
 import {Page} from "../model/Page";
-import {UpdateUserDTO} from "../model/dto/UpdateUserDTO";
+import {UpdateUserDTO} from "../model/dto/user/UpdateUserDTO";
 
 @Injectable({
   providedIn: 'root'

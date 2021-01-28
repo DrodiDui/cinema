@@ -1,4 +1,4 @@
-import {FilmSession} from "../FilmSession";
+import {FilmSession} from "../../FilmSession";
 
 export class UpdateFilmSessionDTO {
 

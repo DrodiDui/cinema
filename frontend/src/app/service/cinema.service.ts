@@ -3,8 +3,8 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Cinema} from "../model/Cinema";
 import {ApiResponse} from "../model/ApiResponse";
-import {CreateCinemaDTO} from "../model/dto/CreateCinemaDTO";
-import {UpdateCinemaDTO} from "../model/dto/UpdateCinemaDTO";
+import {CreateCinemaDTO} from "../model/dto/cinema/CreateCinemaDTO";
+import {UpdateCinemaDTO} from "../model/dto/cinema/UpdateCinemaDTO";
 import {Page} from "../model/Page";
 
 @Injectable({

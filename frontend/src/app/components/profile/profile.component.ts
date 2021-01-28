@@ -4,7 +4,7 @@ import {TokenStorageService} from "../../service/token-storage.service";
 import {TicketService} from "../../service/ticket.service";
 import {User} from "../../model/User";
 import {Ticket} from "../../model/Ticket";
-import {UpdateUserDTO} from "../../model/dto/UpdateUserDTO";
+import {UpdateUserDTO} from "../../model/dto/user/UpdateUserDTO";
 import {ApiResponse} from "../../model/ApiResponse";
 import {Router} from "@angular/router";
 

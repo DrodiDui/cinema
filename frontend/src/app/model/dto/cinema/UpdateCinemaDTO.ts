@@ -1,4 +1,4 @@
-import {Cinema} from "../Cinema";
+import {Cinema} from "../../Cinema";
 
 export class UpdateCinemaDTO {
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiResponse } from 'src/app/model/ApiResponse';
-import { CreateFilmSessionDTO } from 'src/app/model/dto/CreaetFilmSessionDTO';
+import { CreateFilmSessionDTO } from 'src/app/model/dto/film-session/CreaetFilmSessionDTO';
 import { CinemaStatusService } from 'src/app/service/cinema-status.service';
 import { FilmSessionService } from 'src/app/service/film-session.service';
 import {TokenStorageService} from "../../service/token-storage.service";

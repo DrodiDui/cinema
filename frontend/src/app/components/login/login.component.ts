@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from "../../service/auth.service";
-import {LoginDTO} from "../../model/dto/LoginDTO";
+import {LoginDTO} from "../../model/dto/user/LoginDTO";
 import {TokenResponse} from "../../model/TokenResponse";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {Router, RouterModule} from "@angular/router";

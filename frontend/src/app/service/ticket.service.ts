@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Ticket} from "../model/Ticket";
-import {ReservedDTO} from "../model/dto/ReservedDTO";
+import {ReservedDTO} from "../model/dto/ticket/ReservedDTO";
 import {ApiResponse} from "../model/ApiResponse";
 import {Page} from "../model/Page";
 

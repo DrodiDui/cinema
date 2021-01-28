@@ -15,7 +15,9 @@
   <tbody>
   <tr *ngFor="let cinema of cinemas">
     <th scope="row">{{cinemas.length % 10}}</th>
-    <td>{{cinema.cinemaName}}</td>
+    <td>
+      <a href="/owner/cinema/{{cinema.cinemaName}}/halls">{{cinema.cinemaName}}</a>
+    </td>
     <td>{{cinema.country}}</td>
     <td>{{cinema.city}}</td>
     <td>{{cinema.address}}</td>

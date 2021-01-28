@@ -30,13 +30,14 @@ import {HallService} from "./service/hall.service";
 import {FilmSessionService} from "./service/film-session.service";
 import {TicketService} from "./service/ticket.service";
 import {CreateCinemaComponent} from './components/owner/create-cinema/create-cinema.component';
-import {UpdateCinemaComponent} from './components/update-cinema/update-cinema.component';
+import {UpdateCinemaComponent} from './components/owner/update-cinema/update-cinema.component';
 import {OwnerCinemaListComponent} from './components/owner-cinema-list/owner-cinema-list.component';
 import {CreateHallComponent} from './components/owner/create-hall/create-hall.component';
 import {CreateFilmSessionComponent} from "./components/create-film-session/create-film-session.component";
 import {CreateFilmComponent} from "./components/owner/create-film/create-film.component";
 import {FilmListComponent} from './components/film-list/film-list.component';
 import {UpdateFilmSessionComponent} from './components/manager/update-film-session/update-film-session.component';
+import { UpdateHallComponent } from './components/owner/update-hall/update-hall.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import {UpdateFilmSessionComponent} from './components/manager/update-film-sessi
     CreateFilmSessionComponent,
     CreateFilmComponent,
     FilmListComponent,
-    UpdateFilmSessionComponent
+    UpdateFilmSessionComponent,
+    UpdateHallComponent
   ],
     imports: [
         BrowserModule,

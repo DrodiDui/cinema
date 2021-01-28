@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {Film} from "../model/Film";
 import {Page} from "../model/Page";
-import {CreateFilmDTO} from "../model/dto/CreateFilmDTO";
+import {CreateFilmDTO} from "../model/dto/film/CreateFilmDTO";
 import {ApiResponse} from "../model/ApiResponse";
 
 @Injectable({

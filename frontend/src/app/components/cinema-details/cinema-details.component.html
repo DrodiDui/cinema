@@ -8,7 +8,7 @@
     <th scope="col">rows number</th>
     <th scope="col">number seats per row</th>
     <th scope="col">Status</th>
-    <th scope="col" *ngIf="tokenStorage.getRole() === 'ROLE_MANAGER'">Action</th>
+    <th scope="col" *ngIf="isManager() || isOwner()">Action</th>
   </tr>
   </thead>
   <tbody>
@@ -24,8 +24,11 @@
     <th>{{hall.rowsNumbers}}</th>
     <td>{{hall.numberSeatsPerRow}}</td>
     <td>{{cinema.status}}</td>
-    <td scope="col" *ngIf="tokenStorage.getRole() === 'ROLE_MANAGER'">
+    <td scope="col" *ngIf="isManager()">
       <a href="/film-session/create" class="btn btn-secondary">add film session</a>
+    </td>
+    <td scope="col" *ngIf="isOwner()">
+      <a href="/owner/cinema/{{cinemaName}}/hall/{{hall.hallName}}/update">update hall</a>
     </td>
   </tr>
   </tbody>
