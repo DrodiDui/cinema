@@ -2,7 +2,7 @@
 <thead>
 <tr>
   <th scope="col">#</th>
-  <th scope="col">Email</th>
+  <th scope="col" (click)="sort('email')">Email</th>
   <th scope="col">Role</th>
   <th scope="col">Action</th>
 </tr>
@@ -10,7 +10,7 @@
 <tbody>
 <tr *ngFor="let user of users">
   <th scope="row"></th>
-  <td>{{user.email}}</td>
+  <td scope="row">{{user.email}}</td>
   <td>{{user.roleName}}</td>
   <td>
     <div class="dropdown">
@@ -54,19 +54,20 @@
       </ul>
     </div>
   </td>
-  <td></td>
 </tr>
 </tbody>
 </table>
+
+
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item" *ngIf="!hasPrevious">
-      <button class="page-link" type="submit" (click)="loadUser(currentPage - 1)">
+      <button class="page-link" type="submit" (click)="changePage(currentPage - 1)">
         << Previous
       </button>
     </li>
     <li class="page-item" *ngIf="!hasNext">
-      <button class="page-link" type="submit" (click)="loadUser(currentPage + 1)">
+      <button class="page-link" type="submit" (click)="changePage(currentPage + 1)">
         Next>>
       </button>
     </li>

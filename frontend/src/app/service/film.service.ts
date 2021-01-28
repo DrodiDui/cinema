@@ -17,8 +17,12 @@ export class FilmService {
     private http: HttpClient
   ) { }
 
-  getAllFilms(page: number, size: number, sortParams?: Map<string, string>): Observable<Page<Film>> {
-    return this.http.get<Page<Film>>(`${this.url}?page=${page}&size=${size}&sortParams=${sortParams}`);
+  getAllFilms(pageableParams: Map<string, string>): Observable<Page<Film>> {
+    let params: string = "";
+    pageableParams.forEach(((value, key) => {
+      params += key + "=" + value + "&";
+    }))
+    return this.http.get<Page<Film>>(`${this.url}?${params}`);
   }
 
   getAllFilmsByName(filmName: string): Observable<Film[]> {

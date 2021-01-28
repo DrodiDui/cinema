@@ -2,8 +2,8 @@
   <thead>
   <tr>
     <th scope="col">#</th>
-    <th scope="col">Cinema</th>
-    <th scope="col">Country</th>
+    <th scope="col" (click)="sort('cinemaName')">Cinema</th>
+    <th scope="col" (click)="sort('country')">Country</th>
     <th scope="col">City</th>
     <th scope="col">Address</th>
     <th scope="col">Description</th>
@@ -28,12 +28,12 @@
 <nav aria-label="Page navigation example">
   <ul class="pagination">
     <li class="page-item" *ngIf="!hasPrevious">
-      <button class="page-link" type="submit" (click)="loadCinemas(currentPage - 1)">
+      <button class="page-link" type="submit" (click)="changePage(currentPage - 1)">
         << Previous
       </button>
     </li>
     <li class="page-item" *ngIf="!hasNext">
-      <button class="page-link" type="submit" (click)="loadCinemas(currentPage + 1)">
+      <button class="page-link" type="submit" (click)="changePage(currentPage + 1)">
         Next >>
       </button>
     </li>

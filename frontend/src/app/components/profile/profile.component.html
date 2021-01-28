@@ -20,21 +20,21 @@
       </form>
     </div>
     <ng-template #profile>
-        <div class="card" style="width: 18rem;">
-          <div class="card-header">
-            {{user.email}}
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">{{user.firstName}}</li>
-            <li class="list-group-item">{{user.lastName}}</li>
-            <li class="list-group-item">{{user.roleName}}</li>
-            <li class="list-group-item">
-              <button type="button" class="btn btn-primary" (click)="isEdit = true">
-                Edit profile
-              </button>
-            </li>
-          </ul>
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">
+          {{user.email}}
         </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">{{user.firstName}}</li>
+          <li class="list-group-item">{{user.lastName}}</li>
+          <li class="list-group-item">{{user.roleName}}</li>
+          <li class="list-group-item">
+            <button type="button" class="btn btn-primary" (click)="isEdit = true">
+              Edit profile
+            </button>
+          </li>
+        </ul>
+      </div>
     </ng-template>
 
     <div class="col-sm-7">
@@ -42,23 +42,21 @@
       <button class="btn btn-secondary" *ngIf="unreservedTicket.length !== 0" (click)="unreservedAllTickets()">
         Unreserved
       </button>
-      <div class="card" *ngFor="let ticket of tickets">
-        <button class="btn" (click)="addToUnreserved(ticket.id)">
-          <div class="card-header">
-            Film name: {{ticket.filmName}}
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">Hall name: {{ticket.hallName}}</h5>
-            <h5 class="card-title">Row number: {{ticket.rowsNumber}}</h5>
-            <h5 class="card-title">Number seats per row: {{ticket.numberSeatsPerRow}}</h5>
-            <h5 class="card-title">Show time: {{ticket.showTime}}</h5>
-            <h5 class="card-title">Duration: {{ticket.duration}}</h5>
-            <button class="btn btn-secondary" type="button"
-                    (click)="unreserved(ticket.id)" *ngIf="unreservedTicket.length === 0">
-              Unreserved
-            </button>
-          </div>
-        </button>
+      <div class="card" *ngFor="let ticket of tickets" (click)="addToUnreserved(ticket.id)">
+        <div class="card-header">
+          Film name: {{ticket.filmName}}
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Hall name: {{ticket.hallName}}</h5>
+          <h5 class="card-title">Row number: {{ticket.rowsNumber}}</h5>
+          <h5 class="card-title">Number seats per row: {{ticket.numberSeatsPerRow}}</h5>
+          <h5 class="card-title">Show time: {{ticket.showTime}}</h5>
+          <h5 class="card-title">Duration: {{ticket.duration}}</h5>
+          <button class="btn btn-secondary" type="button"
+                  (click)="unreserved(ticket.id)" *ngIf="unreservedTicket.length === 0">
+            Unreserved
+          </button>
+        </div>
       </div>
 
       <nav aria-label="Page navigation example">

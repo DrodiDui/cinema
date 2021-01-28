@@ -6,6 +6,7 @@ import {User} from "../../model/User";
 import {Ticket} from "../../model/Ticket";
 import {UpdateUserDTO} from "../../model/dto/UpdateUserDTO";
 import {ApiResponse} from "../../model/ApiResponse";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',

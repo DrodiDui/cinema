@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../model/User";
 import {CreateUserDTO} from "../model/dto/CreateUserDTO";
@@ -17,8 +17,16 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  public getAll(page: number, size: number): Observable<Page<User>> {
-    return this.http.get<Page<User>>(`${this.url}?page=${page}&size=${size}`);
+  public getAll(pageableParams: Map<string, string>): Observable<Page<User>> {
+
+    let uriParams: string = "";
+    pageableParams.forEach(((value, key) => {
+      uriParams += key.toString() + "=" + value.toString() + "&";
+    }))
+
+    return this.http.get<Page<User>>(
+      `${this.url}?${uriParams}`
+    );
   }
 
   public getOne(email: string): Observable<User> {
