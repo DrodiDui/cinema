@@ -12,9 +12,13 @@ public class UrlMapper {
 
         UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(url);
 
-        for (Map.Entry params: pageableParams.entrySet()) {
+        pageableParams.entrySet()
+                .stream()
+                .forEach(param -> builder.queryParam(param.getKey(), param.getValue()));
+
+        /*for (Map.Entry params: pageableParams.entrySet()) {
             builder.queryParam(String.valueOf(params.getKey()), params.getValue());
-        }
+        }*/
         return builder.toUriString();
     }
 

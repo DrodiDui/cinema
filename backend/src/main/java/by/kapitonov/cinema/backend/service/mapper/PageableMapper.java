@@ -7,9 +7,10 @@ import org.springframework.data.domain.Sort;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class PageableMapper {
-    
+
     public static Pageable mapToPageable(Map<String, String> pageableParams) {
 
         if (pageableParams.isEmpty()) {
@@ -26,14 +27,13 @@ public class PageableMapper {
             return PageRequest.of(page, size);
         }
 
-        List<Sort.Order> orders = new LinkedList<>();
-        for (Map.Entry params: pageableParams.entrySet()) {
-            Sort.Order order = new Sort.Order(
-                    getDirection(params.getValue().toString()),
-                    params.getKey().toString()
-            );
-            orders.add(order);
-        }
+        List<Sort.Order> orders = pageableParams.entrySet()
+                .stream()
+                .map((item) -> new Sort.Order(
+                        getDirection(item.getValue().toString()),
+                        item.getKey().toString()
+                ))
+                .collect(Collectors.toList());
 
         return PageRequest.of(
                 page,
