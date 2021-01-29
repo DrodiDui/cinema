@@ -12,6 +12,7 @@ import java.util.Map;
 public interface FilmService {
 
     PageResponse<Film> getAll(Map<String, String> pageableParams);
+    PageResponse<Film> getAllOwnerFilms(Long ownerId, Map<String, String> pageableParams);
 
     List<Film> getAllFilmsByName(String filmName);
 

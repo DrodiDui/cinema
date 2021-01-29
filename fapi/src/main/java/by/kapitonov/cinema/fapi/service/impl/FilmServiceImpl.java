@@ -35,6 +35,15 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    public PageResponse<Film> getAllOwnerFilms(Long ownerId, Map<String, String> pageableParams) {
+        String url = UrlMapper.mapPramsToUrlWithParams(UrlConstants.FILM_URL + "/all/" + ownerId, pageableParams);
+        return restTemplate.getForObject(
+                url,
+                PageResponse.class
+        );
+    }
+
+    @Override
     public List<Film> getAllFilmsByName(String filmName) {
         return restTemplate.getForObject(
                 UrlConstants.FILM_URL + "/" + filmName + "/all",

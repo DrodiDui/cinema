@@ -11,12 +11,11 @@ import java.util.List;
 public interface FilmService {
 
     Page<FilmDTO> getAll(Pageable pageable);
-    Page<FilmDTO> getAll(Long ownerId, Pageable pageable);
+    Page<FilmDTO> getAllOwnerFilms(Long ownerId, Pageable pageable);
 
     List<FilmDTO> getAllFilmsByName(String filmName);
 
     Film getById(Long id);
 
     Film create(CreateFilmDTO filmDTO);
-
 }

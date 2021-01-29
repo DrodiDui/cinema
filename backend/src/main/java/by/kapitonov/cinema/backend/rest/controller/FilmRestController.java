@@ -41,6 +41,19 @@ public class FilmRestController {
         return new ResponseEntity(filmDTOS, HttpStatus.OK);
     }
 
+    @GetMapping("/all/{owner-id}")
+    public ResponseEntity getAll(
+            @PathVariable(name = "owner-id") Long ownerId,
+            @RequestParam Map<String, String> pageableParams
+    ) {
+
+        Pageable pageable = PageableMapper.mapToPageable(pageableParams);
+
+        Page<FilmDTO> filmDTOS = filmService.getAllOwnerFilms(ownerId, pageable);
+
+        return new ResponseEntity(filmDTOS, HttpStatus.OK);
+    }
+
     @GetMapping("/{film-name}/all")
     public ResponseEntity getAll(@PathVariable(name = "film-name") String filmName) {
 

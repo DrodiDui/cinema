@@ -38,6 +38,7 @@ import {CreateFilmComponent} from "./components/owner/create-film/create-film.co
 import {FilmListComponent} from './components/film-list/film-list.component';
 import {UpdateFilmSessionComponent} from './components/manager/update-film-session/update-film-session.component';
 import { UpdateHallComponent } from './components/owner/update-hall/update-hall.component';
+import { OwnerFilmsComponent } from './components/owner/owner-films/owner-films.component';
 
 @NgModule({
   declarations: [
@@ -64,7 +65,8 @@ import { UpdateHallComponent } from './components/owner/update-hall/update-hall.
     CreateFilmComponent,
     FilmListComponent,
     UpdateFilmSessionComponent,
-    UpdateHallComponent
+    UpdateHallComponent,
+    OwnerFilmsComponent
   ],
     imports: [
         BrowserModule,

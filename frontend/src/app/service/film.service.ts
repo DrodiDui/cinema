@@ -25,6 +25,14 @@ export class FilmService {
     return this.http.get<Page<Film>>(`${this.url}?${params}`);
   }
 
+  getAllOwnerFilms(ownerId: number, pageableParams: Map<string, string>): Observable<Page<Film>> {
+    let params: string = "";
+    pageableParams.forEach(((value, key) => {
+      params += key + "=" + value + "&";
+    }))
+    return this.http.get<Page<Film>>(`${this.url}/all/${ownerId}?${params}`);
+  }
+
   getAllFilmsByName(filmName: string): Observable<Film[]> {
     return this.http.get<Film[]>(`${this.url}/${filmName}/all`);
   }

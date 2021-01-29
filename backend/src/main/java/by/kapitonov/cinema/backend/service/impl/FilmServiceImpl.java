@@ -42,7 +42,7 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public Page<FilmDTO> getAll(Long ownerId, Pageable pageable) {
+    public Page<FilmDTO> getAllOwnerFilms(Long ownerId, Pageable pageable) {
         return filmRepository.findByOwnerId(ownerId, pageable)
                 .map(FilmMapper::toDTO);
     }

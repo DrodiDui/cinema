@@ -6,6 +6,7 @@ import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.FilmService;
 import by.kapitonov.cinema.fapi.service.dto.CreateFilmDTO;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,16 @@ public class FilmRestController {
     public ResponseEntity getAll(@RequestParam Map<String, String> pageableParams) {
 
         PageResponse response = filmService.getAll(pageableParams);
+
+        return new ResponseEntity(response, HttpStatus.OK);
+    }
+
+    @GetMapping("/all/{owner-id}")
+    public ResponseEntity getAll(
+            @PathVariable(name = "owner-id") Long ownerId,
+            @RequestParam Map<String, String> pageableParams) {
+
+        PageResponse response = filmService.getAllOwnerFilms(ownerId, pageableParams);
 
         return new ResponseEntity(response, HttpStatus.OK);
     }
