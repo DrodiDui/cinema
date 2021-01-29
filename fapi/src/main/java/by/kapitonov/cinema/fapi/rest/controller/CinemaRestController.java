@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cinemas")
@@ -31,12 +32,9 @@ public class CinemaRestController {
     }
 
     @GetMapping("")
-    public ResponseEntity getAll(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
-    ) {
+    public ResponseEntity getAll(@RequestParam Map<String, String> pageableParams) {
 
-        PageResponse<Cinema> cinemas = cinemaService.getAll(page, size);
+        PageResponse<Cinema> cinemas = cinemaService.getAll(pageableParams);
 
         return new ResponseEntity(cinemas, HttpStatus.OK);
     }
@@ -44,23 +42,10 @@ public class CinemaRestController {
     @GetMapping("/all/{owner-id}")
     public ResponseEntity getAll(
             @PathVariable(name = "owner-id") Long ownerId,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam Map<String, String> pageableParams
     ) {
 
-        PageResponse<Cinema> cinemas = cinemaService.getAllOwnerCinemas(ownerId, page, size);
-
-        return new ResponseEntity(cinemas, HttpStatus.OK);
-    }
-
-    @GetMapping("/{owner-id}/all")
-    public ResponseEntity getAll(
-            @PathVariable(name = "owner-id") Long ownerId,
-            @RequestParam(value = "country") String country,
-            @RequestParam(value = "city") String city
-    ) {
-
-        List<Cinema> cinemas = cinemaService.getAllOwnerCinemasByCountryAndCity(ownerId, country, city);
+        PageResponse<Cinema> cinemas = cinemaService.getAllOwnerCinemas(ownerId, pageableParams);
 
         return new ResponseEntity(cinemas, HttpStatus.OK);
     }

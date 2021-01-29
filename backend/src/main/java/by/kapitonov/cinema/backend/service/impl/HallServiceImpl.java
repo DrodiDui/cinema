@@ -2,6 +2,7 @@ package by.kapitonov.cinema.backend.service.impl;
 
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.Cinema;
+import by.kapitonov.cinema.backend.model.CinemaStatus;
 import by.kapitonov.cinema.backend.model.Hall;
 import by.kapitonov.cinema.backend.repository.HallRepository;
 import by.kapitonov.cinema.backend.service.CinemaService;
@@ -77,11 +78,10 @@ public class HallServiceImpl implements HallService {
         hall.setFloor(hallDTO.getFloor());
         hall.setRowsNumbers(hallDTO.getRowsNumbers());
         hall.setNumberSeatsPerRow(hallDTO.getNumberSeatsPerRow());
-        hall.setStatus(cinemaStatusService.getByName(hallDTO.getStatus()));
+        hall.setStatus(getCinemaStatus(hallDTO.getStatus()));
         hall.setCinema(getCinema(hallDTO.getCinemaId()));
         return hallRepository.save(hall);
     }
-
 
     @Override
     public Hall update(UpdateHallDTO hallDTO) {
@@ -91,6 +91,8 @@ public class HallServiceImpl implements HallService {
                     hall.setFloor(hallDTO.getFloor());
                     hall.setRowsNumbers(hallDTO.getRowsNumbers());
                     hall.setNumberSeatsPerRow(hallDTO.getNumberSeatsPerRow());
+                    hall.setStatus(getCinemaStatus(hallDTO.getStatus()));
+
                     return hallRepository.save(hall);
                 })
                 .orElseThrow(
@@ -113,4 +115,9 @@ public class HallServiceImpl implements HallService {
     private Cinema getCinema(Long cinemaId) {
         return cinemaService.getById(cinemaId);
     }
+
+    private CinemaStatus getCinemaStatus(String statusName) {
+        return cinemaStatusService.getByName(statusName);
+    }
+
 }

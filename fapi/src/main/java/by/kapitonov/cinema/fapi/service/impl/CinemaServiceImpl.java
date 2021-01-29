@@ -7,11 +7,13 @@ import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.CinemaService;
 import by.kapitonov.cinema.fapi.service.dto.cinema.CreateCinemaDTO;
 import by.kapitonov.cinema.fapi.service.dto.cinema.UpdateCinemaDTO;
+import by.kapitonov.cinema.fapi.service.mapper.UrlMapper;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class CinemaServiceImpl implements CinemaService {
@@ -23,26 +25,22 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public PageResponse<Cinema> getAll(int page, int size) {
+    public PageResponse<Cinema> getAll(Map<String, String> pageableParams) {
+
+        String url = UrlMapper.mapPramsToUrlWithParams(UrlConstants.CINEMA_URL, pageableParams);
+
         return restTemplate.getForObject(
-                UrlConstants.CINEMA_URL + "?page=" + page + "&size=" + size,
+                url,
                 PageResponse.class
         );
     }
 
     @Override
-    public PageResponse<Cinema> getAllOwnerCinemas(Long ownerId, int page, int size) {
+    public PageResponse<Cinema> getAllOwnerCinemas(Long ownerId, Map<String, String> pageableParams) {
+        String url = UrlMapper.mapPramsToUrlWithParams(UrlConstants.CINEMA_URL + "/all/" + ownerId, pageableParams);
         return restTemplate.getForObject(
-                UrlConstants.CINEMA_URL + "/all/" + ownerId + "?page=" + page + "&size=" + size,
+                url,
                 PageResponse.class
-        );
-    }
-
-    @Override
-    public List<Cinema> getAllOwnerCinemasByCountryAndCity(Long ownerId, String country, String city) {
-        return restTemplate.getForObject(
-                UrlConstants.CINEMA_URL + "/" + ownerId + "/all" + "?country=" + country + "&city=" + city,
-                List.class
         );
     }
 
@@ -66,7 +64,10 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public ApiResponse update(UpdateCinemaDTO cinemaDTO) {
-        return restTemplate.patchForObject(UrlConstants.CINEMA_URL, cinemaDTO, ApiResponse.class);
+        return restTemplate.patchForObject(
+                UrlConstants.CINEMA_URL,
+                cinemaDTO,
+                ApiResponse.class);
     }
 
     @Override

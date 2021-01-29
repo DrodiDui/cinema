@@ -7,6 +7,7 @@ import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.FilmService;
 import by.kapitonov.cinema.fapi.service.dto.CreateFilmDTO;
+import by.kapitonov.cinema.fapi.service.mapper.UrlMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,9 +24,12 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
-    public PageResponse<Film> getAll(int page, int size) {
+    public PageResponse<Film> getAll(Map<String, String> pageableParams) {
+
+        String url = UrlMapper.mapPramsToUrlWithParams(UrlConstants.FILM_URL, pageableParams);
+
         return restTemplate.getForObject(
-                UrlConstants.FILM_URL + "?page=" + page + "&size=" + size,
+                url,
                 PageResponse.class
         );
     }

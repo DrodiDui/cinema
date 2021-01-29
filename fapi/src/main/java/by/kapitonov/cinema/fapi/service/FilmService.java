@@ -11,7 +11,7 @@ import java.util.Map;
 
 public interface FilmService {
 
-    PageResponse<Film> getAll(int page, int size);
+    PageResponse<Film> getAll(Map<String, String> pageableParams);
 
     List<Film> getAllFilmsByName(String filmName);
 

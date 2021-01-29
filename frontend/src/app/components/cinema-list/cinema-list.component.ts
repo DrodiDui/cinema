@@ -39,10 +39,12 @@ export class CinemaListComponent implements OnInit {
 
   sort(fieldName: string) {
     let sortType: string = SortType.ASC;
-    if (this.pageableParams.has(fieldName) && (this.pageableParams.get(fieldName) === sortType)) {
-      sortType = SortType.DESC;
-    } else {
-      sortType = SortType.ASC;
+    if (this.pageableParams.has(fieldName)) {
+      if (this.pageableParams.get(fieldName) === sortType) {
+        sortType = SortType.DESC;
+      } else {
+        sortType = SortType.ASC;
+      }
     }
     this.pageableParams.set(fieldName, sortType);
     this.loadCinemas(this.pageableParams);

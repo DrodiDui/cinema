@@ -65,6 +65,15 @@ public class AuthServiceImpl implements AuthService {
         user.setFirstName(registrationUserDTO.getFirstName());
         user.setLastName(registrationUserDTO.getLastName());
 
-        return restTemplate.postForEntity(UrlConstants.USER_URL + "/registration", user, ApiResponse.class).getBody();
+        ApiResponse response = restTemplate.postForEntity(
+                UrlConstants.USER_URL + "/registration",
+                user,
+                ApiResponse.class).getBody();
+
+        if (response.getMessage() != null) {
+            //send email message
+        }
+
+        return response;
     }
 }

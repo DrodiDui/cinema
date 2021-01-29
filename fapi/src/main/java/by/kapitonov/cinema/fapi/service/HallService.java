@@ -4,6 +4,7 @@ import by.kapitonov.cinema.fapi.model.Hall;
 import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.dto.CreateHallDTO;
+import by.kapitonov.cinema.fapi.service.dto.UpdateHallDTO;
 
 public interface HallService {
 
@@ -13,7 +14,7 @@ public interface HallService {
 
     ApiResponse create(CreateHallDTO hallDTO);
 
-    ApiResponse update(Hall hall);
+    ApiResponse update(UpdateHallDTO hallDTO);
 
     ApiResponse changeStatus(Long hallId, String statusName);
 

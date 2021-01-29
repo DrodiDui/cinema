@@ -52,14 +52,6 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public List<CinemaDTO> getAllByCountyCityAndOwnerId(String country, String city, Long ownerId) {
-        return cinemaRepository.findAllByCountryAndCityAndOwnerId(country, city, ownerId)
-                .stream()
-                .map(CinemaMapper::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public CinemaDTO getByName(String cinemaName) {
         return cinemaRepository.findByCinemaName(cinemaName)
                 .map(CinemaMapper::toDTO)
@@ -100,6 +92,7 @@ public class CinemaServiceImpl implements CinemaService {
                     cinema.setCity(cinemaDTO.getCity());
                     cinema.setAddress(cinemaDTO.getAddress());
                     cinema.setDescription(cinemaDTO.getDescription());;
+                    cinema.setStatus(getCinemaStatus(cinemaDTO.getStatus()));
 
                     return cinemaRepository.save(cinema);
                 })
@@ -123,15 +116,8 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public CinemaDTO getByManagerId(Long managerId) {
-        Cinema findCinema = getUser(managerId).getCinema();
-        return cinemaRepository.findAll()
-                .stream()
-                .filter(cinema -> findCinema.equals(cinema))
-                .findAny()
-                .map(CinemaMapper::toDTO)
-                .orElseThrow(
-                        () -> new ModelNotFoundException("Cinema hasn't been found by manager id: " + managerId)
-                );
+        Cinema cinema = getUser(managerId).getCinema();
+        return CinemaMapper.toDTO(cinema);
     }
 
     private User getUser(Long id) {

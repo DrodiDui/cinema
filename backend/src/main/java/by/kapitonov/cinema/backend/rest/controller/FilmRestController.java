@@ -7,6 +7,7 @@ import by.kapitonov.cinema.backend.service.FilmService;
 import by.kapitonov.cinema.backend.service.dto.film.CreateFilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
 import by.kapitonov.cinema.backend.service.mapper.FilmMapper;
+import by.kapitonov.cinema.backend.service.mapper.PageableMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,13 +32,9 @@ public class FilmRestController {
     }
 
     @GetMapping
-    public ResponseEntity getAll(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    public ResponseEntity getAll(@RequestParam Map<String, String> pageableParams) {
 
-        Pageable sortedPage = PageRequest.of(
-                pageable.getPageNumber(),
-                pageable.getPageSize(),
-                pageable.getSort()
-        );
+        Pageable pageable = PageableMapper.mapToPageable(pageableParams);
 
         Page<FilmDTO> filmDTOS = filmService.getAll(pageable);
 

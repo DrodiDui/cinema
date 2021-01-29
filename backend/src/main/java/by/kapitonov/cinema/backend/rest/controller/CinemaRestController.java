@@ -5,6 +5,7 @@ import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.dto.cinema.CinemaDTO;
 import by.kapitonov.cinema.backend.service.dto.cinema.CreateCinemaDTO;
 import by.kapitonov.cinema.backend.service.dto.cinema.UpdateCinemaDTO;
+import by.kapitonov.cinema.backend.service.mapper.PageableMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/cinemas")
@@ -32,7 +34,9 @@ public class CinemaRestController {
     }
 
     @GetMapping("")
-    public ResponseEntity getAll(Pageable pageable) {
+    public ResponseEntity getAll(@RequestParam Map<String, String> pageableParams) {
+
+        Pageable pageable = PageableMapper.mapToPageable(pageableParams);
 
         Page<CinemaDTO> cinemaDTOS = cinemaService.getAll(pageable);
 
@@ -40,21 +44,14 @@ public class CinemaRestController {
     }
 
     @GetMapping("/all/{owner-id}")
-    public ResponseEntity getAll(@PathVariable(name = "owner-id") Long ownerId, Pageable pageable) {
-
-        Page<CinemaDTO> cinemaDTOS = cinemaService.getAllByOwnerId(ownerId, pageable);
-
-        return new ResponseEntity(cinemaDTOS, HttpStatus.OK);
-    }
-
-    @GetMapping("/{owner-id}/all/")
     public ResponseEntity getAll(
             @PathVariable(name = "owner-id") Long ownerId,
-            @RequestParam(value = "country") String country,
-            @RequestParam(value = "city") String city
+            @RequestParam Map<String, String> pageableParams
     ) {
 
-        List<CinemaDTO> cinemaDTOS = cinemaService.getAllByCountyCityAndOwnerId(country, city, ownerId);
+        Pageable pageable = PageableMapper.mapToPageable(pageableParams);
+
+        Page<CinemaDTO> cinemaDTOS = cinemaService.getAllByOwnerId(ownerId, pageable);
 
         return new ResponseEntity(cinemaDTOS, HttpStatus.OK);
     }
@@ -83,7 +80,7 @@ public class CinemaRestController {
         return new ResponseEntity<>(new ApiResponse("Cinema successfully created"), HttpStatus.OK);
     }
 
-    @PutMapping("")
+    @PatchMapping("")
     public ResponseEntity<ApiResponse> update(@RequestBody UpdateCinemaDTO cinemaDTO) {
 
         cinemaService.update(cinemaDTO);

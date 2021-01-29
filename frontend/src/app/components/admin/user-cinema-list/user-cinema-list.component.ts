@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CinemaService} from "../../../service/cinema.service";
 import {TokenStorageService} from "../../../service/token-storage.service";
 import {Cinema} from "../../../model/Cinema";
+import {SortType} from "../../../model/SortType";
 
 @Component({
   selector: 'app-user-cinema-list',
@@ -12,18 +13,48 @@ export class UserCinemaListComponent implements OnInit {
 
   private cinemas: Cinema[];
   private userId: number;
+  private pageableParams: Map<string, string>;
+  private hasNext: boolean = true;
+  private hasPrevious: boolean = true;
+  private currentPage: number = 0;
 
   constructor(
     private cinemaService: CinemaService,
     private tokenStorage:TokenStorageService
   ) {
     this.userId = tokenStorage.getId();
+    this.pageableParams = new Map<string, string>();
   }
 
   ngOnInit() {
-    this.cinemaService.getAllUserCinemas(this.userId, 0, 10).subscribe(data => {
+    this.pageableParams.set("page", String(this.currentPage));
+    this.pageableParams.set("size", String(10));
+    this.loadCinemas(this.pageableParams);
+  }
+
+  private loadCinemas(pageableParams?: Map<string, string>) {
+    this.cinemaService.getAllUserCinemas(this.userId, pageableParams).subscribe(data => {
       this.cinemas = data.content;
+      this.currentPage = data.pageable.pageNumber;
+      this.hasPrevious = data.first;
+      this.hasNext = data.last;
     })
+  }
+
+  changePage(page: number) {
+    this.pageableParams.set("page", String(page));
+    this.loadCinemas(this.pageableParams);
+  }
+
+  sort(fieldName: string) {
+    let sortType: string = SortType.ASC;
+    if (this.pageableParams.has(fieldName) && (this.pageableParams.get(fieldName) === sortType)) {
+      sortType = SortType.DESC;
+    } else {
+      sortType = SortType.ASC;
+    }
+    this.pageableParams.set(fieldName, sortType);
+    this.loadCinemas(this.pageableParams);
   }
 
 }

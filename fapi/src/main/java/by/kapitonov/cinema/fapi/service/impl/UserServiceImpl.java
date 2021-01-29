@@ -45,7 +45,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResponse create(CreateUserDTO userDTO) {
 
-        String hashPassword = passwordEncoder.encode(userDTO.getPassword());
+        String password = generatePassword();
+
+        String hashPassword = passwordEncoder.encode(password);
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setPassword(hashPassword);
@@ -81,6 +83,12 @@ public class UserServiceImpl implements UserService {
                 userDTO,
                 ApiResponse.class
         );
+    }
+
+
+    private String generatePassword() {
+        String password = null;
+        return password;
     }
 
 }

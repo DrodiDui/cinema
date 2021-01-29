@@ -7,13 +7,12 @@ import by.kapitonov.cinema.fapi.service.dto.cinema.UpdateCinemaDTO;
 import by.kapitonov.cinema.fapi.service.dto.cinema.CreateCinemaDTO;
 
 import java.util.List;
+import java.util.Map;
 
 public interface CinemaService {
 
-    PageResponse<Cinema> getAll(int page, int size);
-    PageResponse<Cinema> getAllOwnerCinemas(Long ownerId, int page, int size);
-
-    List<Cinema> getAllOwnerCinemasByCountryAndCity(Long ownerId, String country, String city);
+    PageResponse<Cinema> getAll(Map<String, String> pageableParams);
+    PageResponse<Cinema> getAllOwnerCinemas(Long ownerId, Map<String, String> pageableParams);
 
     Cinema getOne(String cinemaName);
     Cinema getOneByManagerId(Long managerId);
@@ -23,5 +22,4 @@ public interface CinemaService {
     ApiResponse update(UpdateCinemaDTO cinemaDTO);
 
     ApiResponse changeStatus(Long cinemaId, String statusName);
-
 }

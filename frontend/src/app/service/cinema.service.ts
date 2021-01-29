@@ -24,8 +24,12 @@ export class CinemaService {
     return this.http.get<Page<Cinema>>(`${this.url}?${params}`);
   }
 
-  public getAllUserCinemas(ownerId: number, page: number, size: number): Observable<Page<Cinema>> {
-    return this.http.get<Page<Cinema>>(`${this.url}/all/${ownerId}?page=${page}&size=${size}`);
+  public getAllUserCinemas(ownerId: number, pageableParams: Map<string, string>): Observable<Page<Cinema>> {
+    let params: string = "";
+    pageableParams.forEach(((value, key) => {
+      params += key.toString() + "=" + value.toString() + "&";
+    }))
+    return this.http.get<Page<Cinema>>(`${this.url}/all/${ownerId}?${params}`);
   }
 
   public getByManagerId(managerId: number): Observable<Cinema> {

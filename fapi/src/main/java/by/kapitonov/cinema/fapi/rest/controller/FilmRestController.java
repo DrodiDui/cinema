@@ -25,12 +25,9 @@ public class FilmRestController {
     }
 
     @GetMapping("")
-    public ResponseEntity getAll(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
-    ) {
+    public ResponseEntity getAll(@RequestParam Map<String, String> pageableParams) {
 
-        PageResponse response = filmService.getAll(page, size);
+        PageResponse response = filmService.getAll(pageableParams);
 
         return new ResponseEntity(response, HttpStatus.OK);
     }

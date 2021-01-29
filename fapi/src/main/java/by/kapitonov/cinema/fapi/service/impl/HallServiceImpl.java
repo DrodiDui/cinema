@@ -6,6 +6,7 @@ import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
 import by.kapitonov.cinema.fapi.service.HallService;
 import by.kapitonov.cinema.fapi.service.dto.CreateHallDTO;
+import by.kapitonov.cinema.fapi.service.dto.UpdateHallDTO;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -45,10 +46,10 @@ public class HallServiceImpl implements HallService {
     }
 
     @Override
-    public ApiResponse update(Hall hall) {
+    public ApiResponse update(UpdateHallDTO hallDTO) {
         return restTemplate.patchForObject(
                 UrlConstants.HALL_URL,
-                hall,
+                hallDTO,
                 ApiResponse.class
         );
     }
