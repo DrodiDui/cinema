@@ -4,10 +4,12 @@ import by.kapitonov.cinema.fapi.config.UrlConstants;
 import by.kapitonov.cinema.fapi.model.User;
 import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.PageResponse;
+import by.kapitonov.cinema.fapi.service.EmailSenderService;
 import by.kapitonov.cinema.fapi.service.UserService;
 import by.kapitonov.cinema.fapi.service.dto.UpdateUserDTO;
 import by.kapitonov.cinema.fapi.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.fapi.service.mapper.UrlMapper;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,15 +19,21 @@ import java.util.Map;
 @Service
 public class UserServiceImpl implements UserService {
 
+    public static final int MIN_PASSWORD_LENGTH = 6;
+    public static final int MAX_PASSWORD_LENGTH = 10;
+
     private final RestTemplate restTemplate;
     private final PasswordEncoder passwordEncoder;
+    private final EmailSenderService emailService;
 
     public UserServiceImpl(
             RestTemplate restTemplate,
-            PasswordEncoder passwordEncoder
+            PasswordEncoder passwordEncoder,
+            EmailSenderService emailService
     ) {
         this.restTemplate = restTemplate;
         this.passwordEncoder = passwordEncoder;
+        this.emailService = emailService;
     }
 
     @Override
@@ -45,9 +53,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public ApiResponse create(CreateUserDTO userDTO) {
 
-        String password = generatePassword();
+        String generatePassword = generatePassword();
 
-        String hashPassword = passwordEncoder.encode(password);
+        String hashPassword = passwordEncoder.encode(generatePassword);
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setPassword(hashPassword);
@@ -57,7 +65,16 @@ public class UserServiceImpl implements UserService {
         user.setStatusName(userDTO.getStatusName());
         user.setCinemaId(userDTO.getCinemaId());
 
-        return restTemplate.postForEntity(UrlConstants.USER_URL, user, ApiResponse.class).getBody();
+        ApiResponse response =  restTemplate.postForEntity(
+                UrlConstants.USER_URL,
+                user,
+                ApiResponse.class).getBody();
+
+        if (response != null) {
+            emailService.createUserEmail(user.getEmail(), generatePassword);
+        }
+
+        return response;
     }
 
     @Override
@@ -87,8 +104,7 @@ public class UserServiceImpl implements UserService {
 
 
     private String generatePassword() {
-        String password = null;
-        return password;
+        return RandomStringUtils.randomAlphabetic(MIN_PASSWORD_LENGTH, MAX_PASSWORD_LENGTH);
     }
 
 }

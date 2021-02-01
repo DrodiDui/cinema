@@ -4,6 +4,18 @@ server:
 spring:
   application:
     name: cinema_fapi
+  mail:
+    host: smtp.yandex.ru
+    port: 465
+    username:
+    password:
+    protocol: smtps
+    debug: true
+    properties:
+      "mail.smtp.ssl.enable": true
+      "mail.transport.protocol": smpt
+      "mail.smtp.auth": true
+      "mail.smtp.starttls.enable": true
 
 jwt:
   secret: qwerty
