@@ -56,6 +56,7 @@ export class FilmSessionDetailsComponent implements OnInit {
 
   reserved() {
     this.ticketDTO.userId = this.tokenStorage.getId();
+    this.ticketDTO.userEmail = this.tokenStorage.getEmail();
     this.ticketService.reserved(this.ticketDTO).subscribe(data => {
       this.ticketDTO.ticketsId.length = 0;
       this.response = data;

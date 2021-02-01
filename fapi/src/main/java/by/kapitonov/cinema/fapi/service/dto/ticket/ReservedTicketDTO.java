@@ -11,5 +11,6 @@ public class ReservedTicketDTO {
 
     private Set<Long> ticketsId;
     private Long userId;
+    private String userEmail;
 
 }

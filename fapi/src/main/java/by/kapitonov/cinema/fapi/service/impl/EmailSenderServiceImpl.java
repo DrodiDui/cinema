@@ -41,4 +41,12 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
         sendEmail(email, subject, message);
     }
+
+    @Override
+    public void sendNotification(String email) {
+        String subject = "Notification";
+        String message = String.format("You have successfully booked your tickets");
+
+        sendEmail(email, subject, message);
+    }
 }

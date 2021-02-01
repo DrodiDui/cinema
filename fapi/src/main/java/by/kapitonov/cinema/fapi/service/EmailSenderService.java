@@ -6,4 +6,6 @@ public interface EmailSenderService {
 
     void createUserEmail(String email, String password);
 
+    void sendNotification(String email);
+
 }
