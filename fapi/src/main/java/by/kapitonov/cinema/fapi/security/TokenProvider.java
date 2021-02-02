@@ -45,16 +45,20 @@ public class TokenProvider {
             return true;
         } catch (ExpiredJwtException expEx) {
             log.error("Token expired");
+            throw new RuntimeException("Token expired");
         } catch (UnsupportedJwtException unsEx) {
             log.error("Unsupported jwt");
+            throw new UnsupportedJwtException("Unsupported jwt");
         } catch (MalformedJwtException mjEx) {
             log.error("Malformed jwt");
+            throw new MalformedJwtException("Malformed jwt");
         } catch (SignatureException sEx) {
             log.error("Invalid signature");
+            throw new SignatureException("Invalid signature");
         } catch (Exception e) {
-            log.error("invalid token");
+            log.error("Invalid token");
+            throw new RuntimeException("Invalid token");
         }
-        return false;
     }
 
 }
