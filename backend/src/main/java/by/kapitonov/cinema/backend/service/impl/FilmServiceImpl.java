@@ -10,6 +10,7 @@ import by.kapitonov.cinema.backend.service.FilmService;
 import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.dto.film.CreateFilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
+import by.kapitonov.cinema.backend.service.dto.film.UpdateFilmDTO;
 import by.kapitonov.cinema.backend.service.mapper.FilmMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -78,6 +79,39 @@ public class FilmServiceImpl implements FilmService {
         film.setStatus(getStatus(filmDTO.getStatus()));
         film.setOwner(getOwner(filmDTO.getOwnerId()));
         return filmRepository.save(film);
+    }
+
+    @Override
+    public Film update(UpdateFilmDTO filmDTO) {
+        return filmRepository.findById(filmDTO.getId())
+                .map(film -> {
+                    film.setFilmName(filmDTO.getFilmName());
+                    film.setYearOfRelease(filmDTO.getYearOfRelease());
+                    film.setGenre(filmDTO.getGenre());
+                    film.setCountryOfOrigin(filmDTO.getCountryOfOrigin());
+                    film.setDirector(filmDTO.getDirector());
+                    film.setStarring(filmDTO.getStarring());
+                    film.setBudget(filmDTO.getBudget());
+                    film.setDuration(filmDTO.getDuration());
+                    film.setStatus(getStatus(filmDTO.getStatus()));
+
+                    return filmRepository.save(film);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Film hasn't been found by id: " + filmDTO.getId())
+                );
+    }
+
+    @Override
+    public Film changeStatus(Long id, String statusName) {
+        return filmRepository.findById(id)
+                .map(film -> {
+                    film.setStatus(getStatus(statusName));
+                    return filmRepository.save(film);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Film hasn't been found")
+                );
     }
 
     private CinemaStatus getStatus(String statusName) {

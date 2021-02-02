@@ -20,4 +20,5 @@ public interface FilmService {
 
     ApiResponse create(CreateFilmDTO createFilmDTO);
 
+    ApiResponse changeStatus(Long filmId, String  statusName);
 }

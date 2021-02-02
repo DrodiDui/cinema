@@ -6,6 +6,7 @@ import by.kapitonov.cinema.backend.rest.response.ApiResponse;
 import by.kapitonov.cinema.backend.service.FilmService;
 import by.kapitonov.cinema.backend.service.dto.film.CreateFilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
+import by.kapitonov.cinema.backend.service.dto.film.UpdateFilmDTO;
 import by.kapitonov.cinema.backend.service.mapper.FilmMapper;
 import by.kapitonov.cinema.backend.service.mapper.PageableMapper;
 import org.springframework.data.domain.Page;
@@ -76,5 +77,24 @@ public class FilmRestController {
         filmService.create(filmDTO);
 
         return new ResponseEntity<>(new ApiResponse("Film successfully created"), HttpStatus.OK);
+    }
+
+    @PatchMapping
+    public ResponseEntity<ApiResponse> update(@RequestBody UpdateFilmDTO filmDTO) {
+
+        filmService.update(filmDTO);
+
+        return new ResponseEntity<>(new ApiResponse("Film successfully updated"), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<ApiResponse> updateStatus(
+            @PathVariable(name = "id") Long id,
+            @RequestParam(value = "status") String statusName
+    ) {
+
+        filmService.changeStatus(id, statusName);
+
+        return new ResponseEntity<>(new ApiResponse("Film status successfully updated"), HttpStatus.OK);
     }
 }

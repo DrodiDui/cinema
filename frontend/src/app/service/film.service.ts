@@ -44,4 +44,8 @@ export class FilmService {
   getById(filmId: number): Observable<Film> {
     return this.http.get<Film>(`${this.url}/${filmId}`);
   }
+
+  changeStatus(id: number, statusName: string): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(`${this.url}/${id}/status?status=${statusName}`, null);
+  }
 }

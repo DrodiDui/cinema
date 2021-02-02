@@ -59,4 +59,11 @@ public class FilmServiceImpl implements FilmService {
     public ApiResponse create(CreateFilmDTO filmDTO) {
         return restTemplate.postForObject(UrlConstants.FILM_URL, filmDTO, ApiResponse.class);
     }
+
+    @Override
+    public ApiResponse changeStatus(Long filmId, String statusName) {
+        return restTemplate.patchForObject(UrlConstants.FILM_URL + "/" + filmId + "/status?status=" + statusName,
+                null,
+                ApiResponse.class);
+    }
 }

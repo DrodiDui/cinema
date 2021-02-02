@@ -9,6 +9,7 @@
     <th scope="col" (click)="sort('genre')">Genre</th>
     <th scope="col">Staring</th>
     <th scope="col">Status</th>
+    <th scope="col">Action</th>
   </tr>
   </thead>
   <tbody>
@@ -21,6 +22,28 @@
     <td>{{film.genre}}</td>
     <td>{{film.starring}}</td>
     <td>{{film.status}}</td>
+    <td>
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuRole" data-bs-toggle="dropdown" aria-expanded="false">
+          Change status
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuRole">
+          <li>
+            <form (ngSubmit)="changeStatus(film.id)">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="role">Role</label>
+                  <select id="Role" class="form-control" name="secretQuestion" [(ngModel)]="statusName">
+                    <option *ngFor="let status of statuses" value="{{status}}">{{status}}</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">change</button>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </td>
   </tr>
   </tbody>
 </table>

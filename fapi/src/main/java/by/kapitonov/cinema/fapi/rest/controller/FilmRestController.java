@@ -67,4 +67,15 @@ public class FilmRestController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<ApiResponse> changeStatus(
+            @PathVariable(name = "id") Long filmId,
+            @RequestParam(name = "status") String statusName) {
+
+        ApiResponse response = filmService.changeStatus(filmId, statusName);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
 }

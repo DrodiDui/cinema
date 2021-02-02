@@ -3,6 +3,8 @@ import {FilmService} from "../../../service/film.service";
 import {TokenStorageService} from "../../../service/token-storage.service";
 import {Film} from "../../../model/Film";
 import {SortType} from "../../../model/SortType";
+import {CinemaStatusService} from "../../../service/cinema-status.service";
+import {ApiResponse} from "../../../model/ApiResponse";
 
 @Component({
   selector: 'app-owner-films',
@@ -18,10 +20,14 @@ export class OwnerFilmsComponent implements OnInit {
   private hasPrevious: boolean;
   private ownerId: number;
   private pageableParams: Map<string, string>;
+  private statuses: string[] = [];
+  private statusName: string;
+  private response: ApiResponse;
 
   constructor(
     private filmService: FilmService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private statusService: CinemaStatusService
   ) {
     this.pageableParams = new Map<string, string>();
   }
@@ -31,6 +37,7 @@ export class OwnerFilmsComponent implements OnInit {
     this.pageableParams.set('size', String(this.currentSize));
     this.ownerId = this.tokenStorage.getId();
     this.loadFilms(this.pageableParams);
+    this.loadStatuses();
   }
 
   loadFilms(pageableParams: Map<string, string>) {
@@ -60,4 +67,15 @@ export class OwnerFilmsComponent implements OnInit {
     this.loadFilms(this.pageableParams);
   }
 
+  changeStatus(id: number) {
+    this.filmService.changeStatus(id, this.statusName).subscribe(data => {
+      this.response = data;
+    })
+  }
+
+  loadStatuses() {
+    this.statusService.getAll().subscribe(data => {
+      this.statuses = data;
+    })
+  }
 }

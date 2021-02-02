@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.backend.service.dto.cinema;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,7 +16,7 @@ public class CinemaDTO {
     private String city;
     private String address;
     private String description;
-    private Date creationDate;
+    private String creationDate;
     private String status;
     //private User owner;
     //private List<Hall> halls;

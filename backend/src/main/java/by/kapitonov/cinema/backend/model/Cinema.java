@@ -1,10 +1,12 @@
 package by.kapitonov.cinema.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -52,6 +54,7 @@ public class  Cinema implements Serializable {
     @Column(name = "description", nullable = false, length = 255)
     private String description;
 
+    @CreatedDate
     @Column(name = "creation_date", nullable = false, updatable = false)
     private Date creationDate;
 
