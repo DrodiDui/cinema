@@ -4,6 +4,9 @@ import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.Cinema;
 import by.kapitonov.cinema.backend.service.dto.cinema.CinemaDTO;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CinemaMapper {
 
     public static CinemaDTO toDTO(Cinema cinema) {
@@ -16,9 +19,10 @@ public class CinemaMapper {
         cinemaDTO.setCountry(cinema.getCountry());
         cinemaDTO.setCity(cinema.getCity());
         cinemaDTO.setAddress(cinema.getAddress());
-        cinemaDTO.setCreationDate(cinema.getCreationDate());
+        cinemaDTO.setCreationDate(cinema.getCreationDate().toString());
         cinemaDTO.setDescription(cinema.getDescription());
         cinemaDTO.setStatus(cinema.getStatus().getStatusName());
+        cinemaDTO.setOwnerId(cinema.getOwner().getId());
         return cinemaDTO;
     }
 

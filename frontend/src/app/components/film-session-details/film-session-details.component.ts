@@ -46,7 +46,7 @@ export class FilmSessionDetailsComponent implements OnInit {
   }
 
   loadTickets(page: number) {
-    this.ticketService.getAllUnreservedTicket(this.filmSession.id, page, 5).subscribe(data => {
+    this.ticketService.getAllUnreservedTicket(this.filmSession.id, page, 10).subscribe(data => {
       this.tickets = data.content;
       this.currentPage = data.pageable.pageNumber;
       this.hasNext = data.last;
@@ -60,6 +60,7 @@ export class FilmSessionDetailsComponent implements OnInit {
     this.ticketService.reserved(this.ticketDTO).subscribe(data => {
       this.ticketDTO.ticketsId.length = 0;
       this.response = data;
+      this.ngOnInit();
     })
   }
 

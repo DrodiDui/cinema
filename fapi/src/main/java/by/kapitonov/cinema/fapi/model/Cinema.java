@@ -15,5 +15,6 @@ public class Cinema {
     private String description;
     private String creationDate;
     private String status;
+    private Long ownerId;
 
 }

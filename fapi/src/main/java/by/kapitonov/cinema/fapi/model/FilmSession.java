@@ -21,4 +21,5 @@ public class FilmSession{
     private String cinemaName;
     private String hallName;
     private String status;
+    private String showTime;
 }

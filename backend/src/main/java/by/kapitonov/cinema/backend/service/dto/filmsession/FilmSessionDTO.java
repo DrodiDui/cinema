@@ -20,5 +20,6 @@ public class FilmSessionDTO {
     private String cinemaName;
     private String hallName;
     private String status;
+    private String showTime;
 
 }

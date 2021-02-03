@@ -51,6 +51,14 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Override
+    public List<Film> getAllOwnerActiveFilms(Long ownerId) {
+        return restTemplate.getForObject(
+                UrlConstants.FILM_URL + "/all/" + ownerId + "/active",
+                List.class
+        );
+    }
+
+    @Override
     public Film getOne(Long filmId) {
         return restTemplate.getForObject(UrlConstants.FILM_URL + "/" + filmId, Film.class);
     }

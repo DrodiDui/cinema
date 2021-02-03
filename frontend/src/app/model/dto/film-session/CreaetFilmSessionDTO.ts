@@ -6,5 +6,6 @@ export class CreateFilmSessionDTO {
   managerId: number;
   status: string;
   filmId: number;
+  showTime: string;
 
 }

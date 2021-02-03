@@ -21,6 +21,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -75,6 +82,7 @@ public class FilmSessionServiceImpl implements FilmSessionService {
         filmSession.setTicketCost(filmSessionDTO.getTicketCost());
         filmSession.setShowNumber(UUID.randomUUID().toString());
         filmSession.setFilmName(filmSessionDTO.getFilmName());
+        filmSession.setShowTime(stringToInstant(filmSessionDTO.getShowTime()));
         filmSession.setHall(getHall(filmSessionDTO.getHallId()));
         filmSession.setManager(getManager(filmSessionDTO.getManagerId()));
         filmSession.setStatus(cinemaStatusService.getByName(filmSessionDTO.getStatus()));
@@ -116,4 +124,11 @@ public class FilmSessionServiceImpl implements FilmSessionService {
         ticketService.createTickets(filmSession);
     }
 
+    private Instant stringToInstant(String date) {
+        return LocalDateTime.parse(
+                date,
+                DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
+        ).toInstant(ZoneOffset.UTC);
+    }
+    
 }

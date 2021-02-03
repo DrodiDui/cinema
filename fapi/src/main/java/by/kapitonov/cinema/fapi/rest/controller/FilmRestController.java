@@ -43,10 +43,10 @@ public class FilmRestController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
-    @GetMapping("{film-name}/all")
-    public ResponseEntity getAll(@PathVariable(name = "film-name") String filmName) {
+    @GetMapping("/all/{owner-id}/active")
+    public ResponseEntity getAll(@PathVariable(name = "owner-id") Long ownerId) {
 
-        List<Film> films = filmService.getAllFilmsByName(filmName);
+        List<Film> films = filmService.getAllOwnerActiveFilms(ownerId);
 
         return new ResponseEntity(films, HttpStatus.OK);
     }

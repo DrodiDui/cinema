@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.backend.service.impl;
 
+import by.kapitonov.cinema.backend.config.Constants;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.CinemaStatus;
 import by.kapitonov.cinema.backend.model.Film;
@@ -51,6 +52,14 @@ public class FilmServiceImpl implements FilmService {
     @Override
     public List<FilmDTO> getAllFilmsByName(String filmName) {
         return filmRepository.findAllByFilmNameContains(filmName)
+                .stream()
+                .map(FilmMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<FilmDTO> getAllOwnerActiveFilms(Long ownerId) {
+        return filmRepository.findAllByOwnerIdAndStatusStatusName(ownerId, Constants.ACTIVE_STATUS)
                 .stream()
                 .map(FilmMapper::toDTO)
                 .collect(Collectors.toList());

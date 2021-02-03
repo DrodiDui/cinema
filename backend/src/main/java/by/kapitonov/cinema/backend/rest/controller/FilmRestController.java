@@ -55,10 +55,10 @@ public class FilmRestController {
         return new ResponseEntity(filmDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("/{film-name}/all")
-    public ResponseEntity getAll(@PathVariable(name = "film-name") String filmName) {
+    @GetMapping("/all/{owner-id}/active")
+    public ResponseEntity getAll(@PathVariable(name = "owner-id") Long ownerId) {
 
-        List<FilmDTO> filmDTOS = filmService.getAllFilmsByName(filmName);
+        List<FilmDTO> filmDTOS = filmService.getAllOwnerActiveFilms(ownerId);
         return new ResponseEntity(filmDTOS, HttpStatus.OK);
     }
 

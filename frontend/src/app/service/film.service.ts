@@ -33,6 +33,10 @@ export class FilmService {
     return this.http.get<Page<Film>>(`${this.url}/all/${ownerId}?${params}`);
   }
 
+  getAllOwnerActiveFilms(ownerId: number): Observable<Film[]> {
+    return this.http.get<Film[]>(`${this.url}/all/${ownerId}/active`);
+  }
+
   getAllFilmsByName(filmName: string): Observable<Film[]> {
     return this.http.get<Film[]>(`${this.url}/${filmName}/all`);
   }

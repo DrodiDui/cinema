@@ -2,26 +2,11 @@
   <div class="row justify-content-center">
     <div class="row">
       <form (ngSubmit)="createFilmSession()">
-
-        <div class="form-row">
-          <div class="form-group col-md-6">
-            <form (ngSubmit)="loadFilms()">
-              <div class="input-group mb-3">
-                <input type="text" class="form-control" id="inputGroupFile01" name="filmName" [(ngModel)]="filmName">
-                <button class="input-group-text" for="inputGroupFile01"  type="submit">
-                  Search film
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-
-
         <div class="form-row">
 
           <div class="form-group col-md-6">
             <label for="Film">Films</label>
-            <select id="Film" class="form-control" id="Film" name="filmId" [(ngModel)]="filmSessionDTO.filmId">
+            <select id="Film" class="form-control" id="Film" name="selectedFilm" [(ngModel)]="filmSessionDTO.filmId">
               <option *ngFor="let film of films" value="{{film.id}}">
                 {{film.filmName}}
               </option>
@@ -38,6 +23,12 @@
             <label for="TicketCost">Ticket cost</label>
             <input type="text" class="form-control" id="TicketCost" name="ticketCost"
                    [(ngModel)]="filmSessionDTO.ticketCost">
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="ShowTime">Show time</label>
+            <input type="datetime-local" class="form-control" id="ShowTime" name="showTime"
+                   [(ngModel)]="filmSessionDTO.showTime">
           </div>
 
           <div class="form-group col-md-6">

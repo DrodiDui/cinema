@@ -6,7 +6,6 @@ import {User} from "../../model/User";
 import {Ticket} from "../../model/Ticket";
 import {UpdateUserDTO} from "../../model/dto/user/UpdateUserDTO";
 import {ApiResponse} from "../../model/ApiResponse";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile',
@@ -35,12 +34,16 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    let userEmail: string = this.tokenStorage.getEmail();
     this.userId = this.tokenStorage.getId();
+    this.loadUser();
+    this.getTickets(this.currentPage);
+  }
+
+  loadUser() {
+    let userEmail: string = this.tokenStorage.getEmail();
     this.userService.getOne(userEmail).subscribe(data => {
       this.user = data;
       this.userDTO = new UpdateUserDTO(this.user);
-      this.getTickets(this.currentPage);
     })
   }
 
@@ -57,12 +60,14 @@ export class ProfileComponent implements OnInit {
     this.userService.updateUser(this.userId, this.userDTO).subscribe(data => {
       this.response = data;
       this.isEdit = false;
+      this.ngOnInit();
     });
   }
 
   unreserved(ticketId: number) {
     this.ticketService.unreservedOne(ticketId).subscribe(data => {
       this.response = data;
+      this.getTickets(this.currentPage);
     })
   }
 
@@ -70,6 +75,7 @@ export class ProfileComponent implements OnInit {
     this.ticketService.unreservedAll(this.unreservedTicket).subscribe(data => {
       this.response = data;
       this.unreservedTicket.length = 0;
+      this.getTickets(this.currentPage);
     })
   }
 

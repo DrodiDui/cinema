@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ApiResponse } from 'src/app/model/ApiResponse';
-import { CreateFilmSessionDTO } from 'src/app/model/dto/film-session/CreaetFilmSessionDTO';
-import { CinemaStatusService } from 'src/app/service/cinema-status.service';
-import { FilmSessionService } from 'src/app/service/film-session.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {ApiResponse} from 'src/app/model/ApiResponse';
+import {CreateFilmSessionDTO} from 'src/app/model/dto/film-session/CreaetFilmSessionDTO';
+import {CinemaStatusService} from 'src/app/service/cinema-status.service';
+import {FilmSessionService} from 'src/app/service/film-session.service';
 import {TokenStorageService} from "../../service/token-storage.service";
 import {Film} from "../../model/Film";
 import {FilmService} from "../../service/film.service";
+import {CinemaService} from "../../service/cinema.service";
+import {Cinema} from "../../model/Cinema";
 
 @Component({
   selector: 'app-create-film-session',
@@ -19,25 +21,27 @@ export class CreateFilmSessionComponent implements OnInit {
   private filmSessionDTO: CreateFilmSessionDTO;
   private response: ApiResponse;
   private films: Film[];
-  private film: Film;
-  private filmName: string;
-  filmId: number;
+  private readonly managerId: number;
+  private cinema: Cinema;
 
   constructor(
     private filmSessionService: FilmSessionService,
     private filmSessionStatus: CinemaStatusService,
+    private cinemaService: CinemaService,
     private tokenStorage: TokenStorageService,
     private filmService: FilmService,
     private rout: ActivatedRoute
   ) {
     this.filmSessionDTO = new CreateFilmSessionDTO;
     this.response = new ApiResponse;
+    this.managerId = this.tokenStorage.getId();
   }
 
   ngOnInit() {
     this.filmSessionDTO.hallId = this.rout.snapshot.params['hall-id'];
-    this.filmSessionDTO.managerId = this.tokenStorage.getId();
+    this.filmSessionDTO.managerId = this.managerId;
     this.loadFilmSessionStatuses();
+    this.loadCinema();
   }
 
   loadFilmSessionStatuses() {
@@ -47,20 +51,24 @@ export class CreateFilmSessionComponent implements OnInit {
   }
 
   createFilmSession() {
+    this.filmSessionDTO.showTime = this.filmSessionDTO.showTime.replace("T", " ");
     this.filmSessionService.create(this.filmSessionDTO).subscribe(data => {
       this.response = data;
     })
   }
 
-  loadFilms() {
-    this.filmService.getAllFilmsByName(this.filmName).subscribe(data => {
+  loadFilms(ownerId: number) {
+    this.filmService.getAllOwnerActiveFilms(ownerId).subscribe(data => {
       this.films = data;
     });
   }
 
-  loadFilm() {
-    this.filmService.getById(this.filmId).subscribe(data => {
-      this.film = data;
+  loadCinema() {
+    this.cinemaService.getByManagerId(this.managerId).subscribe(data => {
+      this.cinema = data;
+      this.loadFilms(this.cinema.ownerId);
     })
   }
+
+
 }

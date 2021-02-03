@@ -8,5 +8,6 @@ export class Cinema {
   description?: string;
   creationDate?: string;
   status?: string;
+  ownerId?: number;
 
 }

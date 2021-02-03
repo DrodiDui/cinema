@@ -15,6 +15,7 @@ public interface FilmService {
     Page<FilmDTO> getAllOwnerFilms(Long ownerId, Pageable pageable);
 
     List<FilmDTO> getAllFilmsByName(String filmName);
+    List<FilmDTO> getAllOwnerActiveFilms(Long ownerId);
 
     Film getById(Long id);
 

@@ -14,7 +14,6 @@ import {HomePageComponent} from "./components/home-page/home-page.component";
 import {CreateCinemaComponent} from "./components/owner/create-cinema/create-cinema.component";
 import {CreateHallComponent} from "./components/owner/create-hall/create-hall.component";
 import {CreateFilmSessionComponent} from "./components/create-film-session/create-film-session.component";
-import {FilmListComponent} from "./components/film-list/film-list.component";
 import {CreateFilmComponent} from "./components/owner/create-film/create-film.component";
 import {UpdateFilmSessionComponent} from "./components/manager/update-film-session/update-film-session.component";
 import {UpdateCinemaComponent} from "./components/owner/update-cinema/update-cinema.component";
@@ -37,13 +36,13 @@ const routes: Routes = [
   {path: 'owner/cinemas/create', component: CreateCinemaComponent},
   {path: 'owner/cinema/:id/create/manager', component: CreateUserComponent},
   {path: 'owner/cinema/:id/create/hall', component: CreateHallComponent},
-  {path: 'owner/cinema/:id/create/hall/:hall-id/create/filmSession', component: CreateFilmSessionComponent},
   {path: 'owner/cinema/:name/update', component: UpdateCinemaComponent},
   {path: 'owner/cinema/:cinema-name/halls', component: CinemaDetailsComponent},
   {path: 'owner/cinema/:cinema-name/hall/:hall-name/update', component: UpdateHallComponent},
   {path: 'owner/films', component: OwnerFilmsComponent},
   {path: 'owner/film/create', component: CreateFilmComponent},
-  {path: 'film-session/update/:id', component: UpdateFilmSessionComponent}
+  {path: 'film-session/update/:id', component: UpdateFilmSessionComponent},
+  {path: 'manager/hall/:hall-id/film-session/create', component: CreateFilmSessionComponent}
 ];
 
 @NgModule({

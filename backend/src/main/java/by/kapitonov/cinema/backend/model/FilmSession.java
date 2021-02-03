@@ -46,7 +46,7 @@ public class FilmSession implements Serializable {
     private Integer ticketCost;
 
     @Column(name = "show_time", nullable = false)
-    private Instant showTime = Instant.now();
+    private Instant showTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "hall_id", referencedColumnName = "id")

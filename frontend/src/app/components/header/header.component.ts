@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TokenStorageService} from "../../service/token-storage.service";
 import {Router} from "@angular/router";
+import {CinemaService} from "../../service/cinema.service";
 
 @Component({
   selector: 'app-header',
@@ -8,6 +9,8 @@ import {Router} from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+
+  private cinemaName: string;
 
   constructor(
     private tokenStorage: TokenStorageService,
