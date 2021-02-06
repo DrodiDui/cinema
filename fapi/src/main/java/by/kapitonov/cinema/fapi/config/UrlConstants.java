@@ -13,4 +13,6 @@ public class UrlConstants {
     public static final String USER_STATUS_URL = "http://localhost:8090/api/user-statuses";
     public static final String CINEMA_STATUS_URL = "http://localhost:8090/api/cinema-statuses";
     public static final String FILM_URL = "http://localhost:8090/api/films";
+    public static final String FILM_STATISTIC_URL = "http://localhost:8090/api/statistics/films";
+
 }

@@ -1,7 +1,7 @@
 package by.kapitonov.cinema.backend.service;
 
-import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.service.dto.UpdateUserDTO;
+import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.service.dto.user.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;

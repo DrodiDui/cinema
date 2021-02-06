@@ -1,33 +1,30 @@
 package by.kapitonov.cinema.backend.service.impl;
 
-import by.kapitonov.cinema.backend.config.Constants;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
+import by.kapitonov.cinema.backend.repository.FilmSessionRepository;
+import by.kapitonov.cinema.backend.service.dto.UpdateFilmSessionDTO;
+import by.kapitonov.cinema.backend.service.mapper.FilmSessionMapper;
+import by.kapitonov.cinema.backend.config.Constants;
 import by.kapitonov.cinema.backend.model.Film;
 import by.kapitonov.cinema.backend.model.FilmSession;
 import by.kapitonov.cinema.backend.model.Hall;
 import by.kapitonov.cinema.backend.model.User;
-import by.kapitonov.cinema.backend.repository.FilmSessionRepository;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
 import by.kapitonov.cinema.backend.service.FilmService;
 import by.kapitonov.cinema.backend.service.FilmSessionService;
 import by.kapitonov.cinema.backend.service.HallService;
 import by.kapitonov.cinema.backend.service.TicketService;
 import by.kapitonov.cinema.backend.service.UserService;
-import by.kapitonov.cinema.backend.service.dto.UpdateFilmSessionDTO;
 import by.kapitonov.cinema.backend.service.dto.filmsession.CreateFilmSessionDTO;
 import by.kapitonov.cinema.backend.service.dto.filmsession.FilmSessionDTO;
-import by.kapitonov.cinema.backend.service.mapper.FilmSessionMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
-import java.time.DateTimeException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.UUID;
 
 @Service

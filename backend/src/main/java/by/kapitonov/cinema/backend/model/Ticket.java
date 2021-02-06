@@ -41,7 +41,7 @@ public class Ticket implements Serializable {
     @Column(name = "reserved")
     private Boolean reserved = false;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "film_session_id", referencedColumnName = "id")
     private FilmSession filmSession;
 

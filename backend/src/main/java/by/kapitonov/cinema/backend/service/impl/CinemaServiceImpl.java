@@ -1,25 +1,22 @@
 package by.kapitonov.cinema.backend.service.impl;
 
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
-import by.kapitonov.cinema.backend.model.Cinema;
-import by.kapitonov.cinema.backend.model.CinemaStatus;
-import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.repository.CinemaRepository;
 import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
 import by.kapitonov.cinema.backend.service.UserService;
+import by.kapitonov.cinema.backend.service.mapper.CinemaMapper;
+import by.kapitonov.cinema.backend.model.Cinema;
+import by.kapitonov.cinema.backend.model.CinemaStatus;
+import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.service.dto.cinema.CinemaDTO;
 import by.kapitonov.cinema.backend.service.dto.cinema.CreateCinemaDTO;
 import by.kapitonov.cinema.backend.service.dto.cinema.UpdateCinemaDTO;
-import by.kapitonov.cinema.backend.service.mapper.CinemaMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class CinemaServiceImpl implements CinemaService {

@@ -4,9 +4,6 @@ import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.Cinema;
 import by.kapitonov.cinema.backend.service.dto.cinema.CinemaDTO;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class CinemaMapper {
 
     public static CinemaDTO toDTO(Cinema cinema) {

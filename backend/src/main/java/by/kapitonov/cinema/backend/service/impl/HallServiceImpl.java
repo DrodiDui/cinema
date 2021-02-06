@@ -1,17 +1,17 @@
 package by.kapitonov.cinema.backend.service.impl;
 
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
-import by.kapitonov.cinema.backend.model.Cinema;
-import by.kapitonov.cinema.backend.model.CinemaStatus;
-import by.kapitonov.cinema.backend.model.Hall;
 import by.kapitonov.cinema.backend.repository.HallRepository;
 import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
 import by.kapitonov.cinema.backend.service.HallService;
+import by.kapitonov.cinema.backend.service.mapper.HallMapper;
+import by.kapitonov.cinema.backend.model.Cinema;
+import by.kapitonov.cinema.backend.model.CinemaStatus;
+import by.kapitonov.cinema.backend.model.Hall;
 import by.kapitonov.cinema.backend.service.dto.hall.CreateHallDTO;
 import by.kapitonov.cinema.backend.service.dto.hall.HallDTO;
 import by.kapitonov.cinema.backend.service.dto.hall.UpdateHallDTO;
-import by.kapitonov.cinema.backend.service.mapper.HallMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

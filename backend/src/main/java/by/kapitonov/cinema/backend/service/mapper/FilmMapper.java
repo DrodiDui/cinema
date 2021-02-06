@@ -1,8 +1,8 @@
 package by.kapitonov.cinema.backend.service.mapper;
 
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
-import by.kapitonov.cinema.backend.model.Film;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
+import by.kapitonov.cinema.backend.model.Film;
 
 public class FilmMapper {
 

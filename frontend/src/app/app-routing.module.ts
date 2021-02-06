@@ -19,6 +19,7 @@ import {UpdateFilmSessionComponent} from "./components/manager/update-film-sessi
 import {UpdateCinemaComponent} from "./components/owner/update-cinema/update-cinema.component";
 import {UpdateHallComponent} from "./components/owner/update-hall/update-hall.component";
 import {OwnerFilmsComponent} from "./components/owner/owner-films/owner-films.component";
+import {FilmStatisticsComponent} from "./components/owner/film-statistics/film-statistics.component";
 
 
 const routes: Routes = [
@@ -42,7 +43,8 @@ const routes: Routes = [
   {path: 'owner/films', component: OwnerFilmsComponent},
   {path: 'owner/film/create', component: CreateFilmComponent},
   {path: 'film-session/update/:id', component: UpdateFilmSessionComponent},
-  {path: 'manager/hall/:hall-id/film-session/create', component: CreateFilmSessionComponent}
+  {path: 'manager/hall/:hall-id/film-session/create', component: CreateFilmSessionComponent},
+  {path: 'owner/films/statistics', component: FilmStatisticsComponent}
 ];
 
 @NgModule({

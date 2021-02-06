@@ -1,13 +1,7 @@
 package by.kapitonov.cinema.backend.service.dto.filmsession;
 
-import by.kapitonov.cinema.backend.model.CinemaStatus;
-import by.kapitonov.cinema.backend.model.Hall;
-import by.kapitonov.cinema.backend.model.Ticket;
-import by.kapitonov.cinema.backend.model.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.List;
 
 @Data
 @EqualsAndHashCode

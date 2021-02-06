@@ -1,21 +1,21 @@
 package by.kapitonov.cinema.backend.service.impl;
 
-import by.kapitonov.cinema.backend.config.Constants;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
-import by.kapitonov.cinema.backend.model.Cinema;
-import by.kapitonov.cinema.backend.model.Role;
-import by.kapitonov.cinema.backend.model.User;
-import by.kapitonov.cinema.backend.model.UserStatus;
 import by.kapitonov.cinema.backend.repository.UserRepository;
 import by.kapitonov.cinema.backend.service.CinemaService;
 import by.kapitonov.cinema.backend.service.RoleService;
 import by.kapitonov.cinema.backend.service.UserService;
 import by.kapitonov.cinema.backend.service.UserStatusService;
 import by.kapitonov.cinema.backend.service.dto.UpdateUserDTO;
+import by.kapitonov.cinema.backend.service.mapper.UserMapper;
+import by.kapitonov.cinema.backend.config.Constants;
+import by.kapitonov.cinema.backend.model.Cinema;
+import by.kapitonov.cinema.backend.model.Role;
+import by.kapitonov.cinema.backend.model.User;
+import by.kapitonov.cinema.backend.model.UserStatus;
 import by.kapitonov.cinema.backend.service.dto.user.RegistrationUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.backend.service.dto.user.UserDTO;
-import by.kapitonov.cinema.backend.service.mapper.UserMapper;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

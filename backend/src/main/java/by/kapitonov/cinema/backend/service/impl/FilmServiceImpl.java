@@ -1,10 +1,6 @@
 package by.kapitonov.cinema.backend.service.impl;
 
-import by.kapitonov.cinema.backend.config.Constants;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
-import by.kapitonov.cinema.backend.model.CinemaStatus;
-import by.kapitonov.cinema.backend.model.Film;
-import by.kapitonov.cinema.backend.model.User;
 import by.kapitonov.cinema.backend.repository.FilmRepository;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
 import by.kapitonov.cinema.backend.service.FilmService;
@@ -13,6 +9,10 @@ import by.kapitonov.cinema.backend.service.dto.film.CreateFilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.UpdateFilmDTO;
 import by.kapitonov.cinema.backend.service.mapper.FilmMapper;
+import by.kapitonov.cinema.backend.config.Constants;
+import by.kapitonov.cinema.backend.model.CinemaStatus;
+import by.kapitonov.cinema.backend.model.Film;
+import by.kapitonov.cinema.backend.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

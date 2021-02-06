@@ -1,9 +1,9 @@
 package by.kapitonov.cinema.backend.service;
 
-import by.kapitonov.cinema.backend.model.Film;
 import by.kapitonov.cinema.backend.service.dto.film.CreateFilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.FilmDTO;
 import by.kapitonov.cinema.backend.service.dto.film.UpdateFilmDTO;
+import by.kapitonov.cinema.backend.model.Film;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

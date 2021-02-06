@@ -1,7 +1,9 @@
 package by.kapitonov.cinema.backend.service.dto.film;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 @Data
 @EqualsAndHashCode
@@ -17,4 +19,5 @@ public class CreateFilmDTO {
     private Integer duration;
     private String status;
     private Long ownerId;
+
 }

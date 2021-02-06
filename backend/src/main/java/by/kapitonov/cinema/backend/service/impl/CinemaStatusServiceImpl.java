@@ -1,9 +1,9 @@
 package by.kapitonov.cinema.backend.service.impl;
 
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
-import by.kapitonov.cinema.backend.model.CinemaStatus;
 import by.kapitonov.cinema.backend.repository.CinemaStatusRepository;
 import by.kapitonov.cinema.backend.service.CinemaStatusService;
+import by.kapitonov.cinema.backend.model.CinemaStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
