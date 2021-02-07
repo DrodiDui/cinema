@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.backend.service.impl;
 
+import by.kapitonov.cinema.backend.exception.ModelAlreadyExistsException;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.repository.UserRepository;
 import by.kapitonov.cinema.backend.service.CinemaService;
@@ -66,6 +67,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(CreateUserDTO userDTO) {
 
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new ModelAlreadyExistsException("User already exists");
+        }
+
         User user = new User();
         user.setEmail(userDTO.getEmail());
         user.setPassword(userDTO.getPassword());
@@ -83,6 +88,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(RegistrationUserDTO userDTO) {
+
+        if (userRepository.existsByEmail(userDTO.getEmail())) {
+            throw new ModelAlreadyExistsException("User already exists");
+        }
 
         User user = new User();
         user.setEmail(userDTO.getEmail());

@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.backend.service.impl;
 
+import by.kapitonov.cinema.backend.exception.ModelAlreadyExistsException;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.repository.CinemaRepository;
 import by.kapitonov.cinema.backend.service.CinemaService;
@@ -67,6 +68,16 @@ public class CinemaServiceImpl implements CinemaService {
 
     @Override
     public Cinema create(CreateCinemaDTO cinemaDTO) {
+
+        if (
+                cinemaRepository.existsByCinemaNameAndCountryAndCity(
+                        cinemaDTO.getCinemaName(),
+                        cinemaDTO.getCountry(),
+                        cinemaDTO.getCity())
+        ) {
+            throw new ModelAlreadyExistsException("Cinema already exists");
+        }
+
         Cinema cinema = new Cinema();
         cinema.setCinemaName(cinemaDTO.getCinemaName());
         cinema.setCountry(cinemaDTO.getCountry());
@@ -88,7 +99,8 @@ public class CinemaServiceImpl implements CinemaService {
                     cinema.setCountry(cinemaDTO.getCountry());
                     cinema.setCity(cinemaDTO.getCity());
                     cinema.setAddress(cinemaDTO.getAddress());
-                    cinema.setDescription(cinemaDTO.getDescription());;
+                    cinema.setDescription(cinemaDTO.getDescription());
+                    ;
                     cinema.setStatus(getCinemaStatus(cinemaDTO.getStatus()));
 
                     return cinemaRepository.save(cinema);

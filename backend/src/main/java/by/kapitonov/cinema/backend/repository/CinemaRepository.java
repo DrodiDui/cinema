@@ -18,4 +18,6 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
     Optional<Cinema> findByCinemaName(String cinemaName);
 
+    Boolean existsByCinemaNameAndCountryAndCity(String cinemaName, String country, String city);
+
 }
