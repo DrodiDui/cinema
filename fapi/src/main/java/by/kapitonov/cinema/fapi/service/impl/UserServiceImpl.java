@@ -10,8 +10,11 @@ import by.kapitonov.cinema.fapi.service.dto.UpdateUserDTO;
 import by.kapitonov.cinema.fapi.service.dto.user.CreateUserDTO;
 import by.kapitonov.cinema.fapi.service.mapper.UrlMapper;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
@@ -39,6 +42,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public PageResponse<User> getAll(Map<String, String> pageableParams) {
         String url = UrlMapper.mapPramsToUrlWithParams(UrlConstants.USER_URL, pageableParams);
+
         return restTemplate.getForObject(
                 url,
                 PageResponse.class

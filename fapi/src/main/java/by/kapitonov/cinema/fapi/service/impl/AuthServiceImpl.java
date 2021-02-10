@@ -1,6 +1,8 @@
 package by.kapitonov.cinema.fapi.service.impl;
 
 import by.kapitonov.cinema.fapi.config.UrlConstants;
+import by.kapitonov.cinema.fapi.exception.InvalidEmailOrPasswordException;
+import by.kapitonov.cinema.fapi.exception.ModelAlreadyExistsException;
 import by.kapitonov.cinema.fapi.model.User;
 import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.TokenResponse;
@@ -37,42 +39,53 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public TokenResponse login(SignInDTO signInDTO) {
-        Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        signInDTO.getEmail(),
-                        signInDTO.getPassword()
-                )
-        );
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            signInDTO.getEmail(),
+                            signInDTO.getPassword()
+                    )
+            );
 
-        String token = tokenProvider.generateToken(authentication);
-        User user = restTemplate.getForObject(UrlConstants.USER_URL + "/" + signInDTO.getEmail(), User.class);
+            String token = tokenProvider.generateToken(authentication);
+            User user = restTemplate.getForObject(UrlConstants.USER_URL + "/" + signInDTO.getEmail(), User.class);
 
-        return new TokenResponse(
-                token,
-                user.getEmail(),
-                user.getRoleName(),
-                user.getId()
-        );
+            return new TokenResponse(
+                    token,
+                    user.getEmail(),
+                    user.getRoleName(),
+                    user.getId()
+            );
+        } catch (Exception e) {
+            throw new InvalidEmailOrPasswordException("Authentication error: invalid email or password");
+        }
     }
 
     @Override
     public ApiResponse registration(RegistrationUserDTO registrationUserDTO) {
-        String hashPassword = passwordEncoder.encode(registrationUserDTO.getPassword());
-        User user = new User();
-        user.setEmail(registrationUserDTO.getEmail());
-        user.setPassword(hashPassword);
-        user.setFirstName(registrationUserDTO.getFirstName());
-        user.setLastName(registrationUserDTO.getLastName());
+        try {
 
-        ApiResponse response = restTemplate.postForEntity(
-                UrlConstants.USER_URL + "/registration",
-                user,
-                ApiResponse.class).getBody();
+            String hashPassword = passwordEncoder.encode(registrationUserDTO.getPassword());
+            User user = new User();
+            user.setEmail(registrationUserDTO.getEmail());
+            user.setPassword(hashPassword);
+            user.setFirstName(registrationUserDTO.getFirstName());
+            user.setLastName(registrationUserDTO.getLastName());
 
-        if (response.getMessage() != null) {
-            //send email message
+            ApiResponse response = restTemplate.postForEntity(
+                    UrlConstants.USER_URL + "/registration",
+                    user,
+                    ApiResponse.class).getBody();
+
+            if (response.getMessage() != null) {
+                //send email message
+            }
+
+            return response;
+        } catch (ModelAlreadyExistsException ex) {
+            throw new ModelAlreadyExistsException(
+                    "User with email " + registrationUserDTO.getEmail() + " already exists"
+            );
         }
-
-        return response;
     }
 }

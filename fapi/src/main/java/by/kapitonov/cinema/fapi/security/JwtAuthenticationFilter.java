@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.fapi.security;
 
+import by.kapitonov.cinema.fapi.exception.InvalidTokenException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -48,7 +49,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
             }
         } catch (Exception ex) {
-            throw new RuntimeException("Could not set user authentication in security context", ex);
+            throw new InvalidTokenException("Invalid token");
         }
 
         filterChain.doFilter(httpServletRequest, httpServletResponse);

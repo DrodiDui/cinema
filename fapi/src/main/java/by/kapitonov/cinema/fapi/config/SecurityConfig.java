@@ -64,6 +64,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .csrf()
                 .disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
+                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -74,7 +77,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/api/halls",
                         "/api/halls/*",
                         "/api/film-sessions",
-                        "/api/film-sessions/*" )
+                        "/api/film-sessions/*")
                 .permitAll()
                 .antMatchers("/api/auth/**")
                 .permitAll()

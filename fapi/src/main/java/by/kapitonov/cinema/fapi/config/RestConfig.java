@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.fapi.config;
 
+import by.kapitonov.cinema.fapi.exception.RestTemplateErrorHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -10,7 +11,9 @@ public class RestConfig {
 
     @Bean
     public RestTemplate restTemplate() {
-        return new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+         RestTemplate restTemplate = new RestTemplate(new HttpComponentsClientHttpRequestFactory());
+         restTemplate.setErrorHandler(new RestTemplateErrorHandler());
+         return restTemplate;
     }
 
 }
