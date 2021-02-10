@@ -12,6 +12,7 @@ import java.util.List;
 public interface FilmRepository extends JpaRepository<Film, Long> {
 
     Page<Film> findByOwnerId(Long id, Pageable pageable);
+    List<Film> findByOwnerId(Long id);
 
     List<Film> findAllByFilmNameContains(String filmName);
     List<Film> findAllByOwnerIdAndStatusStatusName(Long id, String statusName);

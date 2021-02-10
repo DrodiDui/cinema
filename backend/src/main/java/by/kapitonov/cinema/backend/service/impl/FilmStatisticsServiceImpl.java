@@ -9,11 +9,13 @@ import by.kapitonov.cinema.backend.model.Ticket;
 import by.kapitonov.cinema.backend.model.statistics.FilmStatistics;
 import by.kapitonov.cinema.backend.service.mapper.FilmStatisticsMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class FilmStatisticsServiceImpl implements FilmStatisticsService {
@@ -28,12 +30,20 @@ public class FilmStatisticsServiceImpl implements FilmStatisticsService {
 
     @Override
     public Page<FilmStatisticsDTO> getAllCountOfReservedTicketsById(Long ownerId, Pageable pageable) {
-        return filmRepository.findByOwnerId(ownerId, pageable)
+        List<FilmStatisticsDTO> filmStatisticsDTOS = filmRepository.findByOwnerId(ownerId)
+                .stream()
                 .map(film -> {
                     Long ticketCount = getReservedTicketCount(film);
                     return new FilmStatistics(film, ticketCount);
                 })
-                .map(FilmStatisticsMapper::toDTO);
+                .map(FilmStatisticsMapper::toDTO)
+                .collect(Collectors.toList());
+
+        int start = Math.toIntExact(pageable.getOffset());
+        int end = Math.toIntExact(Math.min((start + pageable.getPageSize()), filmStatisticsDTOS.size()));
+        return new PageImpl<>(filmStatisticsDTOS.subList(start, end), pageable, filmStatisticsDTOS.size());
+
+        /*return new PageImpl<FilmStatisticsDTO>(filmStatisticsDTOS, pageable, filmStatisticsDTOS.size());*/
     }
 
     private Long getReservedTicketCount(Film film) {

@@ -1,5 +1,6 @@
 package by.kapitonov.cinema.backend.service.impl;
 
+import by.kapitonov.cinema.backend.exception.ModelAlreadyExistsException;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.repository.FilmSessionRepository;
 import by.kapitonov.cinema.backend.service.dto.UpdateFilmSessionDTO;
@@ -75,6 +76,17 @@ public class FilmSessionServiceImpl implements FilmSessionService {
 
     @Override
     public FilmSession create(CreateFilmSessionDTO filmSessionDTO) {
+
+        if (
+                filmSessionRepository
+                        .findFilmSessionByShowTimeAndHallId(
+                                stringToInstant(filmSessionDTO.getShowTime()),
+                                filmSessionDTO.getHallId()
+                        ).isPresent()
+        ) {
+            throw new ModelAlreadyExistsException("Film session already exists");
+        }
+
         FilmSession filmSession = new FilmSession();
         filmSession.setTicketCost(filmSessionDTO.getTicketCost());
         filmSession.setShowNumber(UUID.randomUUID().toString());
