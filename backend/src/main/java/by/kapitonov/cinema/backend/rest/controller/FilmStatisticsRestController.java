@@ -34,8 +34,9 @@ public class FilmStatisticsRestController {
         Pageable pageable = PageableMapper.mapToPageable(pageableParams);
 
         Page<FilmStatisticsDTO> filmStatisticsDTOS =
-                filmStatisticsService.getAllCountOfReservedTicketsById(ownerId, pageable);
+                filmStatisticsService.getAllFilmsAndCountOfReservedTicketsByOwnerId(ownerId, pageable);
 
         return new ResponseEntity(filmStatisticsDTOS, HttpStatus.OK);
     }
+
 }

@@ -6,6 +6,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface FilmStatisticsService {
 
-    Page<FilmStatisticsDTO> getAllCountOfReservedTicketsById(Long ownerId, Pageable pageable);
+    Page<FilmStatisticsDTO> getAllFilmsAndCountOfReservedTicketsByOwnerId(Long ownerId, Pageable pageable);
 
 }
