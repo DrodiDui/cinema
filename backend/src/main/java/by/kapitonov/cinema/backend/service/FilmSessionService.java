@@ -11,10 +11,13 @@ public interface FilmSessionService {
 
     Page<FilmSessionDTO> getAll(Pageable pageable);
     Page<FilmSessionDTO> getAllActiveSessionByHallId(Long hallId, Pageable pageable);
+    Page<FilmSessionDTO> getAllSessionsByHallId(Long hallId, Pageable pageable);
 
     FilmSession getById(Long id);
 
     FilmSession create(CreateFilmSessionDTO filmSessionDTO);
 
     FilmSession update(Long filmSessionId, UpdateFilmSessionDTO filmSessionDTO);
+
+    FilmSession changeStatus(Long filmSessionId, String statusName);
 }

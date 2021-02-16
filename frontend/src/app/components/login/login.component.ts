@@ -4,7 +4,7 @@ import {LoginDTO} from "../../model/dto/user/LoginDTO";
 import {TokenResponse} from "../../model/TokenResponse";
 import {TokenStorageService} from "../../service/token-storage.service";
 import {Router} from "@angular/router";
-import {ApiResponse} from "../../model/ApiResponse";
+import {ApiErrorResponse} from "../../model/ApiErrorResponse";
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent {
   private loginDTO: LoginDTO;
   private tokenResponse: TokenResponse;
   private isAuthorizeError: boolean = false;
-  private errorResponse: ApiResponse;
+  private errorResponse: ApiErrorResponse;
 
   constructor(
     private authService: AuthService,
@@ -33,7 +33,7 @@ export class LoginComponent {
       this.tokenStorage.saveTokenResponse(this.tokenResponse);
       this.router.navigate(['']);
     }, error => {
-      this.isAuthorizeError = true
+      this.errorResponse = error.error;
     })
   }
 

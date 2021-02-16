@@ -6,6 +6,6 @@ export class FilmSession {
   cinemaName?: string;
   hallName?: string;
   status?: string;
-  showTime: string;
+  showTime?: string;
 
 }

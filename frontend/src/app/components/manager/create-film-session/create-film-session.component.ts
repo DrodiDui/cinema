@@ -4,11 +4,12 @@ import {ApiResponse} from 'src/app/model/ApiResponse';
 import {CreateFilmSessionDTO} from 'src/app/model/dto/film-session/CreaetFilmSessionDTO';
 import {CinemaStatusService} from 'src/app/service/cinema-status.service';
 import {FilmSessionService} from 'src/app/service/film-session.service';
-import {TokenStorageService} from "../../service/token-storage.service";
-import {Film} from "../../model/Film";
-import {FilmService} from "../../service/film.service";
-import {CinemaService} from "../../service/cinema.service";
-import {Cinema} from "../../model/Cinema";
+import {TokenStorageService} from "../../../service/token-storage.service";
+import {Film} from "../../../model/Film";
+import {FilmService} from "../../../service/film.service";
+import {CinemaService} from "../../../service/cinema.service";
+import {Cinema} from "../../../model/Cinema";
+import {ApiErrorResponse} from "../../../model/ApiErrorResponse";
 
 @Component({
   selector: 'app-create-film-session',
@@ -23,6 +24,7 @@ export class CreateFilmSessionComponent implements OnInit {
   private films: Film[];
   private readonly managerId: number;
   private cinema: Cinema;
+  private errorResponse: ApiErrorResponse;
 
   constructor(
     private filmSessionService: FilmSessionService,
@@ -54,12 +56,17 @@ export class CreateFilmSessionComponent implements OnInit {
     this.filmSessionDTO.showTime = this.filmSessionDTO.showTime.replace("T", " ");
     this.filmSessionService.create(this.filmSessionDTO).subscribe(data => {
       this.response = data;
+    }, error => {
+      this.errorResponse = error.error;
     })
   }
 
   loadFilms(ownerId: number) {
     this.filmService.getAllOwnerActiveFilms(ownerId).subscribe(data => {
       this.films = data;
+    }, error => {
+      this.errorResponse = error;
+      console.log(this.errorResponse);
     });
   }
 

@@ -1,7 +1,6 @@
 package by.kapitonov.cinema.fapi.exception;
 
 import by.kapitonov.cinema.fapi.rest.response.ApiExceptionResponse;
-import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,9 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.web.client.ResponseErrorHandler;
 
-import java.io.*;
-import java.util.Map;
-import java.util.Scanner;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class RestTemplateErrorHandler implements ResponseErrorHandler {
 

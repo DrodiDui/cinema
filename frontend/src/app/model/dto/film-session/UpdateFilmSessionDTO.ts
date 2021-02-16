@@ -1,3 +1,5 @@
+import {FilmSession} from "../../FilmSession";
+
 export class UpdateFilmSessionDTO {
 
   filmName?: string;
@@ -8,4 +10,11 @@ export class UpdateFilmSessionDTO {
   filmId?: number;
   showTime?: string;
 
+
+  constructor(filmSession: FilmSession) {
+    this.filmName = filmSession.filmName;
+    this.ticketCost = filmSession.ticketCost;
+    this.status = filmSession.status;
+    this.showTime = filmSession.showTime;
+  }
 }

@@ -6,6 +6,6 @@ export class Hall {
   floor: number;
   rowsNumbers: number;
   numberSeatsPerRow: number;
-  status: string;
+  status?: string;
 
 }

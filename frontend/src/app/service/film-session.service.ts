@@ -15,8 +15,12 @@ export class FilmSessionService {
 
   constructor(private http: HttpClient) { }
 
-  public getAll(hallId: number, page: number, size: number): Observable<Page<FilmSession>> {
+  public getAllActive(hallId: number, page: number, size: number): Observable<Page<FilmSession>> {
     return this.http.get<Page<FilmSession>>(`${this.url}/${hallId}/active?page=${page}&size=${size}`);
+  }
+
+  public getAll(hallId: number, page: number, size: number): Observable<Page<FilmSession>> {
+    return this.http.get<Page<FilmSession>>(`${this.url}/${hallId}/all?page=${page}&size=${size}`);
   }
 
   public getOne(sessionId: number): Observable<FilmSession> {
@@ -27,4 +31,7 @@ export class FilmSessionService {
     return this.http.post<ApiResponse>(`${this.url}`, filmSessionDTO);
   }
 
+  public changeStatus(filmSessionId: number, statusName: string): Observable<ApiResponse> {
+    return this.http.put<ApiResponse>(`${this.url}/${filmSessionId}/status?status=${statusName}`, null);
+  }
 }

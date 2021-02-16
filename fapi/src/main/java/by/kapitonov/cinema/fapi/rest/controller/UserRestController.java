@@ -49,7 +49,7 @@ public class UserRestController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<ApiResponse> create(@RequestBody CreateUserDTO userDTO) {
 
         ApiResponse response = userService.create(userDTO);

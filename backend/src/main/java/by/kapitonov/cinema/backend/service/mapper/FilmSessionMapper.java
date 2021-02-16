@@ -4,6 +4,8 @@ import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
 import by.kapitonov.cinema.backend.model.FilmSession;
 import by.kapitonov.cinema.backend.service.dto.filmsession.FilmSessionDTO;
 
+import java.time.format.DateTimeFormatter;
+
 public class FilmSessionMapper {
 
     public static FilmSessionDTO toDTO(FilmSession filmSession) {
@@ -18,6 +20,7 @@ public class FilmSessionMapper {
         filmSessionDTO.setCinemaName(filmSession.getHall().getCinema().getCinemaName());
         filmSessionDTO.setHallName(filmSession.getHall().getHallName());
         filmSessionDTO.setStatus(filmSession.getStatus().getStatusName());
+        filmSessionDTO.setStatus(filmSession.getShowTime().toString());
         return filmSessionDTO;
     }
 

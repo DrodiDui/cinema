@@ -1,12 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../service/user.service";
 import {RoleService} from "../../../service/role.service";
 import {UserStatusService} from "../../../service/user-status.service";
 import {CreateUserDTO} from "../../../model/dto/user/CreateUserDTO";
 import {ApiResponse} from "../../../model/ApiResponse";
 import {TokenStorageService} from "../../../service/token-storage.service";
-import {CinemaService} from "../../../service/cinema.service";
-import {Cinema} from "../../../model/Cinema";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -20,7 +18,6 @@ export class CreateUserComponent implements OnInit {
   private statuses: string[] = [];
   private userDTO: CreateUserDTO;
   private response: ApiResponse;
-  private cinemaId: number;
 
   constructor(
     private userService: UserService,
@@ -53,14 +50,6 @@ export class CreateUserComponent implements OnInit {
       this.statuses = data;
     })
   }
-
-  /*loadCinemas() {
-    let ownerId = this.tokenStorage.getId();
-    this.cinemaService.getAllUserCinemasByCountryAndCity(ownerId, this.cinemaCountry, this.cinemaCity)
-      .subscribe(data => {
-        this.cinemas = data;
-      })
-  }*/
 
   createUser() {
     this.userService.create(this.userDTO).subscribe(data => {

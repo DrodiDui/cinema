@@ -21,7 +21,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now().toString()
         );
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {ModelAlreadyExistsException.class})
@@ -33,7 +33,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now().toString()
         );
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {InvalidEmailOrPasswordException.class})
@@ -45,7 +45,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now().toString()
         );
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(value = {InvalidTokenException.class})
@@ -56,7 +56,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 LocalDateTime.now().toString()
         );
 
-        return new ResponseEntity<>(response, HttpStatus.OK);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {AccessException.class})
+    public ResponseEntity<ApiExceptionResponse> accessException(AccessException ex) {
+        ApiExceptionResponse response = new ApiExceptionResponse(
+                ex.getMessage(),
+                ApiErrorStatus.ACCESS_DENIED.name(),
+                LocalDateTime.now().toString()
+        );
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
 }

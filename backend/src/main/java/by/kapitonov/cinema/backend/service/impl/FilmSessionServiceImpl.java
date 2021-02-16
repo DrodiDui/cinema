@@ -2,6 +2,7 @@ package by.kapitonov.cinema.backend.service.impl;
 
 import by.kapitonov.cinema.backend.exception.ModelAlreadyExistsException;
 import by.kapitonov.cinema.backend.exception.ModelNotFoundException;
+import by.kapitonov.cinema.backend.model.CinemaStatus;
 import by.kapitonov.cinema.backend.repository.FilmSessionRepository;
 import by.kapitonov.cinema.backend.service.dto.UpdateFilmSessionDTO;
 import by.kapitonov.cinema.backend.service.mapper.FilmSessionMapper;
@@ -67,6 +68,12 @@ public class FilmSessionServiceImpl implements FilmSessionService {
     }
 
     @Override
+    public Page<FilmSessionDTO> getAllSessionsByHallId(Long hallId, Pageable pageable) {
+        return filmSessionRepository.findAllByHallId(hallId, pageable)
+                .map(FilmSessionMapper::toDTO);
+    }
+
+    @Override
     public FilmSession getById(Long id) {
         return filmSessionRepository.findById(id)
                 .orElseThrow(
@@ -90,12 +97,13 @@ public class FilmSessionServiceImpl implements FilmSessionService {
         FilmSession filmSession = new FilmSession();
         filmSession.setTicketCost(filmSessionDTO.getTicketCost());
         filmSession.setShowNumber(UUID.randomUUID().toString());
-        filmSession.setFilmName(filmSessionDTO.getFilmName());
         filmSession.setShowTime(stringToInstant(filmSessionDTO.getShowTime()));
         filmSession.setHall(getHall(filmSessionDTO.getHallId()));
         filmSession.setManager(getManager(filmSessionDTO.getManagerId()));
-        filmSession.setStatus(cinemaStatusService.getByName(filmSessionDTO.getStatus()));
-        filmSession.setFilm(getFilm(filmSessionDTO.getFilmId()));
+        filmSession.setStatus(getStatus(filmSessionDTO.getStatus()));
+        Film film = getFilm(filmSessionDTO.getFilmId());
+        filmSession.setFilm(film);
+        filmSession.setFilmName(film.getFilmName());
 
         filmSession =  filmSessionRepository.save(filmSession);
 
@@ -109,6 +117,18 @@ public class FilmSessionServiceImpl implements FilmSessionService {
         return filmSessionRepository.findById(filmSessionId)
                 .map(filmSession -> {
                     filmSession.setFilmName(filmSessionDTO.getFilmName());
+                    return filmSessionRepository.save(filmSession);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("Film session hasn't been found by id: " + filmSessionId)
+                );
+    }
+
+    @Override
+    public FilmSession changeStatus(Long filmSessionId, String statusName) {
+        return filmSessionRepository.findById(filmSessionId)
+                .map(filmSession -> {
+                    filmSession.setStatus(getStatus(statusName));
                     return filmSessionRepository.save(filmSession);
                 })
                 .orElseThrow(
@@ -139,5 +159,8 @@ public class FilmSessionServiceImpl implements FilmSessionService {
                 DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")
         ).toInstant(ZoneOffset.UTC);
     }
-    
+
+    private CinemaStatus getStatus(String statusName) {
+        return cinemaStatusService.getByName(statusName);
+    }
 }

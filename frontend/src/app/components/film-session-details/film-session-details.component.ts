@@ -19,7 +19,7 @@ export class FilmSessionDetailsComponent implements OnInit {
   private tickets: Ticket[];
   private ticketDTO: ReservedDTO;
   private response: ApiResponse;
-  private currentPage: number = 0;
+  private currentPage: number;
   private hasNext: boolean;
   private hasPrevious: boolean;
 
@@ -30,11 +30,11 @@ export class FilmSessionDetailsComponent implements OnInit {
     private tokenStorage: TokenStorageService
   ) {
     this.ticketDTO = new ReservedDTO();
+    this.currentPage = 0;
   }
 
   ngOnInit() {
     this.loadSession();
-    this.loadTickets(this.currentPage);
   }
 
   loadSession() {

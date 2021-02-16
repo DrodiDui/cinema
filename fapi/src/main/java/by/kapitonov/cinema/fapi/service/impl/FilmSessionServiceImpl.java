@@ -33,6 +33,14 @@ public class FilmSessionServiceImpl implements FilmSessionService {
     }
 
     @Override
+    public PageResponse<FilmSession> gatAllSessionsByHallId(Long hallId, int page, int size) {
+        return restTemplate.getForObject(
+                UrlConstants.FILM_SESSION_URL + "/" + hallId + "/all?page=" + page + "&size=" + size,
+                PageResponse.class
+        );
+    }
+
+    @Override
     public FilmSession getOne(Long sessionId) {
         return restTemplate.getForObject(UrlConstants.FILM_SESSION_URL + "/" + sessionId, FilmSession.class);
     }
@@ -40,5 +48,14 @@ public class FilmSessionServiceImpl implements FilmSessionService {
     @Override
     public ApiResponse create(CreateFilmSessionDTO filmSessionDTO) {
         return restTemplate.postForEntity(UrlConstants.FILM_SESSION_URL, filmSessionDTO, ApiResponse.class).getBody();
+    }
+
+    @Override
+    public ApiResponse changeStatus(Long filmSessionId, String statusName) {
+        return restTemplate.patchForObject(
+                UrlConstants.FILM_SESSION_URL + "/" + filmSessionId + "/status?status=" + statusName,
+                null,
+                ApiResponse.class
+        );
     }
 }

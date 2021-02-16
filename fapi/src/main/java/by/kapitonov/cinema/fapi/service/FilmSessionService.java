@@ -9,9 +9,11 @@ public interface FilmSessionService {
 
     PageResponse<FilmSession> getAll(int page, int size);
     PageResponse<FilmSession> getAllActiveSessionByHallId(Long hallId, int page, int size);
+    PageResponse<FilmSession> gatAllSessionsByHallId(Long hallId, int page, int size);
 
     FilmSession getOne(Long sessionId);
 
     ApiResponse create(CreateFilmSessionDTO filmSessionDTO);
 
+    ApiResponse changeStatus(Long filmSessionId, String statusName);
 }

@@ -5,6 +5,7 @@ import by.kapitonov.cinema.fapi.security.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -71,18 +72,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(
-                        "/api/cinemas",
-                        "/api/cinemas/*",
-                        "/api/halls",
-                        "/api/halls/*",
-                        "/api/film-sessions",
-                        "/api/film-sessions/*")
-                .permitAll()
+                .antMatchers("/api/cinemas")
+                    .permitAll()
+                .antMatchers("/api/cinemas/*")
+                    .permitAll()
+                .antMatchers("/api/halls/*/**")
+                    .permitAll()
+                .antMatchers("/api/halls/*/*")
+                    .permitAll()
+                .antMatchers("/api/film-sessions/*/active")
+                    .permitAll()
+                .antMatchers("/api/film-sessions/*")
+                    .permitAll()
+                .antMatchers("/api/tickets/*/all")
+                    .permitAll()
                 .antMatchers("/api/auth/**")
-                .permitAll()
+                    .permitAll()
+                .antMatchers("/api/statistics/films/**")
+                    .hasRole(Constants.ROLE_OWNER)
+                .antMatchers(HttpMethod.GET, "/api/users")
+                    .hasRole(Constants.ROLE_ADMIN)
+                .antMatchers(HttpMethod.POST, "/api/users")
+                    .hasAnyRole(Constants.ROLE_OWNER, Constants.ROLE_ADMIN)
+                .antMatchers(HttpMethod.PUT, "/api/users/*/role")
+                    .hasAnyRole(Constants.ROLE_ADMIN)
+                .antMatchers(HttpMethod.GET, "/api/roles")
+                    .hasAnyRole(Constants.ROLE_ADMIN, Constants.ROLE_OWNER)
+                .antMatchers(HttpMethod.GET, "/api/statuses")
+                    .hasAnyRole(Constants.ROLE_ADMIN, Constants.ROLE_OWNER)
+                .antMatchers(HttpMethod.PUT, "/api/users/*/status")
+                    .hasAnyRole(Constants.ROLE_ADMIN)
+                .antMatchers("/api/cinema-statuses")
+                    .hasAnyRole(Constants.ROLE_ADMIN, Constants.ROLE_OWNER, Constants.ROLE_MANAGER)
                 .anyRequest()
-                .authenticated();
+                    .authenticated();
 
         http.addFilterBefore(authenticationFilter(), UsernamePasswordAuthenticationFilter.class);
     }

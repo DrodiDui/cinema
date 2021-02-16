@@ -13,6 +13,7 @@ import java.util.Optional;
 public interface FilmSessionRepository extends JpaRepository<FilmSession, Long> {
 
    Page<FilmSession> findAllByStatusStatusNameAndHallId(String statusName, Long hallId, Pageable pageable);
+   Page<FilmSession> findAllByHallId(Long hallId, Pageable pageable);
 
    Optional<FilmSession> findFilmSessionByShowTimeAndHallId(Instant showTime, Long hallId);
 

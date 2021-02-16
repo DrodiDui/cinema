@@ -3,10 +3,10 @@
     <div class="col8">
       <form (ngSubmit)="login()" class="row g-3 needs-validation" novalidate>
 
-        <div *ngIf="isAuthorizeError" class="form-row">
+        <div *ngIf="errorResponse" class="form-row">
           <div class="form-group col-md-6">
-            <div class="alert alert-dark" role="alert">
-              Invalid email or password
+            <div class="alert alert-danger" role="alert">
+              {{errorResponse.exceptionMessage}}
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@
     <th scope="col">film name</th>
     <th scope="col">hall name</th>
     <th scope="col">status</th>
+    <th scope="col">Show time</th>
     <th scope="col">ticket cost</th>
     <th scope="col">show number</th>
     <th scope="col" *ngIf="isManager()">Action</th>
@@ -20,10 +21,31 @@
     </td>
     <th>{{session.hallName}}</th>
     <td>{{session.status}}</td>
+    <td>{{session.showTime}}</td>
     <td>{{session.ticketCost}}</td>
     <td>{{session.showNumber}}</td>
     <td *ngIf="isManager()">
       <a href="/film-session/update/{{session.id}}" class="btn btn-secondary">update film session</a>
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuStatus" data-bs-toggle="dropdown" aria-expanded="false">
+          Change status
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuStatus">
+          <li>
+            <form (ngSubmit)="changeStatus(session.id)">
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="Status">Status</label>
+                  <select id="Status" class="form-control" name="statusName" [(ngModel)]="statusName">
+                    <option *ngFor="let status of statuses" value="{{status}}">{{status}}</option>
+                  </select>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">change</button>
+            </form>
+          </li>
+        </ul>
+      </div>
     </td>
   </tr>
   </tbody>

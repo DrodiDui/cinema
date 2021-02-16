@@ -13,9 +13,8 @@ import {CreateUserComponent} from "./components/admin/create-user/create-user.co
 import {HomePageComponent} from "./components/home-page/home-page.component";
 import {CreateCinemaComponent} from "./components/owner/create-cinema/create-cinema.component";
 import {CreateHallComponent} from "./components/owner/create-hall/create-hall.component";
-import {CreateFilmSessionComponent} from "./components/create-film-session/create-film-session.component";
+import {CreateFilmSessionComponent} from "./components/manager/create-film-session/create-film-session.component";
 import {CreateFilmComponent} from "./components/owner/create-film/create-film.component";
-import {UpdateFilmSessionComponent} from "./components/manager/update-film-session/update-film-session.component";
 import {UpdateCinemaComponent} from "./components/owner/update-cinema/update-cinema.component";
 import {UpdateHallComponent} from "./components/owner/update-hall/update-hall.component";
 import {OwnerFilmsComponent} from "./components/owner/owner-films/owner-films.component";
@@ -42,7 +41,6 @@ const routes: Routes = [
   {path: 'owner/cinema/:cinema-name/hall/:hall-name/update', component: UpdateHallComponent},
   {path: 'owner/films', component: OwnerFilmsComponent},
   {path: 'owner/film/create', component: CreateFilmComponent},
-  {path: 'film-session/update/:id', component: UpdateFilmSessionComponent},
   {path: 'manager/hall/:hall-id/film-session/create', component: CreateFilmSessionComponent},
   {path: 'owner/films/statistics', component: FilmStatisticsComponent}
 ];

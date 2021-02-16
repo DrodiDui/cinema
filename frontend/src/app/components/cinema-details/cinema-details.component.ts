@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {CinemaService} from "../../service/cinema.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Cinema} from "../../model/Cinema";
 import {HallService} from "../../service/hall.service";
 import {Hall} from "../../model/Hall";
@@ -21,7 +21,7 @@ export class CinemaDetailsComponent implements OnInit {
     private cinemaService: CinemaService,
     private hallService: HallService,
     private route: ActivatedRoute,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
   ) {
   }
 
@@ -35,9 +35,13 @@ export class CinemaDetailsComponent implements OnInit {
   }
 
   private loadCinema(cinemaName: string) {
-    this.cinemaService.getByName(cinemaName).subscribe(data => {
+    this.cinemaService.getByName(cinemaName).subscribe(
+      data => {
       this.cinema = data;
       this.loadHalls(this.cinema.id);
+    },
+        error => {
+        console.log("Error");
     })
   }
 

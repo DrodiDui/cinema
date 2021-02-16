@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -37,8 +38,16 @@ public class FilmSessionRestController {
         return new ResponseEntity(filmSessionDTOS, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/active")
+    @GetMapping("/{id}/all")
     public ResponseEntity getAll(@PathVariable(name = "id") Long hallId, Pageable pageable) {
+
+        Page<FilmSessionDTO> filmSessionDTOS = filmSessionService.getAllSessionsByHallId(hallId, pageable);
+
+        return new ResponseEntity(filmSessionDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/active")
+    public ResponseEntity getAllActive(@PathVariable(name = "id") Long hallId, Pageable pageable) {
 
         Page<FilmSessionDTO> filmSessionDTOS = filmSessionService.getAllActiveSessionByHallId(hallId, pageable);
 
@@ -68,5 +77,16 @@ public class FilmSessionRestController {
         filmSessionService.update(filmSessionId, filmSessionDTO);
 
         return new ResponseEntity<>(new ApiResponse("Film session successfully updated"), HttpStatus.OK);
+    }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<ApiResponse> changeStatus(
+            @PathVariable(name = "id") Long filmSessionId,
+            @RequestParam(name = "status") String statusName
+    ) {
+
+        filmSessionService.changeStatus(filmSessionId, statusName);
+
+        return new ResponseEntity<>(new ApiResponse("Film sesssion status successfully updated"), HttpStatus.OK);
     }
 }

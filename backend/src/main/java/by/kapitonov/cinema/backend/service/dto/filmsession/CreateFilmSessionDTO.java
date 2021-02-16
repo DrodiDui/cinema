@@ -9,7 +9,6 @@ import java.time.Instant;
 @EqualsAndHashCode
 public class CreateFilmSessionDTO {
 
-    private String filmName;
     private Integer ticketCost;
     private Long hallId;
     private Long managerId;

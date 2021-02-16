@@ -5,6 +5,7 @@ import {ApiResponse} from "../../model/ApiResponse";
 import {SignUpDTO} from "../../model/dto/user/SignUpDTO";
 import {AuthService} from "../../service/auth.service";
 import {Router} from "@angular/router";
+import {ApiErrorResponse} from "../../model/ApiErrorResponse";
 
 @Component({
   selector: 'app-registration',
@@ -15,6 +16,7 @@ export class RegistrationComponent {
 
   private signUpDTO: SignUpDTO;
   private apiResponse: ApiResponse;
+  private errorResponse: ApiErrorResponse;
 
   constructor(
     private userService: UserService,
@@ -29,6 +31,8 @@ export class RegistrationComponent {
     this.authService.signup(this.signUpDTO).subscribe(data => {
       this.apiResponse = data;
       this.router.navigate(['/login'])
+    }, error => {
+      this.errorResponse = error.error;
     });
   }
 
