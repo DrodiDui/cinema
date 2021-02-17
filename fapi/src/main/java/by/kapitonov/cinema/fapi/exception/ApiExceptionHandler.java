@@ -59,14 +59,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(value = {AccessException.class})
-    public ResponseEntity<ApiExceptionResponse> accessException(AccessException ex) {
+    @ExceptionHandler(value = {AccountAccessException.class})
+    public ResponseEntity<ApiExceptionResponse> accountAccessException(AccountAccessException ex) {
         ApiExceptionResponse response = new ApiExceptionResponse(
                 ex.getMessage(),
                 ApiErrorStatus.ACCESS_DENIED.name(),
                 LocalDateTime.now().toString()
         );
-
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 

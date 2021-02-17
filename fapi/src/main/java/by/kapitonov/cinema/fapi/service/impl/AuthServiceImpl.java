@@ -1,6 +1,7 @@
 package by.kapitonov.cinema.fapi.service.impl;
 
 import by.kapitonov.cinema.fapi.config.UrlConstants;
+import by.kapitonov.cinema.fapi.exception.AccountAccessException;
 import by.kapitonov.cinema.fapi.exception.InvalidEmailOrPasswordException;
 import by.kapitonov.cinema.fapi.exception.ModelAlreadyExistsException;
 import by.kapitonov.cinema.fapi.model.User;
@@ -8,9 +9,10 @@ import by.kapitonov.cinema.fapi.rest.response.ApiResponse;
 import by.kapitonov.cinema.fapi.rest.response.TokenResponse;
 import by.kapitonov.cinema.fapi.security.TokenProvider;
 import by.kapitonov.cinema.fapi.service.AuthService;
-import by.kapitonov.cinema.fapi.service.dto.user.SignInDTO;
 import by.kapitonov.cinema.fapi.service.dto.user.RegistrationUserDTO;
+import by.kapitonov.cinema.fapi.service.dto.user.SignInDTO;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -56,6 +58,8 @@ public class AuthServiceImpl implements AuthService {
                     user.getRoleName(),
                     user.getId()
             );
+        } catch (DisabledException e) {
+            throw new AccountAccessException("Your account is inactive");
         } catch (Exception e) {
             throw new InvalidEmailOrPasswordException("Authentication error: invalid email or password");
         }
