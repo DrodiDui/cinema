@@ -22,6 +22,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -65,6 +67,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public User activateUserAccount(String activationCode) {
+        return userRepository.findByActivationCode(activationCode)
+                .map(user -> {
+                    user.setActivationCode(null);
+                    user.setStatus(getUserStatus(Constants.ACTIVE_STATUS));
+                    return userRepository.save(user);
+                })
+                .orElseThrow(
+                        () -> new ModelNotFoundException("User hasn't been found by activation code: " + activationCode)
+                );
+    }
+
+    @Override
     public User create(CreateUserDTO userDTO) {
 
         if (userRepository.existsByEmail(userDTO.getEmail())) {
@@ -76,8 +91,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDTO.getPassword());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
+        user.setActivationCode(null);
         user.setRole(roleService.getByName(userDTO.getRoleName()));
-        user.setStatus(userStatusService.getByName(userDTO.getStatusName()));
+        user.setStatus(getUserStatus(userDTO.getStatusName()));
 
         if (userDTO.getRoleName().equals(Constants.MANAGER_ROLE)) {
             user.setCinema(getCinema(userDTO.getCinemaId()));
@@ -98,8 +114,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(userDTO.getPassword());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
+        user.setActivationCode(userDTO.getActivationCode());
         user.setRole(roleService.getByName(Constants.USER_ROLE));
-        user.setStatus(userStatusService.getByName(Constants.INACTIVE_STATUS));
+        user.setStatus(getUserStatus(Constants.INACTIVE_STATUS));
 
         return userRepository.save(user);
     }
@@ -145,5 +162,9 @@ public class UserServiceImpl implements UserService {
 
     private Cinema getCinema(Long cinemaId) {
         return cinemaService.getById(cinemaId);
+    }
+
+    private UserStatus getUserStatus(String status) {
+        return userStatusService.getByName(status);
     }
 }

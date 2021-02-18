@@ -8,4 +8,5 @@ public interface EmailSenderService {
 
     void sendNotification(String email);
 
+    void sendActivationEmail(String email, String activationCode);
 }

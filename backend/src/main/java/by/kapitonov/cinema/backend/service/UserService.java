@@ -14,6 +14,7 @@ public interface UserService {
 
     User getById(Long id);
     User getByEmail(String email);
+    User activateUserAccount(String activationCode);
 
     User create(CreateUserDTO userDTO);
     User register(RegistrationUserDTO userDTO);

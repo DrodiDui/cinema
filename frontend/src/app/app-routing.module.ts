@@ -19,6 +19,7 @@ import {UpdateCinemaComponent} from "./components/owner/update-cinema/update-cin
 import {UpdateHallComponent} from "./components/owner/update-hall/update-hall.component";
 import {OwnerFilmsComponent} from "./components/owner/owner-films/owner-films.component";
 import {FilmStatisticsComponent} from "./components/owner/film-statistics/film-statistics.component";
+import {ActivateUserComponent} from "./components/activate-user/activate-user.component";
 
 
 const routes: Routes = [
@@ -42,7 +43,8 @@ const routes: Routes = [
   {path: 'owner/films', component: OwnerFilmsComponent},
   {path: 'owner/film/create', component: CreateFilmComponent},
   {path: 'manager/hall/:hall-id/film-session/create', component: CreateFilmSessionComponent},
-  {path: 'owner/films/statistics', component: FilmStatisticsComponent}
+  {path: 'owner/films/statistics', component: FilmStatisticsComponent},
+  {path: 'activate/:code', component: ActivateUserComponent}
 ];
 
 @NgModule({

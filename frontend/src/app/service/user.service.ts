@@ -33,6 +33,10 @@ export class UserService {
     return this.http.get<User>(`${this.url}/${email}`);
   }
 
+  public activateUser(activationCode: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.url}/activate/${activationCode}`)
+  }
+
   public create(userDTO: CreateUserDTO): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${this.url}`, userDTO);
   }

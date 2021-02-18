@@ -48,6 +48,9 @@ public class User implements Serializable {
     @Column(name = "last_name", nullable = true, length = 50)
     private String lastName;
 
+    @Column(name = "activation_code", nullable = true, length = 255)
+    private String activationCode;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "id")
     private Role role;

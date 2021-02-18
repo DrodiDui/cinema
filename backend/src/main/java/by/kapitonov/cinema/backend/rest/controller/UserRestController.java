@@ -53,6 +53,14 @@ public class UserRestController {
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/activate/{code}")
+    public ResponseEntity<ApiResponse> activateUserAccount(@PathVariable(name = "code") String activationCode) {
+
+        userService.activateUserAccount(activationCode);
+
+        return new ResponseEntity<>(new ApiResponse("User account successfully activated"), HttpStatus.OK);
+    }
+
     @PostMapping("")
     public ResponseEntity<ApiResponse> create(@RequestBody CreateUserDTO userDTO) {
 

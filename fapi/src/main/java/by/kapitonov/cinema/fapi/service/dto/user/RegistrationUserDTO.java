@@ -20,4 +20,6 @@ public class RegistrationUserDTO {
     private String firstName;
     private String lastName;
 
+    private String activationCode;
+
 }

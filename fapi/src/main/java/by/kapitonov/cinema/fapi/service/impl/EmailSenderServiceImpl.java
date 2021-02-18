@@ -49,4 +49,14 @@ public class EmailSenderServiceImpl implements EmailSenderService {
 
         sendEmail(email, subject, message);
     }
+
+    @Override
+    public void sendActivationEmail(String email, String activationCode) {
+        String subject = "Account activists";
+        String message = String.format(
+                "Click for activate: \n http:localhost:4200/activate/%s",
+                activationCode);
+
+        sendEmail(email, subject, message);
+    }
 }

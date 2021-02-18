@@ -104,6 +104,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .hasAnyRole(Constants.ROLE_ADMIN)
                 .antMatchers("/api/cinema-statuses")
                     .hasAnyRole(Constants.ROLE_ADMIN, Constants.ROLE_OWNER, Constants.ROLE_MANAGER)
+                .antMatchers(HttpMethod.GET, "/api/users/activate/**")
+                    .permitAll()
                 .anyRequest()
                     .authenticated();
 

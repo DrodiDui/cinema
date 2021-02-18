@@ -55,6 +55,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public ApiResponse activateUser(String activationCode) {
+        return restTemplate.getForObject(
+                UrlConstants.USER_URL + "/activate/" + activationCode,
+                ApiResponse.class
+        );
+    }
+
+    @Override
     public ApiResponse create(CreateUserDTO userDTO) {
 
         String generatePassword = generatePassword();

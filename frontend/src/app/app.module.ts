@@ -39,6 +39,7 @@ import {FilmListComponent} from './components/film-list/film-list.component';
 import { UpdateHallComponent } from './components/owner/update-hall/update-hall.component';
 import { OwnerFilmsComponent } from './components/owner/owner-films/owner-films.component';
 import { FilmStatisticsComponent } from './components/owner/film-statistics/film-statistics.component';
+import { ActivateUserComponent } from './components/activate-user/activate-user.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { FilmStatisticsComponent } from './components/owner/film-statistics/film
     FilmListComponent,
     UpdateHallComponent,
     OwnerFilmsComponent,
-    FilmStatisticsComponent
+    FilmStatisticsComponent,
+    ActivateUserComponent
   ],
     imports: [
         BrowserModule,

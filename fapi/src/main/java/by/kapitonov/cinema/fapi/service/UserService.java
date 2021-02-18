@@ -18,6 +18,8 @@ public interface UserService {
 
     User getByEmail(String email);
 
+    ApiResponse activateUser(String activationCode);
+
     ApiResponse create(CreateUserDTO userDTO);
 
     ApiResponse changeRole(Long userId, String roleName);
