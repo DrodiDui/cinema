@@ -18,6 +18,8 @@ export class FilmListComponent implements OnInit {
   private filmName: string;
   private pageableParams: Map<string, string>;
 
+  private sizes: number[] = [5, 10, 15, 20];
+
   constructor(
     private filmService: FilmService
   ) {
@@ -68,6 +70,11 @@ export class FilmListComponent implements OnInit {
 
   changePage(page: number) {
     this.pageableParams.set('page', String(page));
+    this.loadAllFilms(this.pageableParams);
+  }
+
+  changeSize() {
+    this.pageableParams.set('size', String(this.currentSize));
     this.loadAllFilms(this.pageableParams);
   }
 

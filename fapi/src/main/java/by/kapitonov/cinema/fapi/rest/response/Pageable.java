@@ -10,5 +10,7 @@ public class Pageable {
 
     @JsonProperty("pageNumber")
     private int pageNumber;
+    @JsonProperty("pageSize")
+    private int pageSize;
 
 }

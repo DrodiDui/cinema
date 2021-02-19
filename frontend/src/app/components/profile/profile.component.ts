@@ -21,9 +21,11 @@ export class ProfileComponent implements OnInit {
   private response: ApiResponse;
   private isEdit: boolean = false;
   private currentPage: number = 0;
+  private currentSize: number = 10;
   private hasPrevious: boolean = false;
   private hasNext: boolean = true;
   private unreservedTicket: number[] = [];
+  private sizes: number[] = [5, 10, 15, 20];
 
   constructor(
     private userService: UserService,
@@ -48,12 +50,16 @@ export class ProfileComponent implements OnInit {
   }
 
   getTickets(page: number) {
-    this.ticketService.getAllUserTicket(this.user.id, page, 5).subscribe(data => {
+    this.ticketService.getAllUserTicket(this.user.id, page, this.currentSize).subscribe(data => {
       this.tickets = data.content;
       this.currentPage = data.pageable.pageNumber;
       this.hasPrevious = data.first;
       this.hasNext = data.last;
     })
+  }
+
+  changeSize() {
+    this.getTickets(this.currentPage);
   }
 
   editProfile() {

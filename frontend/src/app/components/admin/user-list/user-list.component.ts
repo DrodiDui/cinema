@@ -15,15 +15,18 @@ export class UserListComponent implements OnInit {
 
   private users: User[];
   private currentPage: number = 0;
+  private currentSize: number = 10;
   private hasNext: boolean;
   private hasPrevious: boolean;
   private roleName: string;
   private statusName: string;
   private response: ApiResponse;
   private pageableParams: Map<string, string>;
+  private index: number;
 
   private roles: string[] = [];
   private statuses: string[] = [];
+  private sizes: number[] = [5, 10, 15, 20];
 
   constructor(
     private userService: UserService,
@@ -36,7 +39,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit() {
     this.pageableParams.set("page", String(this.currentPage));
-    this.pageableParams.set("size", String(10));
+    this.pageableParams.set("size", String(this.currentSize));
     this.loadUser(this.pageableParams);
     this.loadRoles();
     this.loadStatuses();
@@ -58,8 +61,10 @@ export class UserListComponent implements OnInit {
     this.userService.getAll(pageableParams).subscribe(data => {
       this.users = data.content;
       this.currentPage = data.pageable.pageNumber;
+      this.currentSize = data.pageable.pageSize;
       this.hasNext = data.last;
       this.hasPrevious = data.first;
+      this.index = data.pageable.pageNumber * data.pageable.pageSize;
     })
   }
 
@@ -93,4 +98,8 @@ export class UserListComponent implements OnInit {
     this.loadUser(this.pageableParams);
   }
 
+  changeSize() {
+    this.pageableParams.set('size', String(this.currentSize));
+    this.loadUser(this.pageableParams);
+  }
 }

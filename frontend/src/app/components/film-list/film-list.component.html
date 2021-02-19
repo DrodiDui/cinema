@@ -42,6 +42,11 @@
 
 <nav aria-label="Page navigation example" *ngIf="filmName !== null">
   <ul class="pagination">
+    <li class="page-item">
+      <select class="form-control" name="statusName" [(ngModel)]="currentSize" (click)="changeSize()">
+        <option *ngFor="let size of sizes" value="{{size}}">{{size}}</option>
+      </select>
+    </li>
     <li class="page-item" *ngIf="!hasPrevious">
       <button class="page-link" type="submit" (click)="changePage(currentPage - 1)">
         << Previous

@@ -20,6 +20,8 @@ export class FilmStatisticsComponent implements OnInit {
   private hasNext: boolean;
   private hasPrevious: boolean;
 
+  private sizes: number[] = [5, 10, 15, 20];
+
   constructor(
     private filmStatisticsService: FilmStatisticsService,
     private tokenStorage: TokenStorageService
@@ -60,6 +62,11 @@ export class FilmStatisticsComponent implements OnInit {
 
   changePage(page: number) {
     this.pageableParams.set('page', String(page));
+    this.loadReservedTicketsCount(this.pageableParams);
+  }
+
+  changeSize() {
+    this.pageableParams.set('size', String(this.currentSize));
     this.loadReservedTicketsCount(this.pageableParams);
   }
 

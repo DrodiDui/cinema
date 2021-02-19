@@ -24,6 +24,8 @@ export class OwnerFilmsComponent implements OnInit {
   private statusName: string;
   private response: ApiResponse;
 
+  private sizes: number[] = [5, 10, 15, 20];
+
   constructor(
     private filmService: FilmService,
     private tokenStorage: TokenStorageService,
@@ -64,6 +66,11 @@ export class OwnerFilmsComponent implements OnInit {
 
   changePage(page: number) {
     this.pageableParams.set('page', String(page));
+    this.loadFilms(this.pageableParams);
+  }
+
+  changeSize() {
+    this.pageableParams.set('size', String(this.currentSize));
     this.loadFilms(this.pageableParams);
   }
 

@@ -19,9 +19,11 @@ export class FilmSessionDetailsComponent implements OnInit {
   private tickets: Ticket[];
   private ticketDTO: ReservedDTO;
   private response: ApiResponse;
-  private currentPage: number;
+  private currentPage: number = 0;
   private hasNext: boolean;
   private hasPrevious: boolean;
+  private currentSize: number = 10;
+  private sizes: number[] = [5, 10, 15, 20];
 
   constructor(
     private filmSessionService:FilmSessionService,
@@ -46,12 +48,16 @@ export class FilmSessionDetailsComponent implements OnInit {
   }
 
   loadTickets(page: number) {
-    this.ticketService.getAllUnreservedTicket(this.filmSession.id, page, 10).subscribe(data => {
+    this.ticketService.getAllUnreservedTicket(this.filmSession.id, page, this.currentSize).subscribe(data => {
       this.tickets = data.content;
       this.currentPage = data.pageable.pageNumber;
       this.hasNext = data.last;
       this.hasPrevious = data.first;
     })
+  }
+
+  changeSize() {
+    this.loadTickets(this.currentPage);
   }
 
   reserved() {

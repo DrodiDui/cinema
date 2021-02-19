@@ -27,6 +27,11 @@
 
 <nav aria-label="Page navigation example">
   <ul class="pagination">
+    <li class="page-item">
+      <select class="form-control" name="statusName" [(ngModel)]="currentSize" (click)="changeSize()">
+        <option *ngFor="let size of sizes" value="{{size}}">{{size}}</option>
+      </select>
+    </li>
     <li class="page-item" *ngIf="!hasPrevious">
       <button class="page-link" type="submit" (click)="loadTickets(currentPage - 1)">
         << Previous

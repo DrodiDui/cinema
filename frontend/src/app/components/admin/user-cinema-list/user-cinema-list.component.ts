@@ -17,6 +17,9 @@ export class UserCinemaListComponent implements OnInit {
   private hasNext: boolean = true;
   private hasPrevious: boolean = true;
   private currentPage: number = 0;
+  private currentSize: number = 10;
+
+  private sizes: number[] = [5, 10, 15];
 
   constructor(
     private cinemaService: CinemaService,
@@ -28,7 +31,7 @@ export class UserCinemaListComponent implements OnInit {
 
   ngOnInit() {
     this.pageableParams.set("page", String(this.currentPage));
-    this.pageableParams.set("size", String(10));
+    this.pageableParams.set("size", String(this.currentSize));
     this.loadCinemas(this.pageableParams);
   }
 
@@ -54,6 +57,11 @@ export class UserCinemaListComponent implements OnInit {
       sortType = SortType.ASC;
     }
     this.pageableParams.set(fieldName, sortType);
+    this.loadCinemas(this.pageableParams);
+  }
+
+  changeSize() {
+    this.pageableParams.set('size', String(this.currentSize));
     this.loadCinemas(this.pageableParams);
   }
 
