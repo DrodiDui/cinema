@@ -5,7 +5,7 @@
 
     <groupId>com.kapitonau.cinema</groupId>
     <artifactId>common-spring</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0</version>
     <name>common-spring</name>
     <description>common-spring</description>
 
