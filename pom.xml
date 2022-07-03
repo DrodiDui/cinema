@@ -10,6 +10,7 @@
   <modules>
     <module>backend</module>
     <module>fapi</module>
+    <module>common-api</module>
   </modules>
 
 </project>
