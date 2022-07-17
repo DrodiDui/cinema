@@ -1,0 +1,22 @@
+server:
+  port: 9002
+
+spring:
+  application:
+    name: directory-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: cinema_directory
+    password: cinema_directory
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    generate-ddl: false
+    show-sql: true
+  flyway:
+    user: cinema_admin
+    password: cinema_directory
+    schemas: cinema_directory
+    enabled: false
+
