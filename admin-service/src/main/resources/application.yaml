@@ -1,0 +1,22 @@
+server:
+  port: 9001
+
+spring:
+  application:
+    name: admin-service
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: cinema_admin
+    password: cinema_admin
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    generate-ddl: false
+    show-sql: true
+  flyway:
+    user: cinema_admin
+    password: cinema_admin
+    schemas: cinema_admin
+    enabled: false
+  mcv.locale: ru
